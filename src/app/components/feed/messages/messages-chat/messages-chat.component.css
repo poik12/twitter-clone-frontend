@@ -1,0 +1,103 @@
+.messagesChat__container {
+  display: flex;
+  flex-direction: column;
+}
+
+.messagesChat__header {
+  position: sticky;
+  top: 0;
+  height: 60px;
+  border-bottom: 1px solid var(--twitter-background);
+  padding: 15px 20px;
+  display: flex;
+}
+
+.messagesChat__name {
+  display: flex;
+  align-items: center;
+}
+
+.messagesChat__body {
+  display: flex;
+  flex-direction: column;
+  flex-direction: column-reverse;
+  padding: 20px 50px;
+  overflow: auto;
+}
+
+.messagesChat__message {
+  margin-top: 10px;
+  display: flex;
+  align-items: flex-start;
+  /* background-color: var(--twitter-color); */
+  color: white;
+  flex-direction: column;
+}
+
+.messagesChat__messageContent {
+  background-color: var(--twitter-color);
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.messagesChat__messageTime {
+  text-align: right;
+  color: var(--twitter-font-color);
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+.messagesChat__footer {
+  position: fixed;
+  bottom: 0;
+  height: 60px;
+  width: 620px;
+  display: flex;
+  border-top: 1px solid var(--twitter-background);
+}
+
+.messagesChat__iconsContainer {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 10px;
+}
+
+.messagesChat__icons {
+  color: var(--twitter-color);
+  font-size: 22px;
+  cursor: pointer;
+  margin-right: 10px;
+  padding: 5px;
+}
+
+.messagesChat__icons:hover {
+  background-color: #e8f5fe;
+  border-radius: 100%;
+}
+
+.messagesChat__textArea {
+  display: flex;
+  margin-top: auto;
+  margin-bottom: auto;
+  background-color: var(--twitter-background);
+  border-radius: 20px;
+  height: 45px;
+  width: 470px;
+  align-items: center;
+}
+.messagesChat__textArea > textarea {
+  height: 25px;
+  width: 420px;
+  margin: auto;
+  resize: none;
+  outline: none;
+  font-size: 14px;
+  /* box-sizing: border-box; */
+  overflow: auto;
+  background-color: transparent;
+  border: none;
+}
+
+.messagesChat__sendMessage {
+  margin: auto;
+}

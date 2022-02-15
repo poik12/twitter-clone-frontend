@@ -1,0 +1,120 @@
+<div class="main__container">
+  <!-- Header -->
+  <div class="profile__headerSection">
+    <!-- Header array icon -->
+    <div class="profile__headerSectionArrow">
+      <fa-icon
+        class="profile__headerSectionArrowIcon"
+        [icon]="arrowIcon"
+        (click)="navigateBackToHomePage()"
+      ></fa-icon>
+    </div>
+    <!-- Header user name -->
+    <div class="profile__headerSectionInfo">
+      <div class="profile_headerSectionName">
+        {{ userDetailsResponsePayload.name }}
+      </div>
+      <div class="profile_headerSectioTweets">
+        {{ userDetailsResponsePayload.tweetsNo }} Tweets
+      </div>
+    </div>
+  </div>
+  <!-- Image -->
+  <div class="profile__imageSection">
+    <!-- Background Image -->
+    <div class="profile__imageSectionBackground">
+      <img
+        style="width: 618px; height: 220px"
+        src="{{ userBackgroundPicture }}"
+        alt="user"
+      />
+    </div>
+    <!-- Accont image and button -->
+    <div class="profile__imageSectionAccount">
+      <div class="profile__imageSectionAccountImage">
+        <img
+          style="
+            width: 160px;
+            height: 160px;
+            border-radius: 100%;
+            border: 4px solid white;
+          "
+          src="{{ userProfilePicture }}"
+          alt="user"
+        />
+      </div>
+      <!-- If profile belongs to logged user -> show edit profile button -->
+      <div
+        *ngIf="username === loggedUser"
+        class="profile__imageSectionAccountEdit"
+      >
+        <button (click)="openEditProfileDialog()">Edit profile</button>
+      </div>
+      <!-- If profile doesn't belong to logged user -> show follow button button -->
+      <div
+        *ngIf="username !== loggedUser"
+        class="profile__imageSectionAccountFollow"
+      >
+        <fa-icon
+          class="profile_followIcons"
+          [icon]="notificationIcon"
+        ></fa-icon>
+        <fa-icon class="profile_followIcons" [icon]="moreIcon"></fa-icon>
+        <button
+          [class.active]="isUserProfileFollowed"
+          (click)="addFollowedUser()"
+        >
+          Follow
+        </button>
+      </div>
+    </div>
+    <!-- Account name -->
+    <div class="profile__imageSectionInfo">
+      <div class="profile__imageSectionInfoName">
+        {{ userDetailsResponsePayload.name }}
+      </div>
+      <div class="profile__imageSectionInfoUsername">
+        @{{ userDetailsResponsePayload.username }}
+      </div>
+    </div>
+  </div>
+  <!-- Description -->
+  <div class="profile__descriptionSection">
+    <!-- Description user info -->
+    <div class="profile__descriptionSectionUserInfo">
+      Some user's informations Some user's informations Some user's informations
+      Some user's informations Some user's informations Some user's informations
+      Some user's informations Some user's informations Some user's informations
+      Some user's informations Some user's informations Some user's informations
+      Some user's informations Some user's informations Some user's informations
+    </div>
+    <!-- Desctiption Data -->
+    <div class="profile_descriptionSectionDate">
+      <fa-icon
+        class="profile_descriptionSectionDateIcon"
+        [icon]="calendarIcon"
+      ></fa-icon>
+      Joined {{ userDetailsResponsePayload.createdAt | titlecase }}
+    </div>
+    <!-- Description parameters -->
+    <div class="profile__descriptionSectionParams">
+      <div class="profile__descriptionSectionParamsFollowing">
+        <strong>{{ userDetailsResponsePayload.followingNo }}</strong> Following
+      </div>
+      <div class="profile__descriptionSectionParamsFollowers">
+        <strong>{{ userDetailsResponsePayload.followersNo }}</strong> Followers
+      </div>
+    </div>
+  </div>
+  <!-- Tabs -->
+  <mat-tab-group>
+    <mat-tab label="Tweets">
+      <ng-container *ngFor="let post of postList">
+        <app-post [post]="post"></app-post>
+      </ng-container>
+    </mat-tab>
+    <mat-tab label="Tweets & replies"> Content 2 </mat-tab>
+    <mat-tab label="Media"> Content 3 </mat-tab>
+    <mat-tab label="Likes"> Content 3 </mat-tab>
+  </mat-tab-group>
+</div>

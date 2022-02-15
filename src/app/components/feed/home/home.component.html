@@ -1,0 +1,28 @@
+<div class="main__container">
+  <!-- Header -->
+  <div class="home__header">
+    <div class="home__headerText">Home</div>
+    <div class="home__headerIcon">
+      <fa-icon [icon]="headerIcon"></fa-icon>
+    </div>
+  </div>
+
+  <!-- Tweet Box -->
+  <ng-container
+    *ngIf="userIsLoggedIn; then homeWithTweetBox; else homeWithoutTweetBox"
+  ></ng-container>
+  <!-- Without TweetBox Section -->
+  <ng-template #homeWithoutTweetBox></ng-template>
+  <!-- With TweetBox Section -->
+  <ng-template #homeWithTweetBox>
+    <app-tweetbox></app-tweetbox>
+  </ng-template>
+
+  <!-- Posts -->
+  <ng-container *ngFor="let post of postList">
+    <app-post
+      [post]="post"
+      (handleDeletePost)="handleDeletePost($event)"
+    ></app-post>
+  </ng-container>
+</div>

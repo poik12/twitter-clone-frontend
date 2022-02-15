@@ -1,0 +1,25 @@
+.signUpDialog__input {
+  display: flex;
+  flex-direction: column;
+}
+
+.signUpDialog__submit > button {
+  border-radius: 30px;
+  width: 100%;
+  height: 50px;
+  background-color: var(--twitter-color);
+  border: none;
+  font-size: 20px;
+  color: white;
+  margin-top: 80px;
+}
+
+.signUpDialog__submit > button:disabled {
+  background-color: lightgray;
+}
+
+/* Hide password button */
+.hiddenButton {
+  border: none;
+  background-color: transparent;
+}

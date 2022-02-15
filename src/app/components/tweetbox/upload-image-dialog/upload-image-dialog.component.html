@@ -1,0 +1,65 @@
+<div class="authDialog__component">
+  <!-- Header -->
+  <div class="authDialog__header">
+    <mat-icon (click)="closeUploadImageDialog()">close</mat-icon>
+    <fa-icon class="authDialog__headerIcon" [icon]="twitterIcon"></fa-icon>
+    <h1>Share photos with Others</h1>
+  </div>
+
+  <!-- UPLOAD IMAGE -->
+  <div class="drop-box center">
+    <!-- DROP OR BROWSE FILES -->
+    <ngx-file-drop
+      dropZoneLabel="Drop files here"
+      (onFileDrop)="dropped($event)"
+      (onFileOver)="fileOver($event)"
+      (onFileLeave)="fileLeave($event)"
+    >
+      <ng-template
+        ngx-file-drop-content-tmp
+        let-openFileSelector="openFileSelector"
+      >
+        Drag and Drop Image File in this section (or) .
+        <button
+          class="browseFileButton"
+          type="button"
+          (click)="openFileSelector()"
+        >
+          Browse Files
+        </button>
+      </ng-template>
+    </ngx-file-drop>
+
+    <!-- TABLE WITH UPLADED FILES -->
+    <div *ngIf="files.length > 0" class="upload-table">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Image File Preview</th>
+          </tr>
+        </thead>
+        <tbody class="upload-name-style">
+          <tr *ngFor="let item of files; let i = index">
+            <!-- Image Name -->
+            <td>
+              <strong>{{ item.relativePath }}</strong>
+            </td>
+            <!-- Image File -->
+            <td>
+              <img
+                style="height: 120px; width: 180px"
+                src="{{ imagePreviedUrl }}"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="uploadImageDialog__submit">
+      <button [disabled]="!fileUploaded" (click)="uploadImage()">Submit</button>
+    </div>
+  </div>
+</div>

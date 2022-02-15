@@ -1,0 +1,49 @@
+<div class="messagesChat__container">
+  <!-- Header Seciton -->
+  <div class="messagesChat__header">
+    <!-- User name -->
+    <div class="messagesChat__name">Alex Mason, @mason</div>
+  </div>
+
+  <!-- Body Section -->
+  <div class="messagesChat__body">
+    <div class="messagesChat__message">
+      <div class="messagesChat__messageContent">
+        lkjlkjlkj;lmkl;jkl;j;lj
+        <div class="messagesChat__messageTime">12:44</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Section -->
+  <div class="messagesChat__footer">
+    <!-- Add picture of gif icons -->
+    <div class="messagesChat__iconsContainer">
+      <fa-icon class="messagesChat__icons" [icon]="imageIcon"> </fa-icon>
+      <fa-icon class="messagesChat__icons" [icon]="fileImageIcon"> </fa-icon>
+    </div>
+
+    <!-- Text area -->
+    <div class="messagesChat__textArea">
+      <textarea
+        [(ngModel)]="message"
+        (keyup.enter)="submitMessage($event)"
+        placeholder="Test private message..."
+      ></textarea>
+
+      <!-- Emoji picker -->
+      <!-- <i
+        (click)="toggledEmojiPicker = !toggledEmojiPicker"
+        [(emojiPickerIf)]="toggledEmojiPicker"
+        [emojiPickerDirection]="'bottom' || 'top' || 'left' || 'right'"
+        (emojiPickerSelect)="handleSelection($event)"
+      >
+        <fa-icon class="messagesChat__icons" [icon]="smileIcon"></fa-icon>
+      </i> -->
+    </div>
+
+    <div class="messagesChat__sendMessage">
+      <fa-icon class="messagesChat__icons" [icon]="sendMessageIcon"> </fa-icon>
+    </div>
+  </div>
+</div>

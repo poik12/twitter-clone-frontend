@@ -1,0 +1,95 @@
+<div class="authDialog__component">
+  <!-- Header -->
+  <div class="authDialog__header">
+    <mat-icon (click)="closeSignUpDialog()">close</mat-icon>
+    <fa-icon class="authDialog__headerIcon" [icon]="twitterIcon"></fa-icon>
+    <h1>Create your account</h1>
+  </div>
+
+  <!-- Body -->
+  <form
+    class="signUpDialog__body"
+    [formGroup]="signUpForm"
+    (ngSubmit)="signUp()"
+  >
+    <div class="signUpDialog__input">
+      <!-- Name -->
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input
+          matInput
+          placeholder="John Connor"
+          required
+          [formControlName]="'name'"
+        />
+      </mat-form-field>
+
+      <!-- Username -->
+      <mat-form-field appearance="fill">
+        <mat-label>Username</mat-label>
+        <input
+          matInput
+          placeholder="j_connor1982"
+          required
+          [formControlName]="'username'"
+        />
+      </mat-form-field>
+
+      <!-- Email -->
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          placeholder="john.connor@example.com"
+          required
+          [formControlName]="'emailAddress'"
+        />
+      </mat-form-field>
+
+      <!-- Password -->
+      <mat-form-field appearance="fill">
+        <mat-label>Enter your password</mat-label>
+        <input
+          matInput
+          [type]="hidePassword ? 'password' : 'text'"
+          required
+          [formControlName]="'password'"
+        />
+        <button
+          class="hiddenButton"
+          mat-icon-button
+          matSuffix
+          (click)="hidePassword = !hidePassword"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hidePassword"
+        >
+          <mat-icon>{{
+            hidePassword ? "visibility_off" : "visibility"
+          }}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <!-- Telephone -->
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Telephone</mat-label>
+        <span matPrefix>+48 &nbsp;</span>
+        <input
+          type="tel"
+          matInput
+          placeholder="555-555-1234"
+          required
+          [formControlName]="'phoneNumber'"
+        />
+        <mat-icon matSuffix>mode_edit</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <!-- Date of Birth -->
+    <div class="signUpDialog__dateOfBirth"></div>
+
+    <!-- Submit Button -->
+    <div class="signUpDialog__submit">
+      <button [disabled]="signUpForm.invalid">Submit</button>
+    </div>
+  </form>
+</div>

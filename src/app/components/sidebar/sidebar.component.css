@@ -1,0 +1,136 @@
+.sidebar__Component {
+  min-width: 300px;
+}
+
+.sidebar__twitterLogo {
+  margin-top: 30px;
+  margin-left: 20px;
+}
+
+.sidebar__twitterLogoIcon {
+  color: var(--twitter-color);
+  font-size: 30px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.sidebar__twitterLogoIcon:hover {
+  background-color: #e8f5fe;
+  border-radius: 30px;
+}
+
+.sidebar__options {
+  margin-top: 20px;
+}
+
+.sidebar__optionsButtonIcon {
+  margin-right: 10px;
+  padding: 10px;
+}
+
+.sidebar__optionsSelected {
+  cursor: pointer;
+  font-weight: 500 !important;
+  font-size: 20px !important;
+  margin-right: 20px !important;
+  width: 200px !important;
+  text-align: left !important;
+  padding-left: 30px !important;
+  padding: 15px !important;
+}
+
+.sidebar__optionsSelected:hover {
+  background-color: #e8f5fe;
+  border-radius: 30px;
+  color: var(--twitter-color);
+  transition: color 100ms ease-out;
+}
+
+::ng-deep.mat-nav-list {
+  width: 300px !important;
+}
+
+.sidebar_option:hover,
+.sidebar_option:active,
+.sidebar_option:focus {
+  background-color: transparent;
+}
+
+.sidebar_option:focus {
+  color: var(--twitter-color);
+}
+
+.sidebar__tweet {
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.sidebar__tweetButton {
+  background-color: var(--twitter-color);
+  border: none;
+  color: white;
+  font-weight: 900;
+  border-radius: 30px;
+  height: 50px;
+  width: 260px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.sidebar__tweetButton:hover {
+  background-color: rgb(86, 207, 248);
+}
+
+.sidebar__account {
+  display: flex;
+  position: absolute;
+  bottom: 30px;
+  border-radius: 20px;
+  margin-left: 20px;
+  width: 260px;
+  border: 1px solid var(--twitter-background);
+}
+
+.sidebar__accountPhoto {
+}
+
+.sidebar__accountInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  width: 200px;
+  margin-left: 5px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.sidebar__accountInfoName {
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.sidebar__accountInfoUsername {
+  font-size: 14px;
+}
+
+.sidebarMoreButton {
+  margin: auto;
+  border-left: 1px solid var(--twitter-background);
+}
+
+.sidebar__optionsButtonIcon {
+  margin: auto;
+}
+
+.sidebarMoreButton > button {
+  border: none;
+  background-color: transparent;
+  font-size: 20px;
+}
+
+.sidebarMoreButton > button:hover {
+  background-color: lightgray;
+  border-radius: 20px;
+}

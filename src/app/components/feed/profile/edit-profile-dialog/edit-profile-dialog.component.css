@@ -1,0 +1,29 @@
+.editProfileDialog__component {
+  width: 28vw;
+  height: 64vh;
+}
+
+.editProfileDialog__body {
+}
+
+.editProfileDialog__input {
+  display: flex;
+  flex-direction: column;
+}
+
+.editProfileDialog__submit > button {
+  border-radius: 30px;
+  width: 100%;
+  height: 50px;
+  background-color: var(--twitter-color);
+  border: none;
+  font-size: 20px;
+  color: white;
+  margin-top: 80px;
+}
+
+/* Hide password button */
+.hiddenButton {
+  border: none;
+  background-color: transparent;
+}

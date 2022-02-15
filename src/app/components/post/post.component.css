@@ -1,0 +1,102 @@
+.home__post {
+  display: flex;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--twitter-background);
+  padding-bottom: 10px;
+}
+
+.home__post:hover {
+  background-color: var(--twitter-background);
+  cursor: pointer;
+}
+
+.home__postAuthorImage {
+  padding: 15px;
+}
+
+.home__postDescription {
+  margin-top: 10px;
+}
+
+.home__postDescriptionBody {
+}
+
+.home__postDescriptionBodyImageContainer {
+  margin-top: 10px;
+}
+
+.home__postDescriptionBodyImage {
+  width: 500px;
+  height: 280px;
+  border-radius: 30px;
+}
+
+.home__postDescriptionHeader {
+  display: flex;
+  margin-bottom: 10px;
+  width: 520px;
+}
+
+.home__postDescriptionHeaderAuthor {
+  font-size: 15px;
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+.home__postDescriptionHeaderAuthor:hover {
+  text-decoration: underline;
+}
+
+.home__postDescriptionHeaderVerified {
+  color: var(--twitter-color);
+  margin-right: 5px;
+  margin-top: 1px;
+}
+
+.home__postDescriptionHeaderUsername {
+  font-size: 15px;
+  color: gray;
+  margin-right: 10px;
+}
+
+.home__postDescriptionHeaderTime {
+  font-size: 15px;
+  color: gray;
+  margin-right: auto;
+}
+
+.home__postDescriptionHeaderMoreOption {
+  cursor: pointer;
+}
+
+.home__postDescriptionHeaderMoreOptionIcon {
+  font-size: 17px;
+  margin-right: 5px;
+  color: gray;
+  border: 30px;
+  padding: 5px;
+}
+
+.home__postDescriptionHeaderMoreOptionIcon:hover {
+  background-color: #e8f5fe;
+  border-radius: 30px;
+  color: var(--twitter-color);
+  transition: color 100ms ease-out;
+}
+
+.home__postDescriptionBody {
+  margin-right: 30px;
+  margin-bottom: 10px;
+}
+
+.cdk-overlay-container {
+  left: 200px;
+  top: 200px;
+}
+.cdk-overlay-connected-position-bounding-box {
+  top: 0 !important;
+}
+
+.home__postParameters {
+  width: 520px;
+}

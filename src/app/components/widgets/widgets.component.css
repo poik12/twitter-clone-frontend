@@ -1,0 +1,49 @@
+.widgets__component {
+  width: 350px;
+  overflow-y: scroll;
+  height: 100vh;
+  margin-left: 20px;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.widgets__component::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.widgets__component {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.widgets__header {
+  position: sticky;
+  top: 0;
+  height: 60px;
+  display: flex;
+  background-color: white;
+}
+
+.tweeterWidgets__container {
+  margin-top: 10px;
+  padding-bottom: 10px;
+}
+
+.widgets__footerContainer {
+  margin-bottom: 20px;
+  margin-left: 10px;
+}
+
+.widgets__footer {
+  display: inline-block;
+}
+
+.widgets__footer > a {
+  font-size: 13px;
+  color: var(--twitter-font-color);
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+.widgets__footer > a:hover {
+  text-decoration: underline;
+}

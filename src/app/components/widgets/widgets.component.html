@@ -1,0 +1,38 @@
+<div class="widgets__component">
+  <!-- SearchBar Widget -->
+  <div class="widgets__header">
+    <app-search-bar></app-search-bar>
+  </div>
+
+  <!-- depending on whether the user is logged in or not-->
+  <ng-container
+    *ngIf="
+      isUserLoggedIn;
+      then widgetsForLoggedUser;
+      else widgetsForNotLoggedUser
+    "
+  ></ng-container>
+  <!-- Widgets for logged user -->
+  <ng-template #widgetsForLoggedUser>
+    <div class="tweeterWidgets__container">
+      <ngx-tweet tweetId="921670221710032896"></ngx-tweet>
+      <ngx-tweet tweetId="1418572305391702018"></ngx-tweet>
+      <ngx-tweet tweetId="1443179422312456198"></ngx-tweet>
+    </div>
+  </ng-template>
+  <!-- Widgedt for NOT logged user -->
+  <ng-template #widgetsForNotLoggedUser>
+    <!-- Sign Up Block Widget -->
+    <app-sign-up-widget></app-sign-up-widget>
+    <app-images-widget></app-images-widget>
+    <app-may-like-widget></app-may-like-widget>
+    <app-most-popular-widget></app-most-popular-widget>
+  </ng-template>
+
+  <!-- Footer Widget -->
+  <div class="widgets__footerContainer">
+    <div class="widgets__footer" *ngFor="let footerOption of footerOptionList">
+      <a href="{{ footerOption.path }}">{{ footerOption.name }}</a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+.fullSizeImageDialog__container {
+}
+
+.fullSizeImageDialog__image {
+  border-radius: 20px;
+  height: 800px;
+  width: 1200px;
+}

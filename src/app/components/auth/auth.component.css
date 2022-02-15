@@ -1,0 +1,86 @@
+.authSection__component {
+}
+
+h2 {
+  margin-top: 70px;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.authSection__buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.authSection__buttons > button {
+  width: 280px;
+  height: 40px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: white;
+  border: 1px solid lightgray;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.authSection__buttons > button:hover {
+  background-color: rgb(225, 230, 231);
+}
+
+.authSection__buttonsIcon {
+  font-size: 16px;
+  margin-right: 5px;
+}
+
+.authSection__info {
+  font-size: 12px;
+  color: gray;
+  width: 320px;
+  margin-top: 10px;
+}
+
+::ng-deep mat-dialog-container {
+  border-radius: 20px !important;
+}
+
+.authDialog__component {
+  width: 28vw;
+  height: 64vh;
+}
+
+.authDialog__header {
+}
+
+.authDialog__header > mat-icon {
+  font-size: 24px;
+  text-align: left;
+}
+
+.authDialog__header > mat-icon:hover {
+  border-radius: 100%;
+  background-color: lightgray;
+  cursor: pointer;
+}
+
+.authDialog__headerIcon {
+  color: var(--twitter-color);
+  font-size: 30px;
+  margin-left: 45%;
+}
+
+.authDialog__header > h1 {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: left !important;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+  color: var(--twitter-color) !important;
+}
+
+::ng-deep .mat-form-field.mat-focused .mat-form-field-ripple {
+  background-color: var(--twitter-color) !important;
+}

@@ -1,0 +1,80 @@
+::ng-deep mat-dialog-container {
+  border-radius: 20px !important;
+}
+
+.authDialog__component {
+  width: 27vw;
+  height: 44vh;
+}
+
+.authDialog__header {
+}
+
+.authDialog__header > mat-icon {
+  font-size: 24px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.authDialog__header > mat-icon:hover {
+  border-radius: 100%;
+  background-color: lightgray;
+  cursor: pointer;
+}
+
+.authDialog__headerIcon {
+  color: var(--twitter-color);
+  font-size: 46px;
+  margin-left: 45%;
+}
+
+.authDialog__body {
+}
+.authDialog__text {
+  margin-bottom: 30px;
+  margin-top: 30px;
+  margin-left: 120px;
+}
+
+.authDialog__textAbove {
+  font-weight: 500;
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+
+.authDialog__textBelow {
+  font-size: 16px;
+  color: gray;
+}
+
+.authDialog__buttons {
+  text-align: center;
+}
+
+.authDialog__buttons > button {
+  font-size: 20px;
+  border-radius: 30px;
+  width: 280px;
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+.authDialog__signInButton {
+  background-color: var(--twitter-color);
+  border: none;
+  color: white;
+}
+
+.authDialog__signInButton:hover {
+  background-color: lightskyblue;
+}
+
+.authDialog__signUpButton {
+  background-color: transparent;
+  border: 1px solid var(--twitter-background);
+  color: var(--twitter-color);
+}
+
+.authDialog__signUpButton:hover {
+  background-color: rgb(205, 243, 255);
+}

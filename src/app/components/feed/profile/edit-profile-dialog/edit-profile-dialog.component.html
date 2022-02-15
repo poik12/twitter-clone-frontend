@@ -1,0 +1,93 @@
+<div class="editProfileDialog__component">
+  <!-- Header -->
+  <div class="authDialog__header">
+    <mat-icon (click)="closeEditProfileDialog()">close</mat-icon>
+    <fa-icon class="authDialog__headerIcon" [icon]="twitterIcon"></fa-icon>
+    <h1>Update Your Account</h1>
+  </div>
+
+  <!-- Body -->
+  <form
+    class="editProfileDialog__body"
+    [formGroup]="editProfileForm"
+    (ngSubmit)="updateProfile()"
+  >
+    <div class="editProfileDialog__input">
+      <!-- Name -->
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="John Connor" [formControlName]="'name'" />
+      </mat-form-field>
+      <!-- Username -->
+      <!-- <mat-form-field appearance="fill">
+        <mat-label>Username</mat-label>
+        <input
+          matInput
+          placeholder="j_connor1982"
+          [formControlName]="'username'"
+        />
+      </mat-form-field> -->
+      <!-- Email -->
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          placeholder="john.connor@example.com"
+          [formControlName]="'emailAddress'"
+        />
+        <!-- <mat-error *ngIf="email.invalid">{{
+            getEmailErrorMessage()
+          }}</mat-error> -->
+      </mat-form-field>
+      <!-- Password -->
+      <mat-form-field appearance="fill">
+        <mat-label>Enter your password</mat-label>
+        <input
+          matInput
+          [type]="hidePassword ? 'password' : 'text'"
+          [formControlName]="'password'"
+        />
+        <button
+          class="hiddenButton"
+          mat-icon-button
+          matSuffix
+          (click)="hidePassword = !hidePassword"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hidePassword"
+        >
+          <mat-icon>{{
+            hidePassword ? "visibility_off" : "visibility"
+          }}</mat-icon>
+        </button>
+      </mat-form-field>
+      <!-- Telephone -->
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Telephone</mat-label>
+        <span matPrefix>+48 &nbsp;</span>
+        <input
+          type="tel"
+          matInput
+          placeholder="555-555-1234"
+          [formControlName]="'phoneNumber'"
+        />
+        <mat-icon matSuffix>mode_edit</mat-icon>
+      </mat-form-field>
+
+      <!-- Date of Birth -->
+      <div class="editProfileDialog__dateOfBirth"></div>
+
+      <!-- Profile Image -->
+      profile
+      <input type="file" (change)="updateProfilePicture($event)" />
+
+      <!-- Background Image -->
+      background
+      <input type="file" (change)="updateBackgroundPicture($event)" />
+    </div>
+
+    <!-- Submit Button -->
+    <div class="editProfileDialog__submit">
+      <button>Submit</button>
+    </div>
+  </form>
+</div>

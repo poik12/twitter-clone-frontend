@@ -1,0 +1,121 @@
+.sdiebar__container {
+}
+
+.sidebar__header {
+  position: sticky;
+  top: 0;
+  height: 60px;
+  background-color: white;
+  border-bottom: 1px solid var(--twitter-background);
+  padding: 15px 20px;
+  display: flex;
+}
+
+.sidebar__headerText {
+  font-size: 22px;
+  font-weight: 600;
+  width: 97%;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.sidebar__headerIcon {
+  color: var(--twitter-color);
+  font-size: 20px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.sidebar__invitations {
+  height: 60px;
+  background-color: white;
+  border-bottom: 1px solid var(--twitter-background);
+  padding: 15px 20px;
+  display: flex;
+}
+
+.sidebar__invitationsText {
+  font-size: 18px;
+  color: var(--twitter-font-color);
+  width: 97%;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.sidebar__invitationsIcon {
+  color: var(--twitter-font-color);
+  font-size: 20px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.sidebar__searchBar {
+  margin-left: 10px;
+  padding-bottom: 10px;
+  padding-top: 4px;
+}
+
+.sidebar__conversations {
+  border-top: 1px solid var(--twitter-background);
+  overflow: auto;
+  flex-grow: 1;
+}
+
+.conversation__user {
+  height: 67px;
+  display: flex;
+  padding-right: 5px;
+  transition: all 0.4s ease-in-out;
+  cursor: pointer;
+}
+.conversation__user:hover {
+  background-color: rgba(#ccc, 0.05);
+}
+
+.conversations__userPicture {
+  flex-basis: 73px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.conversations__userPicture > img {
+  max-width: 100%;
+  width: 48px;
+}
+
+.conversations__userContent {
+  border-bottom: 1px solid #f2f2f2;
+  flex-grow: 1;
+  padding: 13px 0px;
+  padding-right: 10px;
+}
+
+.conversations__userHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.conversations__userName {
+  color: #040404;
+}
+
+.conversations__userTime {
+  color: #979797;
+  font-size: 13px;
+  padding-top: 2px;
+}
+
+.conversations__userMessage {
+  color: #717171;
+  font-size: 13px;
+  padding-top: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.conversations__userMessage > img {
+  margin-right: 2px;
+}

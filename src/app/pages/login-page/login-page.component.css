@@ -1,0 +1,74 @@
+.loginPage__component {
+  display: flex;
+}
+.loginPage__logoSection {
+  height: 95vh;
+  width: 55vw;
+}
+
+.loginPage__logoSectionImage {
+  z-index: -1;
+  margin-bottom: -680px;
+  width: 55vw;
+  height: 95vh;
+}
+
+.loginPage__logoSectionTwitterLogo {
+  display: flex;
+}
+
+.loginPage__logoSectionTwitterLogoEmpty {
+  width: 18vw;
+}
+
+.loginPage__logoSectionTwitter {
+  font-size: 400px;
+  color: white;
+}
+
+.loginPage__loginPageSection {
+  margin-top: 150px;
+  margin-left: 30px;
+}
+
+.loginPage__loginPageSectionTwitterIcon {
+  font-size: 40px;
+  color: var(--twitter-color);
+}
+
+.loginPage__loginPageSection > h1 {
+  margin-top: 90px;
+  font-size: 60px;
+  font-weight: bold;
+}
+
+.loginPage____signInUpInfo {
+  margin-top: 10px;
+}
+
+.loginPage__signInUpInfoButton {
+  color: var(--twitter-color);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.loginPage__footerContainer {
+  display: flex;
+  margin-left: 250px;
+  margin-right: 250px;
+  margin-top: 12px;
+  justify-content: space-between;
+}
+
+.loginPage__footer {
+}
+
+.loginPage__footer > label {
+  color: gray;
+  font-size: 12px;
+}
+
+.loginPage__footer > label:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}

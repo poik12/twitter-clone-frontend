@@ -1,0 +1,25 @@
+<div class="authDialog__component">
+  <!-- Header -->
+  <div class="authDialog__header">
+    <mat-icon (click)="closeAuthDialog()">close</mat-icon>
+  </div>
+  <fa-icon class="authDialog__headerIcon" [icon]="twitterIcon"></fa-icon>
+
+  <!-- Body -->
+  <div class="authDialog__body">
+    <div class="authDialog__text">
+      <div class="authDialog__textAbove">Stay Updated</div>
+      <div class="authDialog__textBelow">
+        Twitter users are the first to know.
+      </div>
+    </div>
+    <div class="authDialog__buttons">
+      <button class="authDialog__signInButton" (click)="signInAuthDialog()">
+        Sign In
+      </button>
+      <button class="authDialog__signUpButton" (click)="signUpAuthDialog()">
+        Sign Up
+      </button>
+    </div>
+  </div>
+</div>

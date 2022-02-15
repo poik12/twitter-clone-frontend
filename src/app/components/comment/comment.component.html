@@ -1,0 +1,50 @@
+<div class="comment__component">
+  <!-- Comment Image -->
+  <div class="comment__postAuthorImage">
+    <img
+      style="width: 50px; height: 50px; border-radius: 100%"
+      src="{{ profileImage }}"
+      alt="user"
+    />
+  </div>
+  <!-- Comment Description -->
+  <div class="comment__postDescription">
+    <!-- Comment Header -->
+    <div class="comment__postDescriptionHeader">
+      <!-- Author -->
+      <div class="comment__postDescriptionHeaderAuthor">{{ comment.name }}</div>
+      <!-- Verified -->
+      <div class="comment__postDescriptionHeaderVerified">
+        <fa-icon
+          class="comment__postDescriptionHeaderVerified"
+          [icon]="verifiedIcon"
+        >
+        </fa-icon>
+      </div>
+      <!-- Username -->
+      <div class="comment__postDescriptionHeaderUsername">
+        @{{ comment.username }}
+      </div>
+      <!-- Time added -->
+      <div class="comment__postDescriptionHeaderTime">
+        · {{ comment.timeOfCreation }}
+      </div>
+      <!-- Arrow -->
+      <div class="comment__postDescriptionHeaderMoreOption">
+        <fa-icon
+          class="comment__postDescriptionHeaderMoreOptionIcon"
+          [icon]="moreIcon"
+        >
+        </fa-icon>
+      </div>
+    </div>
+    <!-- Post Body -->
+    <div class="comment__postDescriptionBody">
+      <div class="comment__postDescriptionBodyText">
+        {{ comment.text }}
+      </div>
+    </div>
+    <!-- Post Parameters -->
+    <app-post-parameters></app-post-parameters>
+  </div>
+</div>

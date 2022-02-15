@@ -1,0 +1,12 @@
+.imagesWidget__container {
+  width: 350px;
+  display: inline;
+  border-radius: 20px;
+}
+
+.imagesWidget__image {
+  width: 116px;
+  height: 100px;
+  padding: 1px;
+  cursor: pointer;
+}

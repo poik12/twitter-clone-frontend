@@ -1,0 +1,118 @@
+<ng-container>
+  <div class="home__post" (click)="navigateToPostDetails()">
+    <!-- Post Image -->
+    <div class="home__postAuthorImage">
+      <img
+        style="width: 50px; height: 50px; border-radius: 100%"
+        src="{{ userProfileImage }}"
+        alt="user"
+        [matMenuTriggerFor]="profileBlock"
+        #trigger="matMenuTrigger"
+        (mouseenter)="trigger.openMenu()"
+        (mouseleave)="trigger.closeMenu()"
+      />
+
+      <!-- <img
+        style="width: 50px; height: 50px; border-radius: 100%"
+        src="https://www.blexar.com/avatar.png"
+        alt="user"
+        [matMenuTriggerFor]="profileBlock"
+        #trigger="matMenuTrigger"
+        (mouseenter)="trigger.openMenu()"
+        (mouseleave)="trigger.closeMenu()"
+      /> -->
+    </div>
+
+    <!-- Post Description -->
+    <div class="home__postDescription">
+      <!-- Post Header -->
+      <div class="home__postDescriptionHeader">
+        <!-- Author -->
+        <div
+          class="home__postDescriptionHeaderAuthor"
+          (click)="navigateToUserDetails($event)"
+        >
+          {{ post.name }}
+        </div>
+
+        <!-- Verified -->
+        <div class="home__postDescriptionHeaderVerified">
+          <fa-icon
+            class="home__postDescriptionHeaderVerified"
+            [icon]="verifiedIcon"
+          >
+          </fa-icon>
+        </div>
+
+        <!-- Username -->
+        <div class="home__postDescriptionHeaderUsername">
+          @{{ post.username }}
+        </div>
+
+        <!-- Time added -->
+        <div class="home__postDescriptionHeaderTime">
+          · {{ post.postTimeDuration }}
+        </div>
+
+        <!-- Options -->
+        <div class="home__postDescriptionHeaderMoreOption">
+          <fa-icon
+            (click)="openPostMenu($event)"
+            [matMenuTriggerFor]="postMenu"
+            class="home__postDescriptionHeaderMoreOptionIcon"
+            [icon]="moreIcon"
+          >
+          </fa-icon>
+          <!-- Menu button options -->
+          <mat-menu #postMenu="matMenu">
+            <button
+              mat-menu-item
+              *ngIf="checkIfPostBelongsToLoggedUser()"
+              (click)="deletePost(post.id)"
+            >
+              <mat-icon>delete</mat-icon>
+              <span>DeletePost</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon>settings</mat-icon>
+              <span>Settings</span>
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+
+      <!-- Post Body -->
+      <div class="home__postDescriptionBody">
+        <!-- Post Description -->
+        <div class="home__postDescriptionBodyText">
+          {{ post.description }}
+        </div>
+        <!-- Post url -->
+        <div class="home__postDescriptionBodyImageContainer">
+          <ng-container
+            *ngIf="retrievedImageFromDb !== this.jpgFormat + 'null'"
+          >
+            <img
+              class="home__postDescriptionBodyImage"
+              src="{{ retrievedImageFromDb }}"
+              alt=""
+              (click)="openFullSizeImageDialog($event)"
+            />
+          </ng-container>
+        </div>
+      </div>
+
+      <!-- Post Parameters -->
+      <div class="home__postParameters">
+        <app-post-parameters
+          [likesCount]="tweetParams.likesCount"
+          [isPostLiked]="tweetParams.isPostLiked"
+        ></app-post-parameters>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<mat-menu #profileBlock="matMenu" [hasBackdrop]="false">
+  <app-profile-block [username]="post.username"></app-profile-block>
+</mat-menu>

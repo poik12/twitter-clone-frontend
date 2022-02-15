@@ -1,0 +1,87 @@
+.mayLikeWidget__container {
+  width: 350px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: var(--twitter-background);
+  border-radius: 20px;
+}
+
+.mayLikeWidget__container > h2 {
+  padding-top: 10px;
+  padding-left: 20px;
+}
+
+.mayLikeWidget__account {
+  display: flex;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.mayLikeWidget__account:hover {
+  background-color: lightgray;
+}
+
+.mayLikeWidget__accountImage {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+}
+
+.mayLikeWidget__accountInfo {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.mayLikeWdiget__accountInfoName {
+  margin-right: 5px;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.mayLikeWidget__accountIcon {
+  color: var(--twitter-color);
+}
+
+.mayLikeWdiget__accountInfoUsername {
+  color: var(--twitter-font-color);
+}
+
+.mayLikeWidget__button {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 5px;
+  margin-left: auto;
+}
+
+.mayLikeWidget__button > button {
+  outline: none;
+  border: none;
+  border-radius: 20px;
+  background-color: black;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  height: 30px;
+  width: 100px;
+}
+
+.mayLikeWidget__button > button:hover {
+  opacity: 0.8;
+}
+
+.mayLikeWidget__footer {
+  padding: 15px;
+  color: var(--twitter-color);
+  font-size: 14px;
+  font-weight: 500;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  cursor: pointer;
+}
+
+.mayLikeWidget__footer:hover {
+  background-color: lightgray;
+}

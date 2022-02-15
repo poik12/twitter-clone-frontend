@@ -1,0 +1,46 @@
+<div class="authDialog__component">
+  <!-- Header -->
+  <div class="authDialog__header">
+    <mat-icon (click)="closeSignInDialog()">close</mat-icon>
+    <fa-icon class="authDialog__headerIcon" [icon]="twitterIcon"></fa-icon>
+    <h1>To get started, first enter your phone, email, or @username</h1>
+  </div>
+
+  <!-- Body -->
+  <form
+    class="signInDialog__body"
+    [formGroup]="signInForm"
+    (ngSubmit)="signIn()"
+  >
+    <div class="signInDialog__input">
+      <!-- Email -->
+      <mat-form-field appearance="fill">
+        <mat-label>Phone, email or username</mat-label>
+        <input
+          matInput
+          placeholder=" 555-555-1234 / john.connor@example.com / j_connor1982"
+          required
+          [formControlName]="'username'"
+        />
+        <!-- <mat-error *ngIf="email.invalid">{{
+          getEmailErrorMessage()
+        }}</mat-error> -->
+      </mat-form-field>
+      <!-- Password -->
+      <mat-form-field appearance="fill">
+        <mat-label>Enter your password</mat-label>
+        <input
+          matInput
+          placeholder=""
+          required
+          [formControlName]="'password'"
+        />
+      </mat-form-field>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="signInDialog__submit">
+      <button [disabled]="signInForm.invalid">Submit</button>
+    </div>
+  </form>
+</div>

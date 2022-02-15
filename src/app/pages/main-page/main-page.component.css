@@ -1,0 +1,29 @@
+.mainPage__component {
+}
+
+.progressBar__container {
+  position: fixed;
+  width: 100%;
+  z-index: 99;
+}
+
+.mainPage__container {
+  display: block;
+  margin-left: auto;
+  margin-left: auto;
+  width: 85%;
+  height: 92vh;
+}
+
+.mainPage__sections {
+  display: flex;
+}
+
+.mainPage_leftSection {
+}
+
+.mainPage_middleSection {
+}
+
+.mainPage_rightSection {
+}

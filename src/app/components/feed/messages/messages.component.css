@@ -1,0 +1,19 @@
+.messages__container {
+  display: flex;
+}
+
+.messages__sidebar {
+  width: 370px;
+  overflow-y: auto;
+  height: 100vh;
+  border-left: 1px solid var(--twitter-background);
+}
+
+.messages__chat {
+  width: 620px;
+  height: 100vh;
+  border-left: 1px solid var(--twitter-background);
+  border-right: 1px solid var(--twitter-background);
+  min-width: fit-content;
+  overflow-y: auto;
+}

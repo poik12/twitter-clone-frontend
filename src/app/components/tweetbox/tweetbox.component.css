@@ -1,0 +1,122 @@
+.home__tweetBox {
+  display: flex;
+  flex-direction: column;
+}
+
+.home__tweetBoxTop {
+  display: flex;
+}
+.home__tweetBoxTopImage {
+  padding: 15px;
+}
+.home__tweetBoxTopInput {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.home__tweetBoxTextArea {
+  flex: 1;
+  margin-left: 5px;
+  font-size: 20px;
+  border: none;
+  resize: none;
+  overflow: hidden;
+
+  width: 15rem;
+  height: 2rem;
+  -webkit-transition: all 0.7s ease 0.2s;
+  -moz-transition: all 0.7s ease 0.2s;
+  -o-transition: all 0.7s ease 0.2s;
+  transition: all 0.7s ease 0.2s;
+}
+
+.home__tweetBoxTextArea:focus {
+  width: 37rem;
+  height: 10rem;
+  outline: none !important;
+  border: 1px solid var(--twitter-background);
+}
+
+.home_tweetBoxTopInput > input {
+  margin-top: 10px;
+}
+
+.home__tweetBoxBottom {
+  margin-top: 10px;
+  display: flex;
+  padding-bottom: 10px;
+  border-bottom: 10px solid var(--twitter-background);
+}
+
+.home__tweetBoxBottomButtons {
+  margin-left: 70px;
+  flex: 0.95;
+}
+
+.home__tweetBoxBottomButtonsIcon {
+  color: var(--twitter-color);
+  font-size: 22px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.home__tweetBoxBottomButtonsIcon:hover {
+  background-color: #e8f5fe;
+  border-radius: 100%;
+}
+
+.uploadedImage__container {
+  display: flex;
+  width: 190px;
+  margin-left: 80px;
+  border-radius: 20px;
+  border: 1px solid var(--twitter-color);
+  color: var(--twitter-color);
+}
+
+.uploadedImage__text {
+  margin-left: 10px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.uploadedImage__icon {
+  margin-top: auto;
+  margin-bottom: auto;
+  font-size: 26px;
+  border-radius: 100%;
+}
+
+.uploadedImage__icon:hover {
+  cursor: pointer;
+  background-color: var(--twitter-background);
+}
+
+.home__tweetBoxBottomTweetButton {
+  margin-left: auto;
+  margin-right: 20px;
+}
+
+.home__tweetBoxBottomTweetButton > button {
+  background-color: var(--twitter-color);
+  border: none;
+  color: white;
+  font-weight: 700;
+  text-transform: inherit;
+  border-radius: 30px;
+  width: 80px;
+  height: 40px;
+  margin-left: 10px;
+}
+
+.home__tweetBoxBottomTweetButton > button:hover {
+  background-color: rgb(97, 203, 238);
+  cursor: pointer;
+}
+
+.home__tweetBoxBottomTweetButton > button:disabled {
+  background-color: lightgray;
+}

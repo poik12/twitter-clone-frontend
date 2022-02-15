@@ -1,0 +1,65 @@
+<div class="loginPage__component">
+  <!-- Left Section -->
+  <div class="loginPage__logoSection">
+    <img
+      class="loginPage__logoSectionImage"
+      draggable="false"
+      src="https://abs.twimg.com/sticky/illustrations/lohp_en_1302x955.png"
+      alt=""
+    />
+    <div class="loginPage__logoSectionTwitterLogo">
+      <div class="loginPage__logoSectionTwitterLogoEmpty"></div>
+      <fa-icon
+        class="loginPage__logoSectionTwitter"
+        [icon]="twitterIcon"
+      ></fa-icon>
+    </div>
+  </div>
+
+  <!-- Right Section -->
+  <div class="loginPage__loginPageSection">
+    <fa-icon
+      class="loginPage__loginPageSectionTwitterIcon"
+      [icon]="twitterIcon"
+    ></fa-icon>
+    <h1>Happening now</h1>
+
+    <!-- Login Section Or Register Section Condition -->
+    <ng-container
+      *ngIf="isLoginSection; then loginBlock; else registerBlock"
+    ></ng-container>
+    <!-- Login Section -->
+    <ng-template #loginBlock>
+      <app-login></app-login>
+      <div class="loginPage____signInUpInfo">
+        Don't have an account?
+        <a
+          class="loginPage__signInUpInfoButton"
+          (click)="changeBetweenLoginAndRegisterSection()"
+          >Sign up</a
+        >
+      </div>
+    </ng-template>
+    <!-- Register Section -->
+    <ng-template #registerBlock>
+      <app-register></app-register>
+      <div class="loginPage____signInUpInfo">
+        Already have an account?
+        <a
+          class="loginPage__signInUpInfoButton"
+          (click)="changeBetweenLoginAndRegisterSection()"
+          >Sign in</a
+        >
+      </div>
+    </ng-template>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="loginPage__footerContainer">
+  <div class="loginPage__footer" *ngFor="let footerOption of footerOptionList">
+    <label for="" routerLink="{{ footerOption.path }}">{{
+      footerOption.name
+    }}</label>
+  </div>
+</div>

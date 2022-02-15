@@ -1,0 +1,86 @@
+.comment__component {
+  display: flex;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--twitter-background);
+  padding-bottom: 10px;
+  max-width: 620px;
+}
+
+.comment__component:hover {
+  background-color: var(--twitter-background);
+  cursor: pointer;
+}
+
+.comment__postAuthorImage {
+  padding: 15px;
+}
+
+.comment__postDescription {
+  margin-top: 10px;
+}
+
+.comment__postDescriptionBody {
+}
+
+.comment__postDescriptionBodyImageContainer {
+  margin-top: 10px;
+}
+
+.comment__postDescriptionBodyImage {
+  width: 500px;
+  height: 280px;
+  border-radius: 30px;
+}
+
+.comment__postDescriptionHeader {
+  display: flex;
+  margin-bottom: 10px;
+  width: 520px;
+}
+
+.comment__postDescriptionHeaderAuthor {
+  font-size: 15px;
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+.comment__postDescriptionHeaderVerified {
+  color: var(--twitter-color);
+  margin-right: 5px;
+  margin-top: 1px;
+}
+
+.comment__postDescriptionHeaderUsername {
+  font-size: 15px;
+  color: gray;
+  margin-right: 10px;
+}
+
+.comment__postDescriptionHeaderTime {
+  font-size: 15px;
+  color: gray;
+}
+
+.comment__postDescriptionHeaderMoreOption {
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.comment__postDescriptionHeaderMoreOptionIcon {
+  font-size: 17px;
+  color: gray;
+  border: 30px;
+  padding: 5px;
+  padding-left: auto;
+}
+.comment__postDescriptionHeaderMoreOptionIcon:hover {
+  background-color: #e8f5fe;
+  border-radius: 30px;
+  color: var(--twitter-color);
+  transition: color 100ms ease-out;
+}
+
+.comment__postDescriptionBody {
+  margin-right: 30px;
+  margin-bottom: 10px;
+}

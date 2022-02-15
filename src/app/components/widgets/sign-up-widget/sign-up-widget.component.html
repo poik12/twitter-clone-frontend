@@ -1,0 +1,25 @@
+<div class="widgets__signUpBlock">
+  <h2>New on Tweeter?</h2>
+  <span>Register now to create your own personalized timeline!</span>
+  <div class="widgets_signUpBlockButtons">
+    <button>
+      <fa-icon
+        class="widgets_signUpBlockButtonsIcon"
+        [icon]="googleIcon"
+      ></fa-icon>
+      Sign up with Google
+    </button>
+    <button>
+      <fa-icon
+        class="widgets_signUpBlockButtonsIcon"
+        [icon]="appleIcon"
+      ></fa-icon>
+      Sign up with Apple
+    </button>
+    <button (click)="goToSignUpPage()">Sign Up with phone or email</button>
+  </div>
+  <span>
+    By registering, you agree to the Terms of Use and Privacy Policy, including
+    the Cookie Policy.
+  </span>
+</div>

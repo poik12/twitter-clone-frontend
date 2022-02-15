@@ -1,0 +1,80 @@
+<div class="home__tweetBox">
+  <div class="home__tweetBoxTop">
+    <!-- Image -->
+    <div class="home__tweetBoxTopImage">
+      <img
+        style="width: 50px; height: 50px; border-radius: 100%"
+        src="{{ profileImage }}"
+        alt="user"
+      />
+    </div>
+    <!-- Input For Text -->
+    <div class="home__tweetBoxTopInput" [formGroup]="postForm">
+      <textarea
+        autosize
+        class="home__tweetBoxTextArea"
+        type="text"
+        maxlength="250"
+        placeholder="What's happening?"
+        [formControlName]="'description'"
+      ></textarea>
+
+      <!-- File Uploader -->
+      <input type="file" (change)="uploadFile($event)" />
+      <!-- <app-upload-image-dialog></app-upload-image-dialog> -->
+      <!-- <angular-file-uploader [config]="afuConfig"></angular-file-uploader> -->
+
+      <!-- Input For Url -->
+      <!-- <input placeholder="Add url" [formControlName]="'url'" /> -->
+
+      <!-- Uploaded Image -->
+      <!-- <ng-container>
+        <img src="{{ imagePreviewUrl }}" alt="" />
+      </ng-container> -->
+    </div>
+  </div>
+  <div class="home__tweetBoxBottom">
+    <!-- Buttons -->
+
+    <!-- Tweetbox Bottom Depending on added image -->
+    <ng-container
+      *ngIf="!imageUploadedFrame; then bottomButtons; else uploadedImageButton"
+    ></ng-container>
+
+    <!-- If image is not added -->
+    <ng-template #bottomButtons>
+      <div class="home__tweetBoxBottomButtons">
+        <!-- Upload image -->
+        <fa-icon
+          class="home__tweetBoxBottomButtonsIcon"
+          [icon]="imageIcon"
+          (click)="openUploadImageDialog()"
+        >
+        </fa-icon>
+        <fa-icon class="home__tweetBoxBottomButtonsIcon" [icon]="fileImageIcon">
+        </fa-icon>
+        <fa-icon class="home__tweetBoxBottomButtonsIcon" [icon]="gripLinesIcon">
+        </fa-icon>
+        <fa-icon class="home__tweetBoxBottomButtonsIcon" [icon]="smileIcon">
+        </fa-icon>
+        <fa-icon class="home__tweetBoxBottomButtonsIcon" [icon]="calendarIcon">
+        </fa-icon>
+      </div>
+    </ng-template>
+
+    <!-- If image is added -->
+    <ng-template #uploadedImageButton>
+      <div class="uploadedImage__container">
+        <div class="uploadedImage__text">Uploaded Image</div>
+        <mat-icon class="uploadedImage__icon" (click)="deleteUploadedImage()"
+          >close</mat-icon
+        >
+      </div>
+    </ng-template>
+
+    <!-- Tweet Button -->
+    <div class="home__tweetBoxBottomTweetButton">
+      <button @addNewPost [disabled]="" (click)="createPost()">Tweet</button>
+    </div>
+  </div>
+</div>

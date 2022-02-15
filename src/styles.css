@@ -1,1 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+@import "~ngx-toastr/toastr";
+
+html,
+body {
+  height: 100%;
+}
+body {
+  /* --twitter-color: #50b7f5; */
+  /* --twitter-background: #e6ecf0; */
+  --twitter-color: #1e9cf0;
+  --twitter-background: #eff3f4;
+  --twitter-font-color: #536471;
+  margin: 0;
+  font-family: "Segoe UI", "Time New Roman", Times, serif;
+}
+
+/* Notification style */
+.error.mat-snack-bar-container {
+  background-color: rgb(241, 78, 78);
+  /* border: 2px solid red; */
+  border-radius: 10px;
+  color: white;
+}
+.success.mat-snack-bar-container {
+  background-color: rgb(90, 207, 90);
+  /* border: 2px solid green; */
+  border-radius: 10px;
+  color: white;
+}
+
+/* Mat dialog background style */
+.backdropBackground {
+  filter: blur(1px);
+  background-color: #363636;
+  opacity: 0.7 !important;
+}

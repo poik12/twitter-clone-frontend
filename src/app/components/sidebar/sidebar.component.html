@@ -1,0 +1,112 @@
+<div class="sidebar__Component">
+  <!-- Twitter icon -->
+  <div class="sidebar__twitterLogo">
+    <fa-icon
+      routerLink="/"
+      class="sidebar__twitterLogoIcon"
+      [icon]="twitterIcon"
+    ></fa-icon>
+  </div>
+
+  <!-- Sidebar Options -->
+  <div class="sidebar__options">
+    <ng-container
+      *ngIf="
+        isUserLoggedIn;
+        then sidebarOptionListForLoggedUser;
+        else sidebarOptionListForNotLoggedUser
+      "
+    ></ng-container>
+
+    <!-- Sidebar for User Section -->
+    <ng-template #sidebarOptionListForLoggedUser>
+      <!-- Sidebar Options -->
+      <mat-nav-list *ngFor="let sidebarOption of sidebarOptionListForUser">
+        <mat-list-item
+          class="sidebar_option"
+          routerLink="{{ sidebarOption.path }}"
+          routerLinkActive="active"
+        >
+          <div class="sidebar__optionsSelected">
+            <fa-icon
+              class="sidebar__optionsButtonIcon"
+              [icon]="sidebarOption.icon"
+            ></fa-icon>
+            {{ sidebarOption.name }}
+          </div>
+        </mat-list-item>
+      </mat-nav-list>
+
+      <!-- Tweet button -->
+      <div class="sidebar__tweet">
+        <button class="sidebar__tweetButton">Tweet</button>
+      </div>
+
+      <!-- Profile section -->
+      <div class="sidebar__account">
+        <!-- Acount Photo -->
+        <div className="sidebar__accountPhoto">
+          <img
+            style="width: 50px; height: 50px; border-radius: 100%"
+            src="{{ profileImage }}"
+            alt="user"
+          />
+
+          <!-- <img
+            style="width: 50px; height: 50px; border-radius: 100%"
+            src="https://www.blexar.com/avatar.png"
+            alt="user"
+          /> -->
+        </div>
+        <!-- Account Info -->
+        <div class="sidebar__accountInfo">
+          <div class="sidebar__accountInfoName">
+            {{ name }}
+          </div>
+          <div class="sidebar__accountInfoUsername">@{{ username }}</div>
+        </div>
+        <!-- Account more button -->
+        <div class="sidebarMoreButton">
+          <!-- Menu button -->
+          <button mat-icon-button [matMenuTriggerFor]="profileMenu">
+            <fa-icon
+              class="sidebar__optionsButtonIcon"
+              [icon]="moreIcon"
+            ></fa-icon>
+          </button>
+          <!-- Menu button options -->
+          <mat-menu #profileMenu="matMenu">
+            <button mat-menu-item (click)="logout()">
+              <mat-icon>logout</mat-icon>
+              <span>Logout</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon>settings</mat-icon>
+              <span>Settings</span>
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+    </ng-template>
+
+    <!-- Sidebar for Stranger Section -->
+    <ng-template #sidebarOptionListForNotLoggedUser>
+      <!-- Sidebar Options -->
+      <mat-nav-list *ngFor="let sidebarOption of sidebarOptionListForStranger">
+        <mat-list-item
+          class="sidebar_option"
+          routerLink="{{ sidebarOption.path }}"
+          routerLinkActive="active"
+        >
+          <div class="sidebar__optionsSelected">
+            <fa-icon
+              class="sidebar__optionsButtonIcon"
+              [icon]="sidebarOption.icon"
+            ></fa-icon>
+            {{ sidebarOption.name }}
+          </div>
+        </mat-list-item>
+      </mat-nav-list>
+    </ng-template>
+  </div>
+</div>

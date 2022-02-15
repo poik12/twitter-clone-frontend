@@ -1,0 +1,18 @@
+<div class="authSection__component">
+  <h2>Sign in to Twitter</h2>
+  <!-- Login Buttons -->
+  <div class="authSection__buttons">
+    <!-- Sign In with Google -->
+    <button>
+      <fa-icon class="authSection__buttonsIcon" [icon]="googleIcon"></fa-icon>
+      Sign in with Google
+    </button>
+    <!-- Sign In with Apple -->
+    <button>
+      <fa-icon class="authSection__buttonsIcon" [icon]="appleIcon"></fa-icon>
+      Sign in with Apple
+    </button>
+    <!-- Sign In with phone or email -->
+    <button (click)="openSignInDialog()">Use phone, email or username</button>
+  </div>
+</div>

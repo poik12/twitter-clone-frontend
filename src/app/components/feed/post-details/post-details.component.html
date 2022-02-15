@@ -1,0 +1,21 @@
+<div class="main__container">
+  <!-- Header Section-->
+  <div class="postDetails__headerSection">
+    <!-- Header array icon -->
+    <div class="postDetails__headerSectionArrow">
+      <fa-icon
+        class="postDetails__headerSectionArrowIcon"
+        [icon]="arrowIcon"
+        (click)="navigateBackToHomePage()"
+      ></fa-icon>
+    </div>
+    <!-- Header Name -->
+    <div class="postDetails__headerSectionInfo">Tweet</div>
+  </div>
+  <!-- Post Section-->
+  <app-post [post]="post" [retrievedImageFromDb]="post.fileContent"></app-post>
+  <!-- Comment Section -->
+  <ng-container *ngFor="let comment of commentList">
+    <app-comment [comment]="comment"></app-comment>
+  </ng-container>
+</div>

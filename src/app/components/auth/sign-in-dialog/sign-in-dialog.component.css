@@ -1,0 +1,19 @@
+.signInDialog__input {
+  display: flex;
+  flex-direction: column;
+}
+
+.signInDialog__submit > button {
+  border-radius: 30px;
+  width: 100%;
+  height: 50px;
+  background-color: var(--twitter-color);
+  border: none;
+  font-size: 20px;
+  color: white;
+  margin-top: 260px;
+}
+
+.signInDialog__submit > button:disabled {
+  background-color: lightgray;
+}

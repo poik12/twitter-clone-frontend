@@ -1,0 +1,33 @@
+.searchBar__container {
+  padding-top: 6px;
+  width: 350px;
+}
+
+.searchBar {
+  width: 100%;
+  background-color: var(--twitter-background);
+  padding: 10px;
+  border-radius: 20px;
+}
+
+.searchBar:focus-within {
+  border: 1px solid var(--twitter-color);
+  background-color: white;
+}
+
+.searchBar__input {
+  border: none;
+  background-color: var(--twitter-background);
+  font-size: 16px;
+  margin-left: 5px;
+}
+
+.searchBar__input:focus {
+  outline: none;
+  background-color: white;
+}
+
+.searchBar__icon {
+  padding-left: 10px;
+  color: gray;
+}

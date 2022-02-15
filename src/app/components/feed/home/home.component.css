@@ -1,0 +1,24 @@
+.home__header {
+  position: sticky;
+  top: 0;
+  height: 60px;
+  background-color: white;
+  border-bottom: 1px solid var(--twitter-background);
+  padding: 15px 20px;
+  display: flex;
+}
+
+.home__headerText {
+  font-size: 22px;
+  font-weight: 600;
+  width: 97%;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.home__headerIcon {
+  color: var(--twitter-color);
+  font-size: 20px;
+  margin-top: auto;
+  margin-bottom: auto;
+}

@@ -1,0 +1,13 @@
+<!-- Notification Header -->
+<div>
+  <fa-icon class="authDialog__headerIcon" [icon]="twitterIcon"></fa-icon>
+  {{ data.type | titlecase }}
+</div>
+<!-- Notification Message -->
+<div class="notification__message">{{ data.message }}</div>
+<!-- Notification Button -->
+<div class="notification__button">
+  <button (click)="snackBarRef.dismiss()">
+    {{ data.buttonText }}
+  </button>
+</div>

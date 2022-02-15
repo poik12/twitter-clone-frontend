@@ -1,0 +1,23 @@
+<div class="authSection__component">
+  <h2>Join Twitter today.</h2>
+  <!-- Login Buttons -->
+  <div class="authSection__buttons">
+    <!-- Sign Up with Google -->
+    <button>
+      <fa-icon class="authSection__buttonsIcon" [icon]="googleIcon"></fa-icon>
+      Sign up with Google
+    </button>
+    <!-- Sign Up with Apple -->
+    <button>
+      <fa-icon class="authSection__buttonsIcon" [icon]="appleIcon"></fa-icon>
+      Sign up with Apple
+    </button>
+    <!-- Sign Up with phone or email -->
+    <button (click)="openSignUpDialog()">Sign up with phone or email</button>
+  </div>
+  <!-- Register info -->
+  <div class="authSection__info">
+    By signing up, you agree to the Terms of Service and Privacy Policy,
+    including Cookie Use.
+  </div>
+</div>

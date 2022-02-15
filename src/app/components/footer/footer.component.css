@@ -1,0 +1,60 @@
+.mainPage__footer {
+  position: sticky;
+  bottom: 0;
+  background-color: var(--twitter-color);
+  height: 8vh;
+  display: flex;
+  flex-direction: row;
+}
+
+.mainPage__footerInfo {
+  width: 60%;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 30%;
+  color: white;
+  font-weight: 500;
+}
+
+.mainPage__footerInfoAbove {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.mainPage__footerInfoBelow {
+  font-size: 18px;
+}
+
+.mainPage__footerButtons {
+  width: 40%;
+  margin: auto;
+  margin-left: 80px;
+}
+
+.mainPage__footerButtons > button {
+  border-radius: 30px;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: 500;
+  width: 100px;
+  margin-right: 10px;
+}
+
+.mainPage__footerSignInButton {
+  background-color: transparent;
+  border: 1px solid white;
+  color: white;
+}
+
+.mainPage__footerSignInButton:hover {
+  opacity: 0.8;
+}
+
+.mainPage__footerSignUpButton {
+  background-color: white;
+  border: none;
+}
+
+.mainPage__footerSignUpButton:hover {
+  background-color: rgb(240, 238, 238);
+}

@@ -1,0 +1,35 @@
+::ng-deep.mat-menu-panel {
+  border-radius: 20px;
+  width: 350px;
+  height: auto;
+}
+
+.profileBlock__component {
+  display: flex;
+  flex-direction: column;
+  margin: 15px;
+}
+
+.profileBlock__image {
+  height: 60px;
+  width: 60px;
+  border-radius: 100%;
+  margin-bottom: 5px;
+}
+
+.profileBlock__name {
+  font-weight: 500;
+  font-size: 14px;
+}
+.profileBlock__username {
+  font-size: 14px;
+  color: var(--twitter-font-color);
+  margin-bottom: 10px;
+}
+.profileBlock__description {
+}
+.profileBlock__following {
+  margin-top: 10px;
+}
+.profileBlock__followers {
+}
