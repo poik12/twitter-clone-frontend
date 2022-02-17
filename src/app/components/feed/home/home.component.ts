@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
   postList: Array<PostResponsePayload> = [];
 
   @Output() reloadMainComponent!: boolean;
+  isPostSection: boolean = true;
 
   constructor(
     private authService: AuthService,

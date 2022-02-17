@@ -5,8 +5,4 @@ export default interface UserUpdateRequestPayload {
   phoneNumber: number;
   password: string;
 
-  // description: string;
-  // profileImage: string;
-  // backgroundImage: string;
-
 }

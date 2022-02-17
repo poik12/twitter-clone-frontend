@@ -11,11 +11,11 @@ import { tap } from 'rxjs/operators';
 })
 export class PostService {
 
-  private GET_POSTS = "http://localhost:8080/api/post/all"
-  private GET_POST_BY_ID = "http://localhost:8080/api/post/"
-  private GET_POST_BY_USERNAME = "http://localhost:8080/api/post/by-user/"
-  private CREATE_POST = 'http://localhost:8080/api/post/add';
-  private DELETE_POST_BY_ID = 'http://localhost:8080/api/post/delete/';
+  private GET_POSTS = "http://localhost:8080/api/v1/posts"
+  private GET_POST_BY_ID = "http://localhost:8080/api/v1/posts/"
+  private GET_POST_BY_USERNAME = "http://localhost:8080/api/v1/posts/by-user/"
+  private CREATE_POST = 'http://localhost:8080/api/v1/posts';
+  private DELETE_POST_BY_ID = 'http://localhost:8080/api/v1/posts/';
 
   // After adding post refresh page
   private _refreshNeeded$ = new Subject<void>();
@@ -45,11 +45,7 @@ export class PostService {
 
     return this.httpClient
       .post(this.CREATE_POST, formData)
-      .pipe(
-        tap(() => {
-          this._refreshNeeded$.next();
-        })
-      )
+      .pipe(tap(() => this._refreshNeeded$.next()))
   }
 
   getPostById(id: number): Observable<PostResponsePayload> {

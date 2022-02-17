@@ -1,6 +1,7 @@
 
 import { Component, Input, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/services/auth/auth.service';
+import FollowerDto from 'src/app/models/follower-response.payload';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-profile-block',
@@ -15,11 +16,13 @@ export class ProfileBlockComponent implements OnInit {
   profileImage!: string;
   jpgFormat: string = 'data:image/jpeg;base64,';
   description!: number;
-  followersNo!: number;
+  followerNo!: number;
   followingNo!: number;
+  following!: Array<FollowerDto>;
+  followers!: Array<FollowerDto>;
 
   constructor(
-    private authService: AuthService
+    private userSerivce: UserService
   ) { }
 
   ngOnInit(): void {
@@ -27,16 +30,18 @@ export class ProfileBlockComponent implements OnInit {
   }
 
   getUserDetails(username: string) {
-    this.authService
+    this.userSerivce
       .getUserByUsername(username)
       .subscribe(
         (userDetails) => {
           this.name = userDetails.name;
           this.username = userDetails.username;
           this.profileImage = this.jpgFormat + userDetails.userProfilePicture;
-          this.description = userDetails.tweetsNo;
-          this.followersNo = userDetails.followersNo;
+          this.description = userDetails.tweetNo;
+          this.followerNo = userDetails.followerNo;
           this.followingNo = userDetails.followingNo;
+          this.following = userDetails.following;
+          this.followers = userDetails.followers;
         })
   }
 }

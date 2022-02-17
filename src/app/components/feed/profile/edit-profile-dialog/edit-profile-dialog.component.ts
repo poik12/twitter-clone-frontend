@@ -1,3 +1,4 @@
+import { NotificationMessage } from 'src/app/services/notification/notification-message.enum';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -6,6 +7,8 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import UserDetailsRequestPayload from 'src/app/models/user-details-request.payload';
+import { NotificationType } from 'src/app/services/notification/notification-type.enum';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-edit-profile-dialog',
@@ -31,7 +34,8 @@ export class EditProfileDialogComponent implements OnInit {
     private authService: AuthService,
     private dialogRef: MatDialogRef<any>,
     private notificationService: NotificationService,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
+    private userService: UserService
   ) {
 
     this.userDetailsRequestPayload = {
@@ -69,7 +73,7 @@ export class EditProfileDialogComponent implements OnInit {
     this.userDetailsRequestPayload.password = this.editProfileForm.get('password')?.value;
     this.userDetailsRequestPayload.phoneNumber = this.editProfileForm.get('phoneNumber')?.value;
 
-    this.authService
+    this.userService
       .updateUserProfile(
         this.username,
         this.userDetailsRequestPayload,
@@ -83,9 +87,9 @@ export class EditProfileDialogComponent implements OnInit {
     this.dialogRef.close();
 
     this.notificationService.showNotification(
-      'Your account has been updated',
+      NotificationMessage.AccountUpdatedSuccessfully,
       'OK',
-      'success'
+      NotificationType.Success
     );
   }
 
@@ -100,6 +104,5 @@ export class EditProfileDialogComponent implements OnInit {
     this.selectedBackgroundImage = $event.target.files[0];
     console.log("Selected background picture: " + this.selectedBackgroundImage)
   }
-
 
 }

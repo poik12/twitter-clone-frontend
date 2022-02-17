@@ -12,6 +12,13 @@
   margin-left: 10px;
   margin-top: 10px;
 }
+
+.postDetails__headerSectionArrow:hover {
+  background-color: #e8f5fe;
+  border-radius: 30px;
+  margin-bottom: 10px;
+}
+
 .postDetails__headerSectionArrowIcon {
   font-size: 20px;
   color: var(--twitter-color);

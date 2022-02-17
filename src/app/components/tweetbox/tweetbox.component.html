@@ -72,9 +72,21 @@
       </div>
     </ng-template>
 
-    <!-- Tweet Button -->
+    <!-- Tweet Button - Post Section or Comment Section Condition -->
     <div class="home__tweetBoxBottomTweetButton">
-      <button @addNewPost [disabled]="" (click)="createPost()">Tweet</button>
+      <ng-container
+        *ngIf="isPostSection; then postBlock; else commentBlock"
+      ></ng-container>
+      <!-- Post Section Button -->
+      <ng-template #postBlock>
+        <button @addNewPost [disabled]="" (click)="createPost()">Tweet</button>
+      </ng-template>
+      <!-- Comment Section Button -->
+      <ng-template #commentBlock>
+        <button @addNewComment [disabled]="" (click)="createComment()">
+          Retweet
+        </button>
+      </ng-template>
     </div>
   </div>
 </div>

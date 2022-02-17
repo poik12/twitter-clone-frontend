@@ -1,19 +1,25 @@
 import { throwError } from 'rxjs';
 
 import { FormGroup, FormControl } from '@angular/forms';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { faImage, faFileImage, faGripLines, faSmile, faCalendarCheck } from '@fortawesome/free-solid-svg-icons';
 import PostRequestPayload from 'src/app/models/post-request.payload';
 import { PostService } from 'src/app/services/post/post.service';
 import { transition, trigger, useAnimation } from '@angular/animations';
 import { slideInAnimation, SlideOutAnimation } from 'src/app/shared/animations';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { UploadImageDialogComponent } from './upload-image-dialog/upload-image-dialog.component';
 import { filter, take } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { NotificationService } from 'src/app/services/notification/notification.service';
+import CommentRequestPayload from 'src/app/models/comment-request.payload';
+import { CommentService } from 'src/app/services/comment/comment.service';
+import PostResponsePayload from 'src/app/models/post-response.payload';
+import { NotificationType } from 'src/app/services/notification/notification-type.enum';
+import { NotificationMessage } from 'src/app/services/notification/notification-message.enum';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-tweetbox',
@@ -40,6 +46,7 @@ export class TweetboxComponent implements OnInit {
 
   postForm!: FormGroup;
   postRequestPayload!: PostRequestPayload;
+  commentRequestPayload!: CommentRequestPayload;
 
   dialogRef!: MatDialogRef<UploadImageDialogComponent>;
   uploadedImage!: File;
@@ -50,16 +57,29 @@ export class TweetboxComponent implements OnInit {
 
   selectedFile!: File;
 
+  // Post or comment section
+  @Input() isPostSection!: boolean;
+  @Input() postId!: number;
+
   constructor(
     private postService: PostService,
     private router: Router,
     public dialog: MatDialog,
     private authService: AuthService,
-    private notificationService: NotificationService
+    private activatedRoute: ActivatedRoute,
+    private notificationService: NotificationService,
+    private commentService: CommentService,
+    private userSerivce: UserService
   ) {
 
     this.postRequestPayload = {
       description: '',
+    }
+
+    this.commentRequestPayload = {
+      username: '',
+      postId: 0,
+      text: ''
     }
 
   }
@@ -76,7 +96,7 @@ export class TweetboxComponent implements OnInit {
   }
 
   getUserPicture(username: string) {
-    this.authService
+    this.userSerivce
       .getUserByUsername(username)
       .subscribe(
         (userDetails) => {
@@ -84,36 +104,51 @@ export class TweetboxComponent implements OnInit {
         },
         (error) => {
           console.log(error);
-        })
+        });
   }
 
-
-  // CREATE NEW POST
-  async createPost() {
-    // Set create post paylaod
-    this.postRequestPayload.description = this.postForm.get("description")?.value;
+  // CREATE NEW COMMENT
+  async createComment() {
+    // Set comment payload
+    this.commentRequestPayload.postId = Number(this.postId);
+    this.commentRequestPayload.username = this.authService.getUsernameFromLocalStorage();
+    this.commentRequestPayload.text = this.postForm.get("description")?.value;
+    console.log('Comment Payload: ' + this.commentRequestPayload);
 
     // Clear tweet box input
     this.postForm.reset();
 
+    this.commentService
+      .addComment(this.commentRequestPayload)
+      .subscribe(
+        () => {
+          this.notificationService.showNotification(
+            NotificationMessage.CommentAddedSuccessfully,
+            'OK',
+            NotificationType.Success
+          );
+        },
+        () => {
+          this.notificationService.showNotification(
+            NotificationMessage.CommentAddedError,
+            'OK',
+            NotificationType.Error
+          );
+          throwError(console.error());
+        }
+      );
+  }
+
+  // CREATE NEW POST
+  async createPost() {
+    // Set post paylaod
+    this.postRequestPayload.description = this.postForm.get("description")?.value;
     console.log('Post Payload: ' + this.postRequestPayload);
 
-    // Send post payload to post service
-    // this.postService
-    //   .createPost(
-    //     this.postRequestPayload,
-    //     this.uploadedImage
-    //   )
-    //   .subscribe(
-    //     () => {
-    //       console.log('post added');
-    //     },
-    //     (error) => {
-    //       throwError(console.error());
-    //     }
-    //   )
+    // Clear tweet box input
+    this.postForm.reset();
 
-
+    // Send post request to post service
     this.postService
       .createPost(
         this.postRequestPayload,
@@ -122,16 +157,16 @@ export class TweetboxComponent implements OnInit {
       .subscribe(
         () => {
           this.notificationService.showNotification(
-            'Post has been added successfully',
+            NotificationMessage.PostAddedSuccessfully,
             'OK',
-            'success'
+            NotificationType.Success
           );
         },
         () => {
           this.notificationService.showNotification(
-            'Something went wrong while adding the post',
+            NotificationMessage.PostAddedError,
             'OK',
-            'error'
+            NotificationType.Error
           );
           throwError(console.error());
         }
@@ -150,9 +185,7 @@ export class TweetboxComponent implements OnInit {
       .afterClosed()
       .subscribe(
         (file) => {
-
           if (file !== undefined) {
-
 
             this.uploadedImage = file;
 
@@ -180,9 +213,7 @@ export class TweetboxComponent implements OnInit {
             console.log("error")
           }
         },
-        (error) => {
-          console.log(error);
-        }
+        (error) => console.log(error)
       );
   }
 

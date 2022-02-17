@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NotificationComponent } from 'src/app/components/notification/notification.component';
+import { NotificationType } from './notification-type.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class NotificationService {
   showNotification(
     displayMessage: string,
     buttonText: string,
-    messageType: 'error' | 'success'
+    messageType: NotificationType.Error | NotificationType.Success
   ) {
     this.snackBar.openFromComponent(
       NotificationComponent,

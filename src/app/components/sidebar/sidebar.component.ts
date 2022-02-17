@@ -4,7 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faHome, faHashtag, faBell, faEnvelope, faBookmark, faList, faUser, faEllipsisH, faCog } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { NotificationMessage } from 'src/app/services/notification/notification-message.enum';
+import { NotificationType } from 'src/app/services/notification/notification-type.enum';
 import { NotificationService } from 'src/app/services/notification/notification.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -45,7 +48,8 @@ export class SidebarComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private activatedRoute: ActivatedRoute,
-    private notificationSerivce: NotificationService
+    private notificationSerivce: NotificationService,
+    private userSerivce: UserService
   ) { }
 
   ngOnInit(): void {
@@ -58,14 +62,14 @@ export class SidebarComponent implements OnInit {
   logout() {
     this.authService.logout();
     this.notificationSerivce.showNotification(
-      'You have been logout',
+      NotificationMessage.Logout,
       'OK',
-      'success'
+      NotificationType.Success
     );
   }
 
   getUserDetails(username: string) {
-    this.authService
+    this.userSerivce
       .getUserByUsername(username)
       .subscribe(
         (userDetails) => {

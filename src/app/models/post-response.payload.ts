@@ -4,7 +4,6 @@ export default interface PostResponsePayload {
   name: string;
   username: string;
   description: string;
-  url: string;
   postTimeDuration: String;
   createdAt: Date;
 

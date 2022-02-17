@@ -15,7 +15,7 @@
         {{ userDetailsResponsePayload.name }}
       </div>
       <div class="profile_headerSectioTweets">
-        {{ userDetailsResponsePayload.tweetsNo }} Tweets
+        {{ userDetailsResponsePayload.tweetNo }} Tweets
       </div>
     </div>
   </div>
@@ -43,30 +43,44 @@
           alt="user"
         />
       </div>
+      <!-- Section for logged user or not -->
+      <ng-container
+        *ngIf="username === loggedUser; then profileBlock; else userBlock"
+      ></ng-container>
       <!-- If profile belongs to logged user -> show edit profile button -->
-      <div
-        *ngIf="username === loggedUser"
-        class="profile__imageSectionAccountEdit"
-      >
-        <button (click)="openEditProfileDialog()">Edit profile</button>
-      </div>
+      <ng-template #profileBlock>
+        <div class="profile__imageSectionAccountEdit">
+          <button (click)="openEditProfileDialog()">Edit profile</button>
+        </div>
+      </ng-template>
       <!-- If profile doesn't belong to logged user -> show follow button button -->
-      <div
-        *ngIf="username !== loggedUser"
-        class="profile__imageSectionAccountFollow"
-      >
-        <fa-icon
-          class="profile_followIcons"
-          [icon]="notificationIcon"
-        ></fa-icon>
-        <fa-icon class="profile_followIcons" [icon]="moreIcon"></fa-icon>
-        <button
-          [class.active]="isUserProfileFollowed"
-          (click)="addFollowedUser()"
-        >
-          Follow
-        </button>
-      </div>
+      <ng-template #userBlock>
+        <div class="profile__imageSectionAccountFollow">
+          <fa-icon
+            class="profile_followIcons"
+            [icon]="notificationIcon"
+          ></fa-icon>
+          <fa-icon class="profile_followIcons" [icon]="moreIcon"></fa-icon>
+          <!-- State of follow button -->
+          <ng-container
+            *ngIf="
+              isUserProfileFollowed;
+              then followedUser;
+              else unfollowedUser
+            "
+          ></ng-container>
+          <!-- If user is folowed and user wants to unfollow him -->
+          <ng-template #followedUser>
+            <button class="unfollowButton" (click)="unfollowUser()">
+              Unfollow
+            </button>
+          </ng-template>
+          <!-- If user is unfolowed and user wants to follow him -->
+          <ng-template #unfollowedUser>
+            <button class="followButton" (click)="followUser()">Follow</button>
+          </ng-template>
+        </div>
+      </ng-template>
     </div>
     <!-- Account name -->
     <div class="profile__imageSectionInfo">
@@ -99,10 +113,17 @@
     <!-- Description parameters -->
     <div class="profile__descriptionSectionParams">
       <div class="profile__descriptionSectionParamsFollowing">
-        <strong>{{ userDetailsResponsePayload.followingNo }}</strong> Following
+        <a (click)="openFollowingDialog()">
+          <strong>{{ userDetailsResponsePayload.followingNo }}</strong>
+          Following
+        </a>
       </div>
+
       <div class="profile__descriptionSectionParamsFollowers">
-        <strong>{{ userDetailsResponsePayload.followersNo }}</strong> Followers
+        <a (click)="openFollowerDialog()">
+          <strong>{{ userDetailsResponsePayload.followerNo }}</strong>
+          Followers
+        </a>
       </div>
     </div>
   </div>

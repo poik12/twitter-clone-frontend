@@ -57,6 +57,7 @@ import { MessagesComponent } from './components/feed/messages/messages.component
 import { MessagesSidebarComponent } from './components/feed/messages/messages-sidebar/messages-sidebar.component';
 import { MessagesChatComponent } from './components/feed/messages/messages-chat/messages-chat.component';
 import { SearchBarComponent } from './components/widgets/search-bar/search-bar.component';
+import { FollowersDialogComponent } from './components/feed/profile/followers-dialog/followers-dialog.component';
 
 
 const globalRippleConfig: RippleGlobalOptions = {
@@ -102,7 +103,8 @@ const globalRippleConfig: RippleGlobalOptions = {
     MessagesComponent,
     MessagesSidebarComponent,
     MessagesChatComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    FollowersDialogComponent
   ],
   imports: [
     BrowserModule,

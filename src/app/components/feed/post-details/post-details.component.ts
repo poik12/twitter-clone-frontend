@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
@@ -22,10 +22,9 @@ export class PostDetailsComponent implements OnInit {
   retrievedImageFromDb: any;
   jpgFormat: string = 'data:image/jpeg;base64,';
 
-  commentForm!: FormGroup;
-  // commentPayload: CommentRequestPayload;
-
   commentList!: CommentResponsePayload[];
+
+  isPostSection: boolean = false;
 
   constructor(
     private router: Router,
@@ -38,6 +37,13 @@ export class PostDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPostById();
+
+    // Refresh dynamiclly page after adding comment
+    this.commentService.refreshNeeded$
+      .subscribe(() => {
+        this.getCommentsForPost();
+      })
+
     this.getCommentsForPost();
     this.retrievedImageFromDb = this.jpgFormat + this.post.fileContent;
   }

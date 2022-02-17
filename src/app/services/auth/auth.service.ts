@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs/internal/Observable';
 import { LocalStorageService } from 'ngx-webstorage';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Output, EventEmitter } from '@angular/core';
@@ -7,29 +6,21 @@ import SignInRequestPayload from 'src/app/models/sign-in-request.payload';
 import SignInResponsePayload from 'src/app/models/sign-in-response.payload';
 import { map, tap } from 'rxjs/operators'
 import { Router } from '@angular/router';
-import UserDetailsResponsePayload from 'src/app/models/user-details-response.payload';
-import UserDetailsRequestPayload from 'src/app/models/user-details-request.payload';
-import { Subject } from 'rxjs';
+import { Observable } from 'rxjs'
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private SIGN_UP_URL = 'http://localhost:8080/api/user/save';
-  private SIGN_IN_URL = 'http://localhost:8080/api/user/login';
-  private REFRESH_ACCESS_TOKEN_URL = 'http://localhost:8080/api/user/token/refresh';
-  // private LOGOUT_URL = 'http://localhost:8080/api/user/logout';
-
-  private GET_USER_BY_USERNAME = 'http://localhost:8080/api/user/';
-  private UPDATE_USER_BY_USERNAME = 'http://localhost:8080/api/user/update/';
+  private SIGN_UP_URL = 'http://localhost:8080/api/v1/auth/register';
+  private SIGN_IN_URL = 'http://localhost:8080/api/v1/auth/login';
+  private REFRESH_ACCESS_TOKEN_URL = 'http://localhost:8080/api/v1/auth/token/refresh';
+  // private LOGOUT_URL = 'http://localhost:8080/api/v1/auth/logout';
 
   @Output() isLoggedIn: EventEmitter<boolean> = new EventEmitter;
 
   // @Output() username: EventEmitter<string> = new EventEmitter;
-
-  // After updating user details refresh page
-  private _refreshNeeded$ = new Subject<void>();
 
   constructor(
     private httpClient: HttpClient,
@@ -37,9 +28,6 @@ export class AuthService {
     private router: Router
   ) { }
 
-  get refreshNeeded$() {
-    return this._refreshNeeded$;
-  }
   // Sign Up Method
   signUp(signUpRequestPayload: SignUpRequestPayload): Observable<any> {
     return this.httpClient.post(this.SIGN_UP_URL, signUpRequestPayload, { responseType: 'text' })
@@ -113,34 +101,5 @@ export class AuthService {
     this.router.navigateByUrl("/login");
 
   }
-
-  // Get user details by username
-  getUserByUsername(username: string): Observable<UserDetailsResponsePayload> {
-    return this.httpClient.get<UserDetailsResponsePayload>(this.GET_USER_BY_USERNAME + username);
-  }
-
-  // Update user details in profile page
-  updateUserProfile(
-    username: string,
-    userDetailsRequestPayload: UserDetailsRequestPayload,
-    profileImage: File,
-    backgroundImage: File
-  ): Observable<any> {
-
-    const formData: FormData = new FormData();
-
-    formData.append('profileImage', profileImage);
-    formData.append('backgroundImage', backgroundImage);
-    formData.append('userDetailsRequest', JSON.stringify(userDetailsRequestPayload));
-
-    return this.httpClient
-      .put<any>(this.UPDATE_USER_BY_USERNAME + username, formData)
-      .pipe(
-        tap(() => {
-          this._refreshNeeded$.next();
-        })
-      );
-  }
-
 
 }

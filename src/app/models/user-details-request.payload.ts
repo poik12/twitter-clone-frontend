@@ -4,7 +4,6 @@ export default interface UserDetailsRequestPayload {
   username: string;
   emailAddress: string;
   password: string;
-  // dateOfBirth: string;
   phoneNumber: string;
 
 }

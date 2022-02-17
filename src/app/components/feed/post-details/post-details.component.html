@@ -14,6 +14,11 @@
   </div>
   <!-- Post Section-->
   <app-post [post]="post" [retrievedImageFromDb]="post.fileContent"></app-post>
+  <!-- Tweetbox Section -->
+  <app-tweetbox
+    [isPostSection]="isPostSection"
+    [postId]="postId"
+  ></app-tweetbox>
   <!-- Comment Section -->
   <ng-container *ngFor="let comment of commentList">
     <app-comment [comment]="comment"></app-comment>

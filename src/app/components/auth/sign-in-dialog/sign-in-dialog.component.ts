@@ -1,3 +1,4 @@
+import { NotificationMessage } from 'src/app/services/notification/notification-message.enum';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -5,6 +6,7 @@ import { Router } from '@angular/router';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import SignInRequestPayload from 'src/app/models/sign-in-request.payload';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { NotificationType } from 'src/app/services/notification/notification-type.enum';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 
 @Component({
@@ -52,23 +54,19 @@ export class SignInDialogComponent implements OnInit {
     this.authService
       .signIn(this.signInRequestPayload)
       .subscribe(
-        (data) => {
-          if (data) {
-            this.router.navigateByUrl('/');
-            this.notificaitonService.showNotification(
-              'Login Successful',
-              'OK',
-              'success'
-            );
-          } else {
-            console.log('Bad credentials')
-          }
+        () => {
+          this.router.navigateByUrl('/');
+          this.notificaitonService.showNotification(
+            NotificationMessage.LoginSuccess,
+            'OK',
+            NotificationType.Success
+          );
         },
         (error) => {
           this.notificaitonService.showNotification(
-            'Bad credentials. Please try again',
+            NotificationMessage.LoginError,
             'OK',
-            'error'
+            NotificationType.Error
           );
           console.log(error);
         }

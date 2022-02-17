@@ -2,11 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
 import { faArrowLeft, faCalendar, faBell, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
+import FollowerDto from 'src/app/models/follower-response.payload';
 import PostResponsePayload from 'src/app/models/post-response.payload';
 import UserDetailsResponsePayload from 'src/app/models/user-details-response.payload';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { NotificationMessage } from 'src/app/services/notification/notification-message.enum';
+import { NotificationType } from 'src/app/services/notification/notification-type.enum';
+import { NotificationService } from 'src/app/services/notification/notification.service';
 import { PostService } from 'src/app/services/post/post.service';
+import { UserService } from 'src/app/services/user/user.service';
 import { EditProfileDialogComponent } from './edit-profile-dialog/edit-profile-dialog.component';
+import { FollowersDialogComponent } from './followers-dialog/followers-dialog.component';
 
 @Component({
   selector: 'app-profile',
@@ -23,13 +29,12 @@ export class ProfileComponent implements OnInit {
   loggedUser!: string;
   username!: string;
 
-  userDetailsResponsePayload !: UserDetailsResponsePayload;
+  userDetailsResponsePayload!: UserDetailsResponsePayload;
   jpgFormat: string = 'data:image/jpeg;base64,';
   userProfilePicture!: string;
   userBackgroundPicture!: string;
 
   postList!: PostResponsePayload[];
-
 
   isUserProfileFollowed!: boolean;
 
@@ -38,20 +43,44 @@ export class ProfileComponent implements OnInit {
     private activatedRouter: ActivatedRoute,
     private authService: AuthService,
     public dialog: MatDialog,
-    private postService: PostService
-  ) { }
+    private postService: PostService,
+    private notificationService: NotificationService,
+    private userService: UserService
+  ) {
+    this.userDetailsResponsePayload = {
+      id: 0,
+      username: '',
+      name: '',
+      createdAt: '',
+      tweetNo: 0,
+      followingNo: 0,
+      followerNo: 0,
+      userProfilePicture: 0,
+      userBackgroundPicture: 0,
+      following: [],
+      followers: []
+    }
+
+  }
 
   ngOnInit(): void {
 
+    // Get currently logged user
     this.loggedUser = this.authService.getUsernameFromLocalStorage();
 
     // Get username from activated route http://localhost:4200/profile/:username in sidebar
     this.username = this.activatedRouter.snapshot.params['username'];
+
+    // Check if user if followed
+    this.userService
+      .checkFollowing(this.loggedUser, this.username)
+      .subscribe((response: boolean) => this.isUserProfileFollowed = response.valueOf());
+
     // Get user details by username from acitvated route
     this.getUserDetails(this.username);
 
     // Refresh dynamiclly page after updating user details
-    this.authService.refreshNeeded$
+    this.userService.refreshNeeded$
       .subscribe(() => {
         this.getUserDetails(this.username);
       })
@@ -59,28 +88,12 @@ export class ProfileComponent implements OnInit {
     this.getPostsByUsername(this.username);
   }
 
-  // user = {
-  //   name: "Jason Hudson",
-  //   username: "j_hudson1976",
-  //   email: "jhudson@gmail.com",
-  //   password: secret_password,
-  //   telephoneNumber: 49959993,
-  //   imageUrl: "",
-  //   backgroundImageUrl: "",
-  //   description: "Call of Duty Black ops 2",
-  //   createdAt: "August 2014",
-  //   following: "235", // array.length
-  //   followers: "96", // array.length
-  //   tweets: "349", // array.length
-  //   comments: "43" // array.length
-  // }
-
   navigateBackToHomePage() {
     this.router.navigateByUrl('/');
   }
 
   getUserDetails(username: string) {
-    this.authService
+    this.userService
       .getUserByUsername(username)
       .subscribe(
         (userDetails) => {
@@ -91,7 +104,6 @@ export class ProfileComponent implements OnInit {
           console.log("Get userdetails in user profile: " + error)
         }
       );
-
   }
 
   openEditProfileDialog() {
@@ -108,10 +120,79 @@ export class ProfileComponent implements OnInit {
       })
   }
 
-  addFollowedUser() {
-    // this.authService.followUserProfile();
-    console.log("clicked")
+  followUser() {
+    this.userService
+      .followUser(this.username)
+      .subscribe(
+        () => {
+          this.notificationService.showNotification(
+            NotificationMessage.FollowUser,
+            'OK',
+            NotificationType.Success
+          );
+        }
+      )
     this.isUserProfileFollowed = !this.isUserProfileFollowed;
+  }
+
+  unfollowUser() {
+    this.userService
+      .unfollowUser(this.username)
+      .subscribe(
+        () => {
+          this.notificationService.showNotification(
+            NotificationMessage.UnfollowUser,
+            'OK',
+            NotificationType.Success
+          );
+        }
+      )
+    this.isUserProfileFollowed = !this.isUserProfileFollowed;
+  }
+
+  openFollowingDialog() {
+    const dialogConfig = this.passDataToDialog(
+      this.userDetailsResponsePayload.following,
+      this.userDetailsResponsePayload.followingNo,
+      false,
+      "Following"
+    );
+    this.dialog.open(FollowersDialogComponent, dialogConfig);
+  }
+
+  openFollowerDialog() {
+    const dialogConfig = this.passDataToDialog(
+      this.userDetailsResponsePayload.followers,
+      this.userDetailsResponsePayload.followerNo,
+      true,
+      "Followers"
+    );
+    this.dialog.open(FollowersDialogComponent, dialogConfig);
+  }
+
+  private passDataToDialog(
+    follows: FollowerDto[],
+    followsNo: number,
+    isFollowerDialogOpened: boolean,
+    dialogName: string
+  ) {
+
+    var isLoggedUserProfile = false;
+    if (this.loggedUser == this.username) {
+      isLoggedUserProfile = true;
+    }
+
+    const dialogConfig = new MatDialogConfig;
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = {
+      follows: follows,
+      followsNo: followsNo,
+      isFollowerDialogOpened: isFollowerDialogOpened,
+      isLoggedUserProfile: isLoggedUserProfile,
+      dialogName: dialogName
+    };
+    return dialogConfig;
   }
 
 }

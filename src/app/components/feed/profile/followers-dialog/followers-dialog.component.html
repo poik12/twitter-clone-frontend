@@ -1,0 +1,70 @@
+<div class="followersDialog__component">
+  <!-- Header -->
+  <div class="authDialog__header">
+    <mat-icon (click)="closeFollowersDialog()">close</mat-icon>
+    <fa-icon class="authDialog__headerIcon" [icon]="twitterIcon"></fa-icon>
+  </div>
+  <!-- Body -->
+  <div class="followersDialog__body">
+    <div class="followerDialog__header">{{ dialogName }}</div>
+    <div class="followerDialog__followerNo">{{ followsNo }}</div>
+
+    <div class="followerDialog__account" *ngFor="let follow of follows">
+      <!-- Profile Image -->
+      <img
+        class="followerDialog__accountImage"
+        src="{{ jpgFormat + follow.userProfilePicture }}"
+        alt=""
+      />
+      <!-- Account Info -->
+      <div class="followerDialog__accountInfo">
+        <!-- Name with verified icon -->
+        <div class="followerDialog__accountInfoName">
+          {{ follow.name }}
+          <fa-icon class="followerDialog__accountIcon" [icon]="verifiedIcon">
+          </fa-icon>
+        </div>
+        <!-- Username -->
+        <div class="followerDialog__accountInfoUsername">
+          @{{ follow.username }}
+        </div>
+        <!-- Follows You text -->
+        <div class="followerDialog__accounFollows">Follows you</div>
+      </div>
+      <!-- Check which dialog was open - follower or following in profile -->
+      <ng-container
+        *ngIf="
+          isFollowerDialogOpened;
+          then followerDialog;
+          else followingDialog
+        "
+      ></ng-container>
+      <!-- Follower Dialog -->
+      <ng-template #followerDialog>
+        <ng-container
+          *ngIf="
+            isLoggedUserProfile;
+            then followingButton;
+            else followingTweetNo
+          "
+        ></ng-container>
+        <ng-template #followingButton>
+          <div class="followerDialog__button">
+            <button>Follow</button>
+          </div>
+        </ng-template>
+        <ng-template #followingTweetNo>
+          <div class="followerDialog__button">
+            <strong>Following</strong>
+          </div>
+        </ng-template>
+      </ng-template>
+      <!-- Following dialog -->
+      <ng-template #followingDialog>
+        <div class="followerDialog__button">
+          <strong>{{ follow.tweetNo }} Tweets</strong>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

@@ -1,3 +1,4 @@
+import { NotificationMessage } from 'src/app/services/notification/notification-message.enum';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SignUpRequestPayload } from 'src/app/models/sign-up-request.payload';
@@ -5,6 +6,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { NotificationService } from 'src/app/services/notification/notification.service';
+import { NotificationType } from 'src/app/services/notification/notification-type.enum';
 
 @Component({
   selector: 'app-sign-up-dialog',
@@ -62,16 +64,16 @@ export class SignUpDialogComponent implements OnInit {
         () => {
           console.log("Success");
           this.notificationService.showNotification(
-            'Registration was Successfull! Please check Your mailbox.',
+            NotificationMessage.RegistrationSuccess,
             'OK',
-            'success'
+            NotificationType.Success
           )
         },
         (error) => {
           this.notificationService.showNotification(
-            'Registration Failed! Please try again',
+            NotificationMessage.RegistrationError,
             'OK',
-            'error'
+            NotificationType.Error
           );
           console.log(error);
         }

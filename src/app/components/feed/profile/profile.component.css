@@ -19,6 +19,12 @@
   cursor: pointer;
 }
 
+.profile__headerSectionArrow:hover {
+  background-color: #e8f5fe;
+  border-radius: 30px;
+  margin-bottom: 10px;
+}
+
 .profile__headerSectionInfo {
   margin-top: 10px;
   margin-left: 10px;
@@ -96,29 +102,36 @@
   background-color: var(--twitter-color);
 }
 
-.profile__imageSectionAccountFollow > button {
+.followButton {
   border-radius: 30px;
   font-size: 18px;
   font-weight: bold;
   width: 150px;
-  color: var(--twitter-color);
   border: 1px solid var(--twitter-color);
-  background-color: white;
   outline: none;
+  color: var(--twitter-color);
+  background-color: white;
 }
 
-.profile__imageSectionAccountFollow > button:hover {
+.followButton:hover {
   color: white;
   background-color: var(--twitter-color);
 }
 
-.highlighted {
+.unfollowButton {
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: bold;
+  width: 150px;
+  border: 1px solid var(--twitter-color);
+  outline: none;
   color: white;
   background-color: var(--twitter-color);
 }
 
-.highlighted:hover {
+.unfollowButton:hover {
   background-color: red;
+  border: 1px solid red;
 }
 
 .profile__imageSectionInfo {
@@ -162,21 +175,23 @@
 }
 
 .profile__descriptionSectionParamsFollowing {
-  color: gray;
+  color: black;
   margin-right: 20px;
 }
 
-.profile__descriptionSectionParamsFollowing > strong {
-  color: black;
+.profile__descriptionSectionParamsFollowing > a:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .profile__descriptionSectionParamsFollowers {
-  color: gray;
+  color: black;
   margin-right: 20px;
 }
 
-.profile__descriptionSectionParamsFollowers > strong {
-  color: black;
+.profile__descriptionSectionParamsFollowers > a:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 ::ng-deep .mat-tab-label {

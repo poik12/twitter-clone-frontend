@@ -1,9 +1,11 @@
+import { NotificationMessage } from 'src/app/services/notification/notification-message.enum';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { faCheck, faComment, faRetweet, faHeart, faUpload, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import PostResponsePayload from 'src/app/models/post-response.payload';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { NotificationType } from 'src/app/services/notification/notification-type.enum';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { PostService } from 'src/app/services/post/post.service';
 import { HomeComponent } from '../feed/home/home.component';
@@ -78,9 +80,9 @@ export class PostComponent implements OnInit {
       .subscribe(
         () => {
           this.notificationService.showNotification(
-            'Post has been deleted succesfully',
+            NotificationMessage.PostDeletedSuccessfully,
             'OK',
-            'success'
+            NotificationType.Success
           );
           console.log("post deleted")
 

@@ -1,0 +1,88 @@
+.followersDialog__component {
+  width: 20vw;
+  height: 80vh;
+}
+
+.followersDialog__body {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.followerDialog__header {
+  font-size: 18px;
+  font-weight: bold;
+}
+.followerDialog__followerNo {
+  font-size: 16px;
+  color: gray;
+}
+
+.followerDialog__account {
+  display: flex;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  cursor: pointer;
+  border-top: 1px solid var(--twitter-background);
+  width: 100%;
+}
+
+.followerDialog__account:hover {
+  background-color: lightgray;
+}
+
+.followerDialog__accountImage {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+}
+
+.followerDialog__accountInfo {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.followerDialog__accountInfoName {
+  margin-right: 5px;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.followerDialog__accounFollows {
+  background-color: var(--twitter-background);
+  border-radius: 5px;
+}
+
+.followerDialog__accountIcon {
+  color: var(--twitter-color);
+}
+
+.followerDialog__accountInfoUsername {
+  color: var(--twitter-font-color);
+  text-align: left;
+}
+
+.followerDialog__button {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 5px;
+  margin-left: auto;
+}
+
+.followerDialog__button > button {
+  outline: none;
+  border: none;
+  border-radius: 20px;
+  background-color: black;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  height: 30px;
+  width: 100px;
+}
+
+.followerDialog__button > button:hover {
+  opacity: 0.8;
+}
