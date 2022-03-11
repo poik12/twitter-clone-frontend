@@ -61,15 +61,15 @@
   flex-grow: 1;
 }
 
-.conversation__user {
+.conversations__user {
   height: 67px;
   display: flex;
   padding-right: 5px;
   transition: all 0.4s ease-in-out;
   cursor: pointer;
 }
-.conversation__user:hover {
-  background-color: rgba(#ccc, 0.05);
+.conversations__user:hover {
+  background-color: var(--twitter-background);
 }
 
 .conversations__userPicture {
@@ -78,11 +78,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.conversations__userPicture > img {
-  max-width: 100%;
-  width: 48px;
+  border-bottom: 1px solid var(--twitter-background);
 }
 
 .conversations__userContent {

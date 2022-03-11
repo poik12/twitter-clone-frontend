@@ -11,11 +11,11 @@ import { tap } from 'rxjs/operators';
 export class UserService {
 
   private GET_USER_BY_USERNAME_URL = 'http://localhost:8080/api/v1/users/';
-  private UPDATE_USER_BY_USERNAME_URL = 'http://localhost:8080/api/v1/users/';
+  private UPDATE_USER_DETAILS_URL = 'http://localhost:8080/api/v1/users/';
 
-  private FOLLOW_USER_URL = 'http://localhost:8080/api/v1/users/follow/'
-  private UNFOLLOW_USER_URL = 'http://localhost:8080/api/v1/users/unfollow/'
-  private CHECK_FOLLOWER_URL = 'http://localhost:8080/api/v1/users/'
+  private FOLLOW_USER_URL = 'http://localhost:8080/api/v1/users/follow/';
+  private UNFOLLOW_USER_URL = 'http://localhost:8080/api/v1/users/unfollow/';
+  private CHECK_FOLLOWER_URL = 'http://localhost:8080/api/v1/users/';
 
   // After updating user details refresh page
   private _refreshNeeded$ = new Subject<void>();
@@ -35,7 +35,6 @@ export class UserService {
 
   // Update user details in profile page
   updateUserProfile(
-    username: string,
     userDetailsRequestPayload: UserDetailsRequestPayload,
     profileImage: File,
     backgroundImage: File
@@ -48,7 +47,7 @@ export class UserService {
     formData.append('userDetailsRequest', JSON.stringify(userDetailsRequestPayload));
 
     return this.httpClient
-      .put<any>(this.UPDATE_USER_BY_USERNAME_URL + username, formData)
+      .put<any>(this.UPDATE_USER_DETAILS_URL, formData)
       .pipe(
         tap(() => {
           this._refreshNeeded$.next();

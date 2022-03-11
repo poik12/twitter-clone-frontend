@@ -1,49 +1,83 @@
 <div class="messagesChat__container">
-  <!-- Header Seciton -->
-  <div class="messagesChat__header">
-    <!-- User name -->
-    <div class="messagesChat__name">Alex Mason, @mason</div>
-  </div>
+  <!-- If coversation is not seelcted then show empty body -->
+  <ng-container
+    *ngIf="conversation; then selectedConversation; else emptyBody"
+  ></ng-container>
 
-  <!-- Body Section -->
-  <div class="messagesChat__body">
-    <div class="messagesChat__message">
-      <div class="messagesChat__messageContent">
-        lkjlkjlkj;lmkl;jkl;j;lj
-        <div class="messagesChat__messageTime">12:44</div>
+  <!-- Empty body -->
+  <ng-template #emptyBody>
+    <!-- Header Seciton -->
+    <div class="messagesChat__header">
+      <!-- User name -->
+      <div class="messagesChat__name"></div>
+    </div>
+
+    <h1>SELECT CONVERSATION</h1>
+  </ng-template>
+
+  <!-- Selected conversation -->
+  <ng-template #selectedConversation>
+    <!-- Header Seciton -->
+    <div class="messagesChat__header">
+      <!-- User name -->
+      <div class="messagesChat__name">
+        {{ conversation.participantName }}, @{{
+          conversation.participantUsername
+        }}
       </div>
     </div>
-  </div>
 
-  <!-- Footer Section -->
-  <div class="messagesChat__footer">
-    <!-- Add picture of gif icons -->
-    <div class="messagesChat__iconsContainer">
-      <fa-icon class="messagesChat__icons" [icon]="imageIcon"> </fa-icon>
-      <fa-icon class="messagesChat__icons" [icon]="fileImageIcon"> </fa-icon>
-    </div>
-
-    <!-- Text area -->
-    <div class="messagesChat__textArea">
-      <textarea
-        [(ngModel)]="message"
-        (keyup.enter)="submitMessage($event)"
-        placeholder="Test private message..."
-      ></textarea>
-
-      <!-- Emoji picker -->
-      <!-- <i
-        (click)="toggledEmojiPicker = !toggledEmojiPicker"
-        [(emojiPickerIf)]="toggledEmojiPicker"
-        [emojiPickerDirection]="'bottom' || 'top' || 'left' || 'right'"
-        (emojiPickerSelect)="handleSelection($event)"
+    <!-- Body Section -->
+    <div class="messagesChat__body">
+      <div
+        class="messagesChat__message"
+        [ngClass]="{
+          messagesChat__messageByLoggedUser: message.loggedUser
+        }"
+        *ngFor="let message of conversation.messages"
       >
-        <fa-icon class="messagesChat__icons" [icon]="smileIcon"></fa-icon>
-      </i> -->
+        <div
+          class="messagesChat__messageContent"
+          [ngClass]="{
+            messagesChat__messageContentByLoggedUser: message.loggedUser
+          }"
+        >
+          {{ message.content }}
+          <div class="messagesChat__messageTime">{{ message.createdAt }}</div>
+        </div>
+      </div>
     </div>
 
-    <div class="messagesChat__sendMessage">
-      <fa-icon class="messagesChat__icons" [icon]="sendMessageIcon"> </fa-icon>
+    <!-- Footer Section -->
+    <div class="messagesChat__footer">
+      <!-- Add picture of gif icons -->
+      <div class="messagesChat__iconsContainer">
+        <fa-icon class="messagesChat__icons" [icon]="imageIcon"> </fa-icon>
+        <fa-icon class="messagesChat__icons" [icon]="fileImageIcon"> </fa-icon>
+      </div>
+
+      <!-- Text area -->
+      <div class="messagesChat__textArea">
+        <textarea
+          [(ngModel)]="message"
+          (keyup.enter)="submitMessage($event)"
+          placeholder="Text private message..."
+        ></textarea>
+
+        <!-- Emoji picker -->
+        <!-- <i
+      (click)="toggledEmojiPicker = !toggledEmojiPicker"
+      [(emojiPickerIf)]="toggledEmojiPicker"
+      [emojiPickerDirection]="'bottom' || 'top' || 'left' || 'right'"
+      (emojiPickerSelect)="handleSelection($event)"
+    >
+      <fa-icon class="messagesChat__icons" [icon]="smileIcon"></fa-icon>
+    </i> -->
+      </div>
+      <div class="messagesChat__sendMessage">
+        <fa-icon class="messagesChat__icons" [icon]="sendMessageIcon">
+        </fa-icon>
+      </div>
     </div>
-  </div>
+  </ng-template>
 </div>

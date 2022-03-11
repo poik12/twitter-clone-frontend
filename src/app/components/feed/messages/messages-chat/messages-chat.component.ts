@@ -1,5 +1,8 @@
+import { MessageService } from 'src/app/services/message/message.service';
+import ConversationResponsePayload from "src/app/models/conversation-response.payload"
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { faFileImage, faImage, faPaperPlane, faSmile } from '@fortawesome/free-solid-svg-icons';
+import MessageRequestPayload from 'src/app/models/message-request.payload';
 
 @Component({
   selector: 'app-messages-chat',
@@ -16,31 +19,48 @@ export class MessagesChatComponent implements OnInit {
   toggledEmojiPicker: boolean = false;
   message: string = '';
 
-  @Input() conversation: any;
+  // should be conversation response payload
+  // @Input() conversation!: ConversationResponsePayload;
+  @Input() conversation!: ConversationResponsePayload;
   @Output() onSubmit: EventEmitter<any> = new EventEmitter();
+  messageRequestpayload!: MessageRequestPayload
 
-  constructor() { }
+  constructor(
+    private messsageService: MessageService
+  ) { }
 
   ngOnInit(): void {
   }
-
-
 
   handleSelection(event: any) {
     this.message += event.char;
   }
 
   submitMessage($event: Event) {
-    // let value = $event.target.value.trim();
-    // this.message = '';
-    // if (value.length < 1) return false;
-    // this.conversation.latestMessage = value;
-    // this.conversation.messages.unshift({
-    //   id: 1,
-    //   body: value,
-    //   time: '10:21',
-    //   me: true,
-    // });
+    const element = $event.currentTarget as HTMLInputElement;
+    // clean white space
+    const value = element.value.trim();
+    if (value.length < 1) return;
+    // clean input
+    element.value = '';
+
+
+
+    this.messsageService.sendMessage(
+      this.conversation.participantUsername,
+      this.messageRequestpayload
+    )
+
+    const shortenValue = value.substring(0, 25) + "...";
+    this.conversation.latestMessageContent = shortenValue;
+
+    // this.conversation.messages.push(
+    //   { content: value, createdAt: '10:30', loggedUser: true }
+    // )
+
+    // const shortenValue = value.substring(0, 25) + "...";
+    // this.conversation.latestMessageContent = shortenValue;
+
   }
 
 

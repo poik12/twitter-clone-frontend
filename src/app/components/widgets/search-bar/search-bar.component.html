@@ -1,6 +1,12 @@
 <div class="searchBar__container">
   <div class="searchBar">
     <fa-icon class="searchBar__icon" [icon]="searchIcon"> </fa-icon>
-    <input class="searchBar__input" type="text" placeholder="Search Twitter" />
+    <input
+      [(ngModel)]="searchText"
+      (ngModelChange)="search()"
+      class="searchBar__input"
+      type="text"
+      placeholder="Search Twitter"
+    />
   </div>
 </div>

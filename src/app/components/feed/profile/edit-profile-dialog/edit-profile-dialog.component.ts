@@ -49,8 +49,6 @@ export class EditProfileDialogComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.username = this.authService.getUsernameFromLocalStorage();
-
     this.editProfileForm = new FormGroup({
       name: new FormControl(''),
       username: new FormControl(''),
@@ -75,7 +73,6 @@ export class EditProfileDialogComponent implements OnInit {
 
     this.userService
       .updateUserProfile(
-        this.username,
         this.userDetailsRequestPayload,
         this.selectedProfileImage,
         this.selectedBackgroundImage

@@ -1,10 +1,12 @@
 <div class="messages__container">
   <div class="messages__sidebar">
     <app-messages-sidebar
-      (conversationClicked)="onConseversationSelected($event)"
+      (conversationSelected)="onConseversationSelected($event)"
     ></app-messages-sidebar>
   </div>
   <div class="messages__chat">
-    <app-messages-chat></app-messages-chat>
+    <app-messages-chat
+      [conversation]="selectedConversation"
+    ></app-messages-chat>
   </div>
 </div>
