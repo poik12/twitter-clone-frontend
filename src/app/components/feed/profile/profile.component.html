@@ -43,24 +43,48 @@
           alt="user"
         />
       </div>
+
       <!-- Section for logged user or not -->
       <ng-container
         *ngIf="username === loggedUser; then profileBlock; else userBlock"
       ></ng-container>
+
       <!-- If profile belongs to logged user -> show edit profile button -->
       <ng-template #profileBlock>
         <div class="profile__imageSectionAccountEdit">
           <button (click)="openEditProfileDialog()">Edit profile</button>
         </div>
       </ng-template>
+
       <!-- If profile doesn't belong to logged user -> show follow button button -->
       <ng-template #userBlock>
         <div class="profile__imageSectionAccountFollow">
+          <!-- Notification Icon -->
           <fa-icon
             class="profile_followIcons"
             [icon]="notificationIcon"
           ></fa-icon>
-          <fa-icon class="profile_followIcons" [icon]="moreIcon"></fa-icon>
+
+          <!-- Menu button -->
+          <fa-icon
+            class="profile_followIcons"
+            [icon]="moreIcon"
+            mat-icon-button
+            [matMenuTriggerFor]="profileMenu"
+          ></fa-icon>
+
+          <!-- Menu options -->
+          <mat-menu #profileMenu="matMenu">
+            <button mat-menu-item (click)="startConversation()">
+              <mat-icon>message</mat-icon>
+              <span>Start conversation</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon>report</mat-icon>
+              <span>Report user</span>
+            </button>
+          </mat-menu>
+
           <!-- State of follow button -->
           <ng-container
             *ngIf="
@@ -129,13 +153,26 @@
   </div>
   <!-- Tabs -->
   <mat-tab-group>
+    <!-- Tweets -->
     <mat-tab label="Tweets">
       <ng-container *ngFor="let post of postList">
         <app-post [post]="post"></app-post>
       </ng-container>
     </mat-tab>
+
+    <!-- Tweets&Replies -->
     <mat-tab label="Tweets & replies"> Content 2 </mat-tab>
+
+    <!-- Media -->
     <mat-tab label="Media"> Content 3 </mat-tab>
-    <mat-tab label="Likes"> Content 3 </mat-tab>
+
+    <!-- Likes -->
+    <mat-tab label="Likes">
+      <ng-container
+        *ngFor="let likedPost of userDetailsResponsePayload.likedPosts"
+      >
+        <app-post [post]="likedPost" [isPostLikedByUser]="true"></app-post>
+      </ng-container>
+    </mat-tab>
   </mat-tab-group>
 </div>

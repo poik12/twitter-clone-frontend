@@ -1,6 +1,6 @@
 export default interface MessageRequestPayload {
 
-  conversationId: Number,
+  conversationId: number,
   content: string
 
 }

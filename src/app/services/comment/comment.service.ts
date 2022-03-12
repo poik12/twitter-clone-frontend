@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import CommentRequestPayload from 'src/app/models/comment-request.payload';
-import CommentResponsePayload from 'src/app/models/comment-response.payload';
+import CommentRequestPayload from 'src/app/models/request-dto/comment-request.payload';
+import CommentResponsePayload from 'src/app/models/response-dto/comment-response.payload';
 import { tap } from 'rxjs/operators';
 
 @Injectable({

@@ -1,8 +1,8 @@
 import { Observable } from 'rxjs/internal/Observable';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import PostRequestPayload from 'src/app/models/post-request.payload';
-import PostResponsePayload from 'src/app/models/post-response.payload';
+import PostRequestPayload from 'src/app/models/request-dto/post-request.payload';
+import PostResponsePayload from 'src/app/models/response-dto/post-response.payload';
 import { Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -11,11 +11,13 @@ import { tap } from 'rxjs/operators';
 })
 export class PostService {
 
-  private GET_POSTS = "http://localhost:8080/api/v1/posts"
-  private GET_POST_BY_ID = "http://localhost:8080/api/v1/posts/"
-  private GET_POST_BY_USERNAME = "http://localhost:8080/api/v1/posts/by-user/"
-  private CREATE_POST = 'http://localhost:8080/api/v1/posts';
-  private DELETE_POST_BY_ID = 'http://localhost:8080/api/v1/posts/';
+  private GET_POSTS_URL = "http://localhost:8080/api/v1/posts"
+  private GET_POST_BY_ID_URL = "http://localhost:8080/api/v1/posts/"
+  private GET_POST_BY_USERNAME_URL = "http://localhost:8080/api/v1/posts/by-user/"
+  private CREATE_POST_URL = 'http://localhost:8080/api/v1/posts';
+  private DELETE_POST_BY_ID_URL = 'http://localhost:8080/api/v1/posts/';
+  private LIKE_POST_URL = 'http://localhost:8080/api/v1/posts/like/';
+  private GET_LIKED_POSTS_URL = "http://localhost:8080/api/v1/posts/like";
 
   // After adding post refresh page
   private _refreshNeeded$ = new Subject<void>();
@@ -29,7 +31,7 @@ export class PostService {
   }
 
   getAllPosts(): Observable<Array<PostResponsePayload>> {
-    return this.httpClient.get<Array<PostResponsePayload>>(this.GET_POSTS);
+    return this.httpClient.get<Array<PostResponsePayload>>(this.GET_POSTS_URL);
   }
 
   createPost(
@@ -44,24 +46,30 @@ export class PostService {
     formData.append('postRequest', JSON.stringify(postRequestPayload));
 
     return this.httpClient
-      .post(this.CREATE_POST, formData)
+      .post(this.CREATE_POST_URL, formData)
       .pipe(tap(() => this._refreshNeeded$.next()))
   }
 
   getPostById(id: number): Observable<PostResponsePayload> {
-    return this.httpClient.get<PostResponsePayload>(this.GET_POST_BY_ID + id)
+    return this.httpClient.get<PostResponsePayload>(this.GET_POST_BY_ID_URL + id)
   }
 
   getPostByUsername(username: string): Observable<Array<PostResponsePayload>> {
-    return this.httpClient.get<Array<PostResponsePayload>>(this.GET_POST_BY_USERNAME + username)
+    return this.httpClient.get<Array<PostResponsePayload>>(this.GET_POST_BY_USERNAME_URL + username)
   }
 
   // Post parameters
-  likePost() {
-    throw new Error('Method not implemented.');
+  likePost(postId: number): Observable<any> {
+    return this.httpClient
+      .get<any>(this.LIKE_POST_URL + postId)
+      .pipe(tap(() => this._refreshNeeded$.next()));
+  }
+
+  getLikedPostsForLoggedUser(): Observable<Array<PostResponsePayload>> {
+    return this.httpClient.get<Array<PostResponsePayload>>(this.GET_LIKED_POSTS_URL)
   }
 
   deletePostById(postId: number): Observable<any> {
-    return this.httpClient.delete<any>(this.DELETE_POST_BY_ID + postId);
+    return this.httpClient.delete<any>(this.DELETE_POST_BY_ID_URL + postId);
   }
 }

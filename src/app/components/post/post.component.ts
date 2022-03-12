@@ -3,7 +3,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { faCheck, faComment, faRetweet, faHeart, faUpload, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
-import PostResponsePayload from 'src/app/models/post-response.payload';
+import PostResponsePayload from 'src/app/models/response-dto/post-response.payload';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { NotificationType } from 'src/app/services/notification/notification-type.enum';
 import { NotificationService } from 'src/app/services/notification/notification.service';
@@ -34,9 +34,12 @@ export class PostComponent implements OnInit {
 
   @Output() public handleDeletePost: EventEmitter<any> = new EventEmitter<any>()
 
+  @Input() isPostLikedByUser: boolean = false;
+
   tweetParams = {
-    likesCount: 10,
-    isPostLiked: false,
+    isPostLiked!: false,
+    commentCount: 0,
+    likesCount: 0,
   }
 
   constructor(
@@ -50,9 +53,11 @@ export class PostComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.post.username;
     this.retrievedImageFromDb = this.jpgFormat + this.post.fileContent;
     this.userProfileImage = this.jpgFormat + this.post.userProfilePicture;
+
+    this.tweetParams.commentCount = this.post.commentNo;
+    this.tweetParams.likesCount = this.post.likeNo;
   }
 
   navigateToPostDetails() {

@@ -14,9 +14,11 @@ export class PostParametersComponent implements OnInit {
   loveIcon = faHeart;
   uploadIcon = faUpload;
 
+  @Input('postId') postId!: number;
   // Post parameters
   @Input('isPostLiked') isPostLiked!: boolean;
   @Input('likesCount') likesCount!: number;
+  @Input('commentCount') commentCount!: number;
 
   constructor(
     private postService: PostService
@@ -28,10 +30,12 @@ export class PostParametersComponent implements OnInit {
   LikePost($event: Event) {
     $event.stopPropagation();
 
-    // this.postService.likePost();
+    this.postService
+      .likePost(this.postId)
+      .subscribe(() => console.log("Post liked/disliked"));
 
-    this.likesCount += this.isPostLiked ? -1 : 1;
-    this.isPostLiked = !this.isPostLiked;
+    // this.likesCount += this.isPostLiked ? -1 : 1;
+    // this.isPostLiked = !this.isPostLiked;
   }
 
 }

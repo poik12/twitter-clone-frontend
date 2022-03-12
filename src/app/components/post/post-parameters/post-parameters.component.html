@@ -2,12 +2,12 @@
   <!-- Comment -->
   <div class="postParameter__comment">
     <fa-icon class="postParameter__icon" [icon]="commentIcon"> </fa-icon>
-    <span>897</span>
+    <span>{{ commentCount }}</span>
   </div>
   <!-- Shared -->
   <div class="postParameter__shared">
     <fa-icon class="postParameter__icon" [icon]="shareIcon"> </fa-icon
-    ><span>623</span>
+    ><span>0</span>
   </div>
   <!-- Liked -->
   <div class="postParameter__loved" (click)="LikePost($event)">

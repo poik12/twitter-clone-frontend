@@ -2,8 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
-import FollowerDto from 'src/app/models/follower-response.payload';
-import UserDetailsResponsePayload from 'src/app/models/user-details-response.payload';
+import FollowerDto from 'src/app/models/response-dto/follower-response.payload';
+import UserDetailsResponsePayload from 'src/app/models/response-dto/user-details-response.payload';
 
 @Component({
   selector: 'app-followers-dialog',

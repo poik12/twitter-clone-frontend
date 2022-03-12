@@ -1,8 +1,9 @@
+import { AuthService } from './../../../../services/auth/auth.service';
 import { MessageService } from 'src/app/services/message/message.service';
-import ConversationResponsePayload from "src/app/models/conversation-response.payload"
+import ConversationResponsePayload from "src/app/models/response-dto/conversation-response.payload"
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { faFileImage, faImage, faPaperPlane, faSmile } from '@fortawesome/free-solid-svg-icons';
-import MessageRequestPayload from 'src/app/models/message-request.payload';
+import MessageRequestPayload from 'src/app/models/request-dto/message-request.payload';
 
 @Component({
   selector: 'app-messages-chat',
@@ -16,25 +17,36 @@ export class MessagesChatComponent implements OnInit {
   sendMessageIcon = faPaperPlane;
   smileIcon = faSmile;
 
-  toggledEmojiPicker: boolean = false;
   message: string = '';
 
-  // should be conversation response payload
-  // @Input() conversation!: ConversationResponsePayload;
   @Input() conversation!: ConversationResponsePayload;
   @Output() onSubmit: EventEmitter<any> = new EventEmitter();
-  messageRequestpayload!: MessageRequestPayload
+  messageRequestPayload: MessageRequestPayload;
+  loggedUser: string = this.authService.getUsernameFromLocalStorage();
 
   constructor(
-    private messsageService: MessageService
-  ) { }
+    private messageService: MessageService,
+    private authService: AuthService
+  ) {
+
+    this.messageRequestPayload = {
+      conversationId: 0,
+      content: ""
+    }
+  }
 
   ngOnInit(): void {
+
+    this.messageService.refreshNeeded$
+      .subscribe(() => {
+        this.getMessagesForConversation(this.conversation.id)
+      })
+
   }
 
-  handleSelection(event: any) {
-    this.message += event.char;
-  }
+  // handleSelection(event: any) {
+  //   this.message += event.char;
+  // }
 
   submitMessage($event: Event) {
     const element = $event.currentTarget as HTMLInputElement;
@@ -43,25 +55,32 @@ export class MessagesChatComponent implements OnInit {
     if (value.length < 1) return;
     // clean input
     element.value = '';
-
-
-
-    this.messsageService.sendMessage(
-      this.conversation.participantUsername,
-      this.messageRequestpayload
-    )
-
-    const shortenValue = value.substring(0, 25) + "...";
-    this.conversation.latestMessageContent = shortenValue;
-
-    // this.conversation.messages.push(
-    //   { content: value, createdAt: '10:30', loggedUser: true }
-    // )
-
-    // const shortenValue = value.substring(0, 25) + "...";
-    // this.conversation.latestMessageContent = shortenValue;
-
+    // select message request payload
+    this.messageRequestPayload.conversationId = this.conversation.id;
+    this.messageRequestPayload.content = value;
+    // send message to message service
+    this.messageService
+      .sendMessage(this.messageRequestPayload)
+      .subscribe(() => console.log("message has been sent"));
   }
 
+  getMessagesForConversation(conversationId: number) {
+    this.messageService
+      .getConversationById(conversationId)
+      .subscribe((conversationResponse) => {
+        this.conversation.latestMessageContent = conversationResponse.latestMessageContent;
+        this.conversation.latestMessageTime = conversationResponse.latestMessageTime;
+        this.conversation.messages = conversationResponse.messages;
+      });
+  }
+
+  messageFromLoggedUser(senderUsername: string) {
+
+    if (senderUsername == this.loggedUser) {
+      return true;
+    }
+    return false;
+
+  }
 
 }

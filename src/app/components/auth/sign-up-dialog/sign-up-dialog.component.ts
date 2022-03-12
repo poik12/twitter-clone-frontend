@@ -1,7 +1,7 @@
 import { NotificationMessage } from 'src/app/services/notification/notification-message.enum';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { SignUpRequestPayload } from 'src/app/models/sign-up-request.payload';
+import { SignUpRequestPayload } from 'src/app/models/request-dto/sign-up-request.payload';
 import { MatDialogRef } from '@angular/material/dialog';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';

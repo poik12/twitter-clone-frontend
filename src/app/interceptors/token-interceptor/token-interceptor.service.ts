@@ -3,7 +3,7 @@ import { switchMap, catchError, filter, take } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { BehaviorSubject, Observable, throwError } from "rxjs";
-import SignInResponsePayload from 'src/app/models/sign-in-response.payload';
+import SignInResponsePayload from 'src/app/models/response-dto/sign-in-response.payload';
 
 @Injectable({
   providedIn: 'root'

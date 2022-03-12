@@ -1,10 +1,8 @@
 export default interface MessageResponsePayload {
 
   content: String,
-  senderId: number,
-  recipientId: number
+  senderUsername: string,
+  recipientUsername: string,
   createdAt: String,
-
-  loggedUser: boolean,
 
 }

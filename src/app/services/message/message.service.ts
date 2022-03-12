@@ -1,39 +1,50 @@
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import ConversationRequestPayload from 'src/app/models/conversation-request.payload';
-import MessageRequestPayload from 'src/app/models/message-request.payload';
-import ConversationResponsePayload from 'src/app/models/conversation-response.payload';
+import ConversationRequestPayload from 'src/app/models/request-dto/conversation-request.payload';
+import ConversationResponsePayload from 'src/app/models/response-dto/conversation-response.payload';
+import { tap } from 'rxjs/operators';
+import MessageResponsePayload from 'src/app/models/response-dto/message-response.payload';
+import MessageRequestPayload from 'src/app/models/request-dto/message-request.payload';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MessageService {
 
-  private ADD_CONVERSATION = "http://localhost:8080/api/v1/messages"
-  private GET_CONVERSATIONS = "http://localhost:8080/api/v1/messages"
-  private SEND_MESSAGE = "http://localhost:8080/api/v1/messages/"
+  private ADD_CONVERSATION_URL = "http://localhost:8080/api/v1/messages";
+  private GET_CONVERSATIONS_URL = "http://localhost:8080/api/v1/messages";
+  private SEND_MESSAGE_URL = "http://localhost:8080/api/v1/messages/send";
+  private GET_CONVERSATION_BY_ID_URL = "http://localhost:8080/api/v1/messages/";
 
-  // add refresh
+  // After sending message refresh page
+  private _refreshNeeded$ = new Subject<void>();
 
   constructor(
     private httpClient: HttpClient
   ) { }
 
+  get refreshNeeded$() {
+    return this._refreshNeeded$;
+  }
+
   addConversation(
     conversationRequestPaylaod: ConversationRequestPayload
   ): Observable<any> {
-    return this.httpClient.post(this.ADD_CONVERSATION, conversationRequestPaylaod);
+    return this.httpClient.post<any>(this.ADD_CONVERSATION_URL, conversationRequestPaylaod);
   }
 
   getAllConversations(): Observable<Array<ConversationResponsePayload>> {
-    return this.httpClient.get<Array<ConversationResponsePayload>>(this.GET_CONVERSATIONS);
+    return this.httpClient.get<Array<ConversationResponsePayload>>(this.GET_CONVERSATIONS_URL);
   }
 
-  sendMessage(
-    username: string,
-    messageRequestPayload: MessageRequestPayload
-  ): Observable<any> {
-    return this.httpClient.post(this.SEND_MESSAGE + username, messageRequestPayload);
+  sendMessage(messageRequestPayload: MessageRequestPayload): Observable<any> {
+    return this.httpClient
+      .post<any>(this.SEND_MESSAGE_URL, messageRequestPayload)
+      .pipe(tap(() => this._refreshNeeded$.next()));
+  }
+
+  getConversationById(conversationId: number): Observable<ConversationResponsePayload> {
+    return this.httpClient.get<ConversationResponsePayload>(this.GET_CONVERSATION_BY_ID_URL + conversationId);
   }
 }

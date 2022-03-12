@@ -1,11 +1,13 @@
+import ConversationRequestPayload from 'src/app/models/request-dto/conversation-request.payload';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
 import { faArrowLeft, faCalendar, faBell, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
-import FollowerDto from 'src/app/models/follower-response.payload';
-import PostResponsePayload from 'src/app/models/post-response.payload';
-import UserDetailsResponsePayload from 'src/app/models/user-details-response.payload';
+import FollowerDto from 'src/app/models/response-dto/follower-response.payload';
+import PostResponsePayload from 'src/app/models/response-dto/post-response.payload';
+import UserDetailsResponsePayload from 'src/app/models/response-dto/user-details-response.payload';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { MessageService } from 'src/app/services/message/message.service';
 import { NotificationMessage } from 'src/app/services/notification/notification-message.enum';
 import { NotificationType } from 'src/app/services/notification/notification-type.enum';
 import { NotificationService } from 'src/app/services/notification/notification.service';
@@ -38,6 +40,8 @@ export class ProfileComponent implements OnInit {
 
   isUserProfileFollowed!: boolean;
 
+  conversationRequestPayload: ConversationRequestPayload;
+
   constructor(
     private router: Router,
     private activatedRouter: ActivatedRoute,
@@ -45,7 +49,8 @@ export class ProfileComponent implements OnInit {
     public dialog: MatDialog,
     private postService: PostService,
     private notificationService: NotificationService,
-    private userService: UserService
+    private userService: UserService,
+    private messageService: MessageService,
   ) {
     this.userDetailsResponsePayload = {
       id: 0,
@@ -58,7 +63,12 @@ export class ProfileComponent implements OnInit {
       userProfilePicture: 0,
       userBackgroundPicture: 0,
       following: [],
-      followers: []
+      followers: [],
+      likedPosts: []
+    }
+
+    this.conversationRequestPayload = {
+      participantUsername: ''
     }
 
   }
@@ -86,6 +96,12 @@ export class ProfileComponent implements OnInit {
       })
 
     this.getPostsByUsername(this.username);
+
+    // Refresh dynamiclly page after adding post
+    this.postService.refreshNeeded$
+      .subscribe(() => {
+        this.getLikedPostsByUser()
+      })
   }
 
   navigateBackToHomePage() {
@@ -118,6 +134,17 @@ export class ProfileComponent implements OnInit {
       .subscribe((postResponse) => {
         this.postList = postResponse;
       })
+  }
+
+  startConversation() {
+    // set conversation request payload
+    this.conversationRequestPayload.participantUsername = this.username;
+    // send request to message service
+    this.messageService
+      .addConversation(this.conversationRequestPayload)
+      .subscribe(() => console.log("User added to conversation"));
+    this.router.navigateByUrl('/messages');
+
   }
 
   followUser() {
@@ -195,4 +222,12 @@ export class ProfileComponent implements OnInit {
     return dialogConfig;
   }
 
+
+  getLikedPostsByUser() {
+    console.log("after refresh liked posts")
+    this.postService
+      .getLikedPostsForLoggedUser()
+      .subscribe((postResponse) => this.userDetailsResponsePayload.likedPosts = postResponse);
+
+  }
 }

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { faCheck, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
-import CommentResponsePayload from 'src/app/models/comment-response.payload';
+import CommentResponsePayload from 'src/app/models/response-dto/comment-response.payload';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 

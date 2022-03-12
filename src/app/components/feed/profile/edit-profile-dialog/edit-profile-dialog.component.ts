@@ -6,7 +6,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { NotificationService } from 'src/app/services/notification/notification.service';
-import UserDetailsRequestPayload from 'src/app/models/user-details-request.payload';
+import UserDetailsRequestPayload from 'src/app/models/request-dto/user-details-request.payload';
 import { NotificationType } from 'src/app/services/notification/notification-type.enum';
 import { UserService } from 'src/app/services/user/user.service';
 

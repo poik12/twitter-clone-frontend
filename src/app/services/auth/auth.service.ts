@@ -1,9 +1,9 @@
 import { LocalStorageService } from 'ngx-webstorage';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Output, EventEmitter } from '@angular/core';
-import { SignUpRequestPayload } from 'src/app/models/sign-up-request.payload';
-import SignInRequestPayload from 'src/app/models/sign-in-request.payload';
-import SignInResponsePayload from 'src/app/models/sign-in-response.payload';
+import { SignUpRequestPayload } from 'src/app/models/request-dto/sign-up-request.payload';
+import SignInRequestPayload from 'src/app/models/request-dto/sign-in-request.payload';
+import SignInResponsePayload from 'src/app/models/response-dto/sign-in-response.payload';
 import { map, tap } from 'rxjs/operators'
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs'

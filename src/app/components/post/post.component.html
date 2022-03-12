@@ -95,8 +95,10 @@
       <!-- Post Parameters -->
       <div class="home__postParameters">
         <app-post-parameters
+          [postId]="post.id"
           [likesCount]="tweetParams.likesCount"
-          [isPostLiked]="tweetParams.isPostLiked"
+          [isPostLiked]="isPostLikedByUser"
+          [commentCount]="tweetParams.commentCount"
         ></app-post-parameters>
       </div>
     </div>

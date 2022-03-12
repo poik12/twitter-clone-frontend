@@ -4,7 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
-import SignInRequestPayload from 'src/app/models/sign-in-request.payload';
+import SignInRequestPayload from 'src/app/models/request-dto/sign-in-request.payload';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { NotificationType } from 'src/app/services/notification/notification-type.enum';
 import { NotificationService } from 'src/app/services/notification/notification.service';

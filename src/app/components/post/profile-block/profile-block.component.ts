@@ -1,6 +1,6 @@
 
 import { Component, Input, OnInit } from '@angular/core';
-import FollowerDto from 'src/app/models/follower-response.payload';
+import FollowerDto from 'src/app/models/response-dto/follower-response.payload';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({

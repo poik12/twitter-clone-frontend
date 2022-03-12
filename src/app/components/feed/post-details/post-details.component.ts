@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import CommentResponsePayload from 'src/app/models/comment-response.payload';
-import PostResponsePayload from 'src/app/models/post-response.payload';
+import CommentResponsePayload from 'src/app/models/response-dto/comment-response.payload';
+import PostResponsePayload from 'src/app/models/response-dto/post-response.payload';
 import { CommentService } from 'src/app/services/comment/comment.service';
 import { PostService } from 'src/app/services/post/post.service';
 

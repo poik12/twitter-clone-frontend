@@ -2,7 +2,8 @@ import { Observable } from 'rxjs';
 import { faEnvelope, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MessageService } from 'src/app/services/message/message.service';
-import ConversationResponsePayload from 'src/app/models/conversation-response.payload';
+import ConversationResponsePayload from 'src/app/models/response-dto/conversation-response.payload';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-messages-sidebar',
@@ -15,56 +16,17 @@ export class MessagesSidebarComponent implements OnInit {
   invitationsIcon = faAngleRight;
 
   conversations!: Array<ConversationResponsePayload>;
-  // @Output() conversationSelected: EventEmitter<any> = new EventEmitter();
   @Output() conversationSelected: EventEmitter<ConversationResponsePayload> = new EventEmitter();
+
+  loggedUser: string = this.authService.getUsernameFromLocalStorage();
+  jpgFormat: string = 'data:image/jpeg;base64,';
 
   searchTextFromSearchBar!: string;
 
-  // conversations = [
-  //   {
-  //     id: 1,
-  //     name: 'David',
-  //     username: 'david',
-  //     latestMessageTime: '8:21',
-  //     latestMessageContent: 'latest message from David',
-  //     latestMessageRead: false,
-  //     messages: [
-  //       { id: 1, content: 'Message from David MesMessage from David MeMessage from David MeMessage from David Me', time: '8:21', loggedUser: true },
-  //       { id: 2, content: 'How are you?', time: '8:21', loggedUser: false },
-  //       { id: 3, content: 'I am fine thanks', time: '8:21', loggedUser: true },
-  //       { id: 4, content: 'Glad to hear that', time: '8:21', loggedUser: false },
-  //     ],
-  //   },
-  //   {
-  //     id: 2,
-  //     name: 'James',
-  //     username: 'james',
-  //     latestMessageTime: '8:21',
-  //     latestMessageContent: 'latest message from James',
-  //     latestMessageRead: true,
-  //     messages: [
-  //       { id: 1, content: 'Message from James', time: '8:21', loggedUser: true },
-  //       { id: 2, content: 'How are you?', time: '8:21', loggedUser: false },
-  //       { id: 3, content: 'I am fine thanks', time: '8:21', loggedUser: true },
-  //       { id: 4, content: 'Glad to hear that', time: '8:21', loggedUser: false },
-  //     ],
-  //   },
-  //   {
-  //     id: 3,
-  //     name: 'Robin',
-  //     username: 'robin',
-  //     latestMessageTime: '8:21',
-  //     latestMessageContent: 'latest message from Robin',
-  //     latestMessageRead: true,
-  //     messages: [
-  //       { id: 1, content: 'Mesage from Robin', time: '8:21', loggedUser: true },
-  //       { id: 2, content: 'How are you?', time: '8:21', loggedUser: false },
-  //       { id: 3, content: 'I am fine thanks', time: '8:21', loggedUser: true },
-  //       { id: 4, content: 'Glad to hear that', time: '8:21', loggedUser: false },
-  //     ],
-  //   },
-  // ]
-
+  constructor(
+    private messageService: MessageService,
+    private authService: AuthService
+  ) { }
 
   get filteredConversations() {
     return this.conversations.filter((conversation) => {
@@ -79,10 +41,6 @@ export class MessagesSidebarComponent implements OnInit {
     });
   }
 
-  constructor(
-    private messageService: MessageService
-  ) { }
-
   ngOnInit(): void {
     this.getConversationHistory();
   }
@@ -91,17 +49,10 @@ export class MessagesSidebarComponent implements OnInit {
     this.searchTextFromSearchBar = $event;
   }
 
-
-
-  // getConversationHistory(): Observable<Array<ConversationResponsePayload>> {
-  //   // for logged user
-  //   this.messageService.getConversationHistory();
-  // }
-
   getConversationHistory() {
-    // for logged user
+    // conversatio history for logged user
     this.messageService
       .getAllConversations()
-      .subscribe(data => this.conversations = data);
+      .subscribe((data) => this.conversations = data);
   }
 }

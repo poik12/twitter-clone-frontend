@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { faHighlighter } from '@fortawesome/free-solid-svg-icons';
-import PostResponsePayload from 'src/app/models/post-response.payload';
+import PostResponsePayload from 'src/app/models/response-dto/post-response.payload';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { PostService } from 'src/app/services/post/post.service';
 

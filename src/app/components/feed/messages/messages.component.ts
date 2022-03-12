@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import ConversationResponsePayload from 'src/app/models/conversation-response.payload';
+import ConversationResponsePayload from 'src/app/models/response-dto/conversation-response.payload';
 
 @Component({
   selector: 'app-messages',
@@ -8,8 +8,6 @@ import ConversationResponsePayload from 'src/app/models/conversation-response.pa
 })
 export class MessagesComponent implements OnInit {
 
-  // there should be conversatin resposne payload
-  // selectedConversation!: ConversationResponsePayload;
   selectedConversation!: ConversationResponsePayload;
 
   constructor() { }
@@ -21,8 +19,5 @@ export class MessagesComponent implements OnInit {
     this.selectedConversation = $event;
   }
 
-  // onConseversationSelected($event: any) {
-  //   this.selectedConversation = $event;
-  // }
 
 }

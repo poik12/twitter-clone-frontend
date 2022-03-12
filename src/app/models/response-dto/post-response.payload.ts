@@ -4,11 +4,12 @@ export default interface PostResponsePayload {
   name: string;
   username: string;
   description: string;
-  postTimeDuration: String;
+  commentNo: number;
+  likeNo: number;
   createdAt: Date;
+  postTimeDuration: String;
 
   fileContent: any;
-
   userProfilePicture: any;
 
 }

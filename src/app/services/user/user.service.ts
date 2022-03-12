@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import UserDetailsResponsePayload from 'src/app/models/user-details-response.payload';
-import UserDetailsRequestPayload from 'src/app/models/user-details-request.payload';
+import UserDetailsResponsePayload from 'src/app/models/response-dto/user-details-response.payload';
+import UserDetailsRequestPayload from 'src/app/models/request-dto/user-details-request.payload';
 import { Subject, Observable } from 'rxjs'
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
