@@ -5,6 +5,7 @@
   background-color: white;
   border-bottom: 1px solid var(--twitter-background);
   display: flex;
+  z-index: 99;
 }
 
 .profile__headerSectionArrow {
@@ -201,4 +202,18 @@
   width: 148px !important;
   min-width: 50px !important;
   justify-content: center !important;
+}
+
+#scrollbar {
+  overflow-y: hidden;
+}
+
+#scrollbar:hover,
+#scrollbar:active,
+#scrollbar:focus {
+  overflow-y: auto;
+}
+
+.search-results {
+  height: 80vh;
 }

@@ -11,13 +11,16 @@ import { tap } from 'rxjs/operators';
 })
 export class PostService {
 
-  private GET_POSTS_URL = "http://localhost:8080/api/v1/posts"
+  private GET_POSTS_PAGE_URL = "http://localhost:8080/api/v1/posts/"
   private GET_POST_BY_ID_URL = "http://localhost:8080/api/v1/posts/"
-  private GET_POST_BY_USERNAME_URL = "http://localhost:8080/api/v1/posts/by-user/"
+  private GET_POSTS_PAGE_BY_USERNAME_URL = "http://localhost:8080/api/v1/posts/by-user/"
   private CREATE_POST_URL = 'http://localhost:8080/api/v1/posts';
   private DELETE_POST_BY_ID_URL = 'http://localhost:8080/api/v1/posts/';
   private LIKE_POST_URL = 'http://localhost:8080/api/v1/posts/like/';
-  private GET_LIKED_POSTS_URL = "http://localhost:8080/api/v1/posts/like";
+  // private GET_LIKED_POSTS_URL = "http://localhost:8080/api/v1/posts/like";
+  private GET_LIKED_POSTS_BY_USERNAME_URL = "http://localhost:8080/api/v1/posts/like/by-user/"
+
+  pageSize: number = 10;
 
   // After adding post refresh page
   private _refreshNeeded$ = new Subject<void>();
@@ -30,8 +33,8 @@ export class PostService {
     return this._refreshNeeded$;
   }
 
-  getAllPosts(): Observable<Array<PostResponsePayload>> {
-    return this.httpClient.get<Array<PostResponsePayload>>(this.GET_POSTS_URL);
+  getAllPosts(pageNumber: number): Observable<PostResponsePayload[]> {
+    return this.httpClient.get<PostResponsePayload[]>(this.GET_POSTS_PAGE_URL + `?pageNumber=${pageNumber}&pageSize=${this.pageSize}`);
   }
 
   createPost(
@@ -54,19 +57,18 @@ export class PostService {
     return this.httpClient.get<PostResponsePayload>(this.GET_POST_BY_ID_URL + id)
   }
 
-  getPostByUsername(username: string): Observable<Array<PostResponsePayload>> {
-    return this.httpClient.get<Array<PostResponsePayload>>(this.GET_POST_BY_USERNAME_URL + username)
+  getPostsByUsername(username: string, pageNumber: number): Observable<PostResponsePayload[]> {
+    return this.httpClient.get<PostResponsePayload[]>(this.GET_POSTS_PAGE_BY_USERNAME_URL + username + `?pageNumber=${pageNumber}&pageSize=${this.pageSize}`)
   }
 
-  // Post parameters
   likePost(postId: number): Observable<any> {
     return this.httpClient
       .get<any>(this.LIKE_POST_URL + postId)
       .pipe(tap(() => this._refreshNeeded$.next()));
   }
 
-  getLikedPostsForLoggedUser(): Observable<Array<PostResponsePayload>> {
-    return this.httpClient.get<Array<PostResponsePayload>>(this.GET_LIKED_POSTS_URL)
+  getLikedPostsByUsername(username: string, pageNumber: number): Observable<PostResponsePayload[]> {
+    return this.httpClient.get<Array<PostResponsePayload>>(this.GET_LIKED_POSTS_BY_USERNAME_URL + username + `?pageNumber=${pageNumber}&pageSize=${this.pageSize}`);
   }
 
   deletePostById(postId: number): Observable<any> {

@@ -1,7 +1,12 @@
+.main__container {
+  overflow: block;
+}
+
 .home__header {
   position: sticky;
   top: 0;
-  height: 60px;
+  /* height: 60px; */
+  height: 6vh;
   background-color: white;
   border-bottom: 1px solid var(--twitter-background);
   padding: 15px 20px;
@@ -21,4 +26,18 @@
   font-size: 20px;
   margin-top: auto;
   margin-bottom: auto;
+}
+
+#scrollbar {
+  overflow-y: hidden;
+}
+
+#scrollbar:hover,
+#scrollbar:active,
+#scrollbar:focus {
+  overflow-y: auto;
+}
+
+.search-results {
+  height: 80vh;
 }

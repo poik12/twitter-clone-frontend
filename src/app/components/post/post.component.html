@@ -97,7 +97,7 @@
         <app-post-parameters
           [postId]="post.id"
           [likesCount]="tweetParams.likesCount"
-          [isPostLiked]="isPostLikedByUser"
+          [isPostLiked]="post.likedByLoggedUser"
           [commentCount]="tweetParams.commentCount"
         ></app-post-parameters>
       </div>

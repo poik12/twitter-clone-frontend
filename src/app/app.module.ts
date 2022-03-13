@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFileUploaderModule } from "angular-file-uploader";
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { FormsModule } from '@angular/forms';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { InfiniteScrollDirective, InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
 // Material
@@ -58,6 +58,8 @@ import { MessagesSidebarComponent } from './components/feed/messages/messages-si
 import { MessagesChatComponent } from './components/feed/messages/messages-chat/messages-chat.component';
 import { SearchBarComponent } from './components/widgets/search-bar/search-bar.component';
 import { FollowersDialogComponent } from './components/feed/profile/followers-dialog/followers-dialog.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 
 
 const globalRippleConfig: RippleGlobalOptions = {
@@ -104,7 +106,8 @@ const globalRippleConfig: RippleGlobalOptions = {
     MessagesSidebarComponent,
     MessagesChatComponent,
     SearchBarComponent,
-    FollowersDialogComponent
+    FollowersDialogComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -120,7 +123,8 @@ const globalRippleConfig: RippleGlobalOptions = {
     // AngularFileUploaderModule,
     NgxFileDropModule,
     InfiniteScrollModule,
-    ScrollingModule,
+    NgxSpinnerModule,
+    // ScrollingModule,
 
     TextareaAutosizeModule,
   ],

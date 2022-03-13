@@ -12,4 +12,6 @@ export default interface PostResponsePayload {
   fileContent: any;
   userProfilePicture: any;
 
+  likedByLoggedUser: boolean;
+
 }

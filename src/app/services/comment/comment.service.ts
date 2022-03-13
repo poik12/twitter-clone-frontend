@@ -32,12 +32,12 @@ export class CommentService {
       .pipe(tap(() => this._refreshNeeded$.next()));
   }
 
-  getAllCommentsForPostId(postId: number): Observable<CommentResponsePayload[]> {
-    return this.httpClient.get<CommentResponsePayload[]>(this.GET_COMMENTS_BY_POST_ID_URL + postId);
+  getAllCommentsForPostId(postId: number, pageNumber: number): Observable<CommentResponsePayload[]> {
+    return this.httpClient.get<CommentResponsePayload[]>(this.GET_COMMENTS_BY_POST_ID_URL + postId + `?pageNumber=${pageNumber}&pageSize=10`);
   }
 
-  getAllCommentsForUsername(username: string): Observable<CommentResponsePayload[]> {
-    return this.httpClient.get<CommentResponsePayload[]>(this.GET_COMMENTS_BY_USERNAME_URL + username);
+  getAllCommentsForUsername(username: string, pageNumber: number): Observable<CommentResponsePayload[]> {
+    return this.httpClient.get<CommentResponsePayload[]>(this.GET_COMMENTS_BY_USERNAME_URL + username + `?pageNumber=${pageNumber}&pageSize=10`);
   }
 
 }

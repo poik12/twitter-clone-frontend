@@ -32,3 +32,17 @@
   font-weight: bold;
   font-size: 20px;
 }
+
+#scrollbar {
+  overflow-y: hidden;
+}
+
+#scrollbar:hover,
+#scrollbar:active,
+#scrollbar:focus {
+  overflow-y: auto;
+}
+
+.search-results {
+  height: 80vh;
+}

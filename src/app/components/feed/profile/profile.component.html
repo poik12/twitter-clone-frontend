@@ -75,7 +75,7 @@
 
           <!-- Menu options -->
           <mat-menu #profileMenu="matMenu">
-            <button mat-menu-item (click)="startConversation()">
+            <button mat-menu-item (click)="addUserToConversation()">
               <mat-icon>message</mat-icon>
               <span>Start conversation</span>
             </button>
@@ -155,9 +155,25 @@
   <mat-tab-group>
     <!-- Tweets -->
     <mat-tab label="Tweets">
-      <ng-container *ngFor="let post of postList">
-        <app-post [post]="post"></app-post>
-      </ng-container>
+      <!-- Tweets loaded with inifnite scroll and loading spinner -->
+      <div
+        class="search-results"
+        infiniteScroll
+        [scrollWindow]="false"
+        [infiniteScrollDistance]="2"
+        [infiniteScrollThrottle]="50"
+        (scrolled)="onScrollTweets()"
+        id="scrollbar"
+      >
+        <!-- Each Post Block -->
+        <ng-container *ngFor="let post of postList">
+          <app-post [post]="post"></app-post>
+        </ng-container>
+        <!-- Loading spinner -->
+        <app-loading-spinner
+          [notEmptyPage]="notEmptyAnotherTweetPage"
+        ></app-loading-spinner>
+      </div>
     </mat-tab>
 
     <!-- Tweets&Replies -->
@@ -168,11 +184,25 @@
 
     <!-- Likes -->
     <mat-tab label="Likes">
-      <ng-container
-        *ngFor="let likedPost of userDetailsResponsePayload.likedPosts"
+      <!-- Tweets loaded with inifnite scroll and loading spinner -->
+      <div
+        class="search-results"
+        infiniteScroll
+        [scrollWindow]="false"
+        [infiniteScrollDistance]="2"
+        [infiniteScrollThrottle]="50"
+        (scrolled)="onScrollLikedTweets()"
+        id="scrollbar"
       >
-        <app-post [post]="likedPost" [isPostLikedByUser]="true"></app-post>
-      </ng-container>
+        <!-- Each Liked Post Block -->
+        <ng-container *ngFor="let likedPost of likedPostList">
+          <app-post [post]="likedPost"></app-post>
+        </ng-container>
+        <!-- Loading spinner -->
+        <app-loading-spinner
+          [notEmptyPage]="notEmptyAnotherLikedTweetPage"
+        ></app-loading-spinner>
+      </div>
     </mat-tab>
   </mat-tab-group>
 </div>

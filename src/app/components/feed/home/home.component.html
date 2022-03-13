@@ -18,11 +18,26 @@
     <app-tweetbox [isPostSection]="isPostSection"></app-tweetbox>
   </ng-template>
 
-  <!-- Posts -->
-  <ng-container *ngFor="let post of postList">
-    <app-post
-      [post]="post"
-      (handleDeletePost)="handleDeletePost($event)"
-    ></app-post>
-  </ng-container>
+  <!-- Posts loaded with inifnite scroll and loading spinner -->
+  <div
+    class="search-results"
+    infiniteScroll
+    [scrollWindow]="false"
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="50"
+    (scrolled)="onScroll()"
+    id="scrollbar"
+  >
+    <!-- Each Post Block -->
+    <ng-container *ngFor="let post of postList">
+      <app-post
+        [post]="post"
+        (handleDeletePost)="handleDeletePost($event)"
+      ></app-post>
+    </ng-container>
+    <!-- Loading spinner -->
+    <app-loading-spinner
+      [notEmptyPage]="notEmptyAnotherTweetPage"
+    ></app-loading-spinner>
+  </div>
 </div>

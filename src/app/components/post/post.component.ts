@@ -34,7 +34,7 @@ export class PostComponent implements OnInit {
 
   @Output() public handleDeletePost: EventEmitter<any> = new EventEmitter<any>()
 
-  @Input() isPostLikedByUser: boolean = false;
+  // @Input() isPostLikedByUser: boolean = false;
 
   tweetParams = {
     isPostLiked!: false,

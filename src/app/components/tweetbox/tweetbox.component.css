@@ -1,6 +1,8 @@
 .home__tweetBox {
   display: flex;
   flex-direction: column;
+  height: 16vh;
+  border-bottom: 1vh solid var(--twitter-background);
 }
 
 .home__tweetBoxTop {
@@ -46,7 +48,6 @@
   margin-top: 10px;
   display: flex;
   padding-bottom: 10px;
-  border-bottom: 10px solid var(--twitter-background);
 }
 
 .home__tweetBoxBottomButtons {

@@ -28,7 +28,7 @@ export class MessageService {
     return this._refreshNeeded$;
   }
 
-  addConversation(
+  addUserToConversation(
     conversationRequestPaylaod: ConversationRequestPayload
   ): Observable<any> {
     return this.httpClient.post<any>(this.ADD_CONVERSATION_URL, conversationRequestPaylaod);

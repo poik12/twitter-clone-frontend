@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { faCheck, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import CommentResponsePayload from 'src/app/models/response-dto/comment-response.payload';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -15,6 +15,8 @@ export class CommentComponent implements OnInit {
   verifiedIcon = faCheck;
 
   @Input() comment!: CommentResponsePayload;
+
+  @Output() public handleDeleteComment: EventEmitter<any> = new EventEmitter<any>()
 
   profileImage!: string;
   jpgFormat: string = 'data:image/jpeg;base64,';

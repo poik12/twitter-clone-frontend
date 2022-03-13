@@ -15,6 +15,8 @@ import { PostService } from 'src/app/services/post/post.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { EditProfileDialogComponent } from './edit-profile-dialog/edit-profile-dialog.component';
 import { FollowersDialogComponent } from './followers-dialog/followers-dialog.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-profile',
@@ -28,66 +30,58 @@ export class ProfileComponent implements OnInit {
   notificationIcon = faBell;
   moreIcon = faEllipsisH;
 
-  loggedUser!: string;
-  username!: string;
+  loggedUser: string;
+  username: string;
 
   userDetailsResponsePayload!: UserDetailsResponsePayload;
-  jpgFormat: string = 'data:image/jpeg;base64,';
   userProfilePicture!: string;
   userBackgroundPicture!: string;
+  jpgFormat: string = 'data:image/jpeg;base64,';
 
-  postList!: PostResponsePayload[];
+  postList: PostResponsePayload[] = []; // user tweets list
+  likedPostList: PostResponsePayload[] = []; // user liked tweets list
+
+  // Loading spinner for retrieving data from db
+  currentTweetPageNumber: number = 1;
+  notEmptyAnotherTweetPage: boolean = true;
+  notScrollableTweet: boolean = true;
+
+  currentLikedTweetPageNumber: number = 1;
+  notEmptyAnotherLikedTweetPage: boolean = true;
+  notScrollableLikedTweet: boolean = true;
 
   isUserProfileFollowed!: boolean;
 
-  conversationRequestPayload: ConversationRequestPayload;
+  conversationRequestPayload: ConversationRequestPayload = {
+    participantUsername: ''
+  };
 
   constructor(
+    public dialog: MatDialog,
     private router: Router,
     private activatedRouter: ActivatedRoute,
     private authService: AuthService,
-    public dialog: MatDialog,
     private postService: PostService,
     private notificationService: NotificationService,
     private userService: UserService,
     private messageService: MessageService,
+    private spinner: NgxSpinnerService,
   ) {
-    this.userDetailsResponsePayload = {
-      id: 0,
-      username: '',
-      name: '',
-      createdAt: '',
-      tweetNo: 0,
-      followingNo: 0,
-      followerNo: 0,
-      userProfilePicture: 0,
-      userBackgroundPicture: 0,
-      following: [],
-      followers: [],
-      likedPosts: []
-    }
-
-    this.conversationRequestPayload = {
-      participantUsername: ''
-    }
-
-  }
-
-  ngOnInit(): void {
-
     // Get currently logged user
     this.loggedUser = this.authService.getUsernameFromLocalStorage();
 
     // Get username from activated route http://localhost:4200/profile/:username in sidebar
     this.username = this.activatedRouter.snapshot.params['username'];
 
-    // Check if user if followed
+    // Get user details by username from acitvated route
+    this.getUserDetails(this.username);
+  }
+
+  ngOnInit(): void {
+    // Check if user is followed
     this.userService
       .checkFollowing(this.loggedUser, this.username)
       .subscribe((response: boolean) => this.isUserProfileFollowed = response.valueOf());
-
-    // Get user details by username from acitvated route
-    this.getUserDetails(this.username);
 
     // Refresh dynamiclly page after updating user details
     this.userService.refreshNeeded$
@@ -95,13 +89,21 @@ export class ProfileComponent implements OnInit {
         this.getUserDetails(this.username);
       })
 
-    this.getPostsByUsername(this.username);
 
-    // Refresh dynamiclly page after adding post
-    this.postService.refreshNeeded$
-      .subscribe(() => {
-        this.getLikedPostsByUser()
-      })
+    // // Refresh dynamiclly page after updating posts
+    // this.userService.refreshNeeded$
+    //     .subscribe(() => {
+    //       this.getUserDetails(this.username);
+    //     })
+
+    // Load user tweets
+    this.getPostsByUsername(0);
+
+    // Refresh dynamiclly page after dislike tweet
+    // this.postService.refreshNeeded$.subscribe(() => this.getLikedPostsByUsername(0));
+
+    // Load liked tweets by user
+    this.getLikedPostsByUsername(0);
   }
 
   navigateBackToHomePage() {
@@ -129,22 +131,62 @@ export class ProfileComponent implements OnInit {
     this.dialog.open(EditProfileDialogComponent, dialogConfig);
   }
 
-  getPostsByUsername(username: string) {
-    this.postService.getPostByUsername(username)
+  // When scrolling posts activate this function
+  onScrollTweets() {
+    if (this.notScrollableTweet && this.notEmptyAnotherTweetPage) {
+      this.spinner.show();
+      this.notScrollableTweet = false;
+      // load next page
+      this.getPostsByUsername(this.currentTweetPageNumber++);
+    }
+  }
+
+  private getPostsByUsername(pageNumber: number) {
+    this.postService
+      .getPostsByUsername(this.username, pageNumber)
       .subscribe((postResponse) => {
-        this.postList = postResponse;
+        if (postResponse.length === 0) {
+          this.notEmptyAnotherTweetPage = false;
+          this.spinner.hide();
+        }
+
+        this.postList = [...this.postList, ...postResponse];
+        this.notScrollableTweet = true;
+      });
+  }
+
+  // When scrolling liked posts activate this function
+  onScrollLikedTweets() {
+    if (this.notScrollableLikedTweet && this.notEmptyAnotherLikedTweetPage) {
+      this.spinner.show();
+      this.notScrollableLikedTweet = false;
+      // load next page
+      this.getLikedPostsByUsername(this.currentLikedTweetPageNumber++)
+    }
+  }
+
+  private getLikedPostsByUsername(pageNumber: number) {
+    this.postService
+      .getLikedPostsByUsername(this.username, pageNumber)
+      .subscribe((postResponse) => {
+        if (postResponse.length === 0) {
+          this.notEmptyAnotherLikedTweetPage = false;
+          this.spinner.hide();
+        }
+
+        this.likedPostList = [...this.likedPostList, ...postResponse];
+        this.notScrollableLikedTweet = true;
       })
   }
 
-  startConversation() {
+  addUserToConversation() {
     // set conversation request payload
     this.conversationRequestPayload.participantUsername = this.username;
     // send request to message service
     this.messageService
-      .addConversation(this.conversationRequestPayload)
+      .addUserToConversation(this.conversationRequestPayload)
       .subscribe(() => console.log("User added to conversation"));
     this.router.navigateByUrl('/messages');
-
   }
 
   followUser() {
@@ -203,7 +245,6 @@ export class ProfileComponent implements OnInit {
     isFollowerDialogOpened: boolean,
     dialogName: string
   ) {
-
     var isLoggedUserProfile = false;
     if (this.loggedUser == this.username) {
       isLoggedUserProfile = true;
@@ -222,12 +263,4 @@ export class ProfileComponent implements OnInit {
     return dialogConfig;
   }
 
-
-  getLikedPostsByUser() {
-    console.log("after refresh liked posts")
-    this.postService
-      .getLikedPostsForLoggedUser()
-      .subscribe((postResponse) => this.userDetailsResponsePayload.likedPosts = postResponse);
-
-  }
 }

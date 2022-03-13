@@ -13,16 +13,19 @@
       <div class="mainPage_leftSection">
         <app-sidebar [isUserLoggedIn]="userIsLoggedIn"></app-sidebar>
       </div>
+
       <!-- Middle Section - Feed -->
       <div class="mainPage_middleSection">
         <router-outlet></router-outlet>
       </div>
+
       <!-- Right Section - Widgets -->
       <div *ngIf="router.url !== '/messages'" class="mainPage_rightSection">
         <app-widgets [isUserLoggedIn]="userIsLoggedIn"></app-widgets>
       </div>
     </div>
   </div>
+
   <!-- Show footer whether user is logged or not -->
   <ng-container
     *ngIf="userIsLoggedIn; then pageWithoutFooter; else pageWithFooter"

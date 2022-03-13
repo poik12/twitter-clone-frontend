@@ -19,8 +19,28 @@
     [isPostSection]="isPostSection"
     [postId]="postId"
   ></app-tweetbox>
-  <!-- Comment Section -->
-  <ng-container *ngFor="let comment of commentList">
-    <app-comment [comment]="comment"></app-comment>
-  </ng-container>
+
+  <!-- Comemnts loaded with inifnite scroll and loading spinner -->
+  <div
+    class="search-results"
+    infiniteScroll
+    [scrollWindow]="false"
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="50"
+    (scrolled)="onScroll()"
+    id="scrollbar"
+  >
+    <!-- Each Comment Block -->
+    <ng-container *ngFor="let comment of commentList">
+      <app-comment
+        [comment]="comment"
+        (handleDeleteComment)="handleDeleteComment($event)"
+      ></app-comment>
+    </ng-container>
+
+    <!-- Loading spinner -->
+    <app-loading-spinner
+      [notEmptyPage]="notEmptyAnotherCommentPage"
+    ></app-loading-spinner>
+  </div>
 </div>

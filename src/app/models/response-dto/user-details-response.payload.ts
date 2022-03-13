@@ -16,6 +16,5 @@ export default interface UserDetailsResponsePayload {
 
   followers: Array<FollowerDto>;
   following: Array<FollowerDto>;
-  likedPosts: Array<PostResponsePayload>;
 
 }

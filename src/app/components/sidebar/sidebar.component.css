@@ -85,8 +85,7 @@
 
 .sidebar__account {
   display: flex;
-  position: absolute;
-  bottom: 30px;
+  margin-top: 250px;
   border-radius: 20px;
   margin-left: 20px;
   width: 260px;

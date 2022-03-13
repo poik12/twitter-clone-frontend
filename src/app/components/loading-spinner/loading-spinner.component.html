@@ -1,0 +1,18 @@
+<!-- Loading spinner -->
+<ng-container *ngIf="notEmptyPage == true">
+  <div class="spinner row pb-5">
+    <div class="col-md-12 p-5">
+      <ngx-spinner
+        bdColor=""
+        bdOpacity="0.9"
+        size="default"
+        color="red"
+        type="ball-scale-multiple"
+        [fullScreen]="false"
+        [disableAnimation]="false"
+      >
+        <p style="font-size: 20px; color: var(--twitter-color)">Loading...</p>
+      </ngx-spinner>
+    </div>
+  </div>
+</ng-container>

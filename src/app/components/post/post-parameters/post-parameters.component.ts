@@ -33,7 +33,6 @@ export class PostParametersComponent implements OnInit {
     this.postService
       .likePost(this.postId)
       .subscribe(() => console.log("Post liked/disliked"));
-
     // this.likesCount += this.isPostLiked ? -1 : 1;
     // this.isPostLiked = !this.isPostLiked;
   }
