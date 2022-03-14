@@ -9,9 +9,8 @@ export default interface ConversationResponsePayload {
   creatorName: string,
   creatorUsername: string,
   creatorProfilePicture: any;
-  latestMessageTime: string,
-  latestMessageContent: string,
+  latestMessageTime: String,
+  latestMessageContent: String,
   latestMessageRead: boolean,
-  messages: Array<MessageResponsePayload>,
 
 }

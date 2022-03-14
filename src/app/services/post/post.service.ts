@@ -17,7 +17,6 @@ export class PostService {
   private CREATE_POST_URL = 'http://localhost:8080/api/v1/posts';
   private DELETE_POST_BY_ID_URL = 'http://localhost:8080/api/v1/posts/';
   private LIKE_POST_URL = 'http://localhost:8080/api/v1/posts/like/';
-  // private GET_LIKED_POSTS_URL = "http://localhost:8080/api/v1/posts/like";
   private GET_LIKED_POSTS_BY_USERNAME_URL = "http://localhost:8080/api/v1/posts/like/by-user/"
 
   pageSize: number = 10;
@@ -39,13 +38,18 @@ export class PostService {
 
   createPost(
     postRequestPayload: PostRequestPayload,
-    uploadedImage?: File
+    uploadedImageFileList?: File[]
   ): Observable<any> {
     const formData: FormData = new FormData();
 
-    if (uploadedImage !== undefined) {
-      formData.append('file', uploadedImage);
+    if (uploadedImageFileList !== undefined) {
+
+      // formData.append('files', uploadedImageFileList);
+      for (let x = 0; x < uploadedImageFileList.length; x++) {
+        formData.append("files", uploadedImageFileList[x]);
+      }
     }
+
     formData.append('postRequest', JSON.stringify(postRequestPayload));
 
     return this.httpClient

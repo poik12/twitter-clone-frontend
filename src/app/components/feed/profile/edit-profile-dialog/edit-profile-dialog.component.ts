@@ -1,9 +1,7 @@
 import { NotificationMessage } from 'src/app/services/notification/notification-message.enum';
-import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { AuthService } from 'src/app/services/auth/auth.service';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import UserDetailsRequestPayload from 'src/app/models/request-dto/user-details-request.payload';
@@ -27,25 +25,20 @@ export class EditProfileDialogComponent implements OnInit {
 
   selectedProfileImage!: File;
   selectedBackgroundImage!: File;
-  userDetailsRequestPayload: UserDetailsRequestPayload;
 
+  userDetailsRequestPayload: UserDetailsRequestPayload = {
+    name: '',
+    emailAddress: '',
+    password: '',
+    phoneNumber: '',
+    description: ''
+  };
 
   constructor(
-    private authService: AuthService,
     private dialogRef: MatDialogRef<any>,
     private notificationService: NotificationService,
-    private activeRoute: ActivatedRoute,
     private userService: UserService
-  ) {
-
-    this.userDetailsRequestPayload = {
-      name: '',
-      username: '',
-      emailAddress: '',
-      password: '',
-      phoneNumber: ''
-    }
-  }
+  ) { }
 
   ngOnInit(): void {
 
@@ -55,6 +48,7 @@ export class EditProfileDialogComponent implements OnInit {
       emailAddress: new FormControl(''),
       password: new FormControl(''),
       phoneNumber: new FormControl(''),
+      description: new FormControl('')
     });
 
   }
@@ -66,10 +60,10 @@ export class EditProfileDialogComponent implements OnInit {
   updateProfile() {
 
     this.userDetailsRequestPayload.name = this.editProfileForm.get('name')?.value;
-    this.userDetailsRequestPayload.username = this.editProfileForm.get('username')?.value;
     this.userDetailsRequestPayload.emailAddress = this.editProfileForm.get('emailAddress')?.value;
     this.userDetailsRequestPayload.password = this.editProfileForm.get('password')?.value;
     this.userDetailsRequestPayload.phoneNumber = this.editProfileForm.get('phoneNumber')?.value;
+    this.userDetailsRequestPayload.description = this.editProfileForm.get('description')?.value;
 
     this.userService
       .updateUserProfile(
@@ -78,7 +72,7 @@ export class EditProfileDialogComponent implements OnInit {
         this.selectedBackgroundImage
       )
       .subscribe(
-        (data) => console.log("success")
+        () => console.log("UserDetailsRequestPayload: " + this.userDetailsRequestPayload)
       );
 
     this.dialogRef.close();
@@ -93,13 +87,13 @@ export class EditProfileDialogComponent implements OnInit {
   // Update profile pricture
   updateProfilePicture($event: any) {
     this.selectedProfileImage = $event.target.files[0];
-    console.log("Selected profile picture: " + this.selectedProfileImage)
+    console.log("Selected profile picture: " + this.selectedProfileImage);
   }
 
   // Update background pircture
   updateBackgroundPicture($event: any) {
     this.selectedBackgroundImage = $event.target.files[0];
-    console.log("Selected background picture: " + this.selectedBackgroundImage)
+    console.log("Selected background picture: " + this.selectedBackgroundImage);
   }
 
 }

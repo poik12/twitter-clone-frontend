@@ -4,7 +4,6 @@
 
 .messages__sidebar {
   width: 370px;
-  overflow-y: auto;
   height: 100vh;
   border-left: 1px solid var(--twitter-background);
 }

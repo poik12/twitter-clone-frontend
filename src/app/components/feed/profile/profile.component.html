@@ -12,10 +12,10 @@
     <!-- Header user name -->
     <div class="profile__headerSectionInfo">
       <div class="profile_headerSectionName">
-        {{ userDetailsResponsePayload.name }}
+        {{ userDetails.name }}
       </div>
       <div class="profile_headerSectioTweets">
-        {{ userDetailsResponsePayload.tweetNo }} Tweets
+        {{ userDetails.tweetNo }} Tweets
       </div>
     </div>
   </div>
@@ -109,10 +109,10 @@
     <!-- Account name -->
     <div class="profile__imageSectionInfo">
       <div class="profile__imageSectionInfoName">
-        {{ userDetailsResponsePayload.name }}
+        {{ userDetails.name }}
       </div>
       <div class="profile__imageSectionInfoUsername">
-        @{{ userDetailsResponsePayload.username }}
+        @{{ userDetails.username }}
       </div>
     </div>
   </div>
@@ -120,11 +120,7 @@
   <div class="profile__descriptionSection">
     <!-- Description user info -->
     <div class="profile__descriptionSectionUserInfo">
-      Some user's informations Some user's informations Some user's informations
-      Some user's informations Some user's informations Some user's informations
-      Some user's informations Some user's informations Some user's informations
-      Some user's informations Some user's informations Some user's informations
-      Some user's informations Some user's informations Some user's informations
+      {{ userDetails.description }}
     </div>
     <!-- Desctiption Data -->
     <div class="profile_descriptionSectionDate">
@@ -132,20 +128,20 @@
         class="profile_descriptionSectionDateIcon"
         [icon]="calendarIcon"
       ></fa-icon>
-      Joined {{ userDetailsResponsePayload.createdAt | titlecase }}
+      Joined {{ userDetails.createdAt | titlecase }}
     </div>
     <!-- Description parameters -->
     <div class="profile__descriptionSectionParams">
       <div class="profile__descriptionSectionParamsFollowing">
         <a (click)="openFollowingDialog()">
-          <strong>{{ userDetailsResponsePayload.followingNo }}</strong>
+          <strong>{{ userDetails.followingNo }}</strong>
           Following
         </a>
       </div>
 
       <div class="profile__descriptionSectionParamsFollowers">
         <a (click)="openFollowerDialog()">
-          <strong>{{ userDetailsResponsePayload.followerNo }}</strong>
+          <strong>{{ userDetails.followerNo }}</strong>
           Followers
         </a>
       </div>

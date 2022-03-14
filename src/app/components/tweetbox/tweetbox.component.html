@@ -20,7 +20,8 @@
       ></textarea>
 
       <!-- File Uploader -->
-      <input type="file" (change)="uploadFile($event)" />
+      <input type="file" (change)="uploadFile($event)" multiple />
+
       <!-- <app-upload-image-dialog></app-upload-image-dialog> -->
       <!-- <angular-file-uploader [config]="afuConfig"></angular-file-uploader> -->
 
@@ -29,7 +30,7 @@
 
       <!-- Uploaded Image -->
       <!-- <ng-container>
-        <img src="{{ imagePreviewUrl }}" alt="" />
+        <img [src]="imagePreviewUrl" alt="image" />
       </ng-container> -->
     </div>
   </div>

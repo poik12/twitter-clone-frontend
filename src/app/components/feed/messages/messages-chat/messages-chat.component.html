@@ -44,25 +44,58 @@
 
     <!-- Body Section -->
     <div class="messagesChat__body">
+      <!-- <div class="messagesChat__message">
+        <div class="messagesChat__messageContent">
+          Hello world 1
+          <div class="messagesChat__messageTime">14.03.2022</div>
+        </div>
+      </div>
+
+      <div class="messagesChat__message">
+        <div class="messagesChat__messageContent">
+          Hello world 2
+          <div class="messagesChat__messageTime">13.03.2022</div>
+        </div>
+      </div> -->
+
+      <!-- Posts loaded with inifnite scroll and loading spinner -->
       <div
-        *ngFor="let message of conversation.messages"
-        class="messagesChat__message"
-        [ngClass]="{
-          messagesChat__messageByLoggedUser: messageFromLoggedUser(
-            message.senderUsername
-          )
-        }"
+        #messsageContainer
+        class="search-results"
+        infiniteScroll
+        [scrollWindow]="false"
+        [infiniteScrollDistance]="2"
+        [infiniteScrollThrottle]="50"
+        (scrolledUp)="onScroll()"
+        id="scrollbar"
       >
+        <!-- Loading spinner -->
+        <app-loading-spinner
+          [notEmptyPage]="notEmptyAnotherTweetPage"
+        ></app-loading-spinner>
+        <!-- Each Message Block -->
         <div
-          class="messagesChat__messageContent"
+          *ngFor="let message of messageList"
+          class="messagesChat__message"
           [ngClass]="{
-            messagesChat__messageContentByLoggedUser: messageFromLoggedUser(
+            messagesChat__messageByLoggedUser: messageFromLoggedUser(
               message.senderUsername
             )
           }"
         >
-          {{ message.content }}
-          <div class="messagesChat__messageTime">{{ message.createdAt }}</div>
+          <div
+            class="messagesChat__messageContent"
+            [ngClass]="{
+              messagesChat__messageContentByLoggedUser: messageFromLoggedUser(
+                message.senderUsername
+              )
+            }"
+          >
+            {{ message.content }}
+            <div class="messagesChat__messageTime">
+              {{ message.createdAt }}
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -22,11 +22,12 @@
 
 .messagesChat__body {
   display: flex;
-  flex-direction: column;
-  /* flex-direction: column-reverse; */
-  padding: 20px 50px;
+  /* flex-direction: column; */
+  flex-direction: column-reverse;
+  padding: 20px 20px 45px 50px;
   overflow: auto;
   height: 818px;
+  width: 618px;
 }
 
 .messagesChat__message {
@@ -36,6 +37,7 @@
   /* background-color: var(--twitter-color); */
   color: white;
   flex-direction: column;
+  width: 518px;
 }
 
 .messagesChat__messageByLoggedUser {
@@ -113,4 +115,19 @@
 
 .messagesChat__sendMessage {
   margin: auto;
+}
+
+#scrollbar {
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+#scrollbar:hover,
+#scrollbar:active,
+#scrollbar:focus {
+  overflow-y: auto;
+}
+
+.search-results {
+  height: 80vh;
 }

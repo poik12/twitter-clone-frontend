@@ -33,7 +33,7 @@ export class ProfileComponent implements OnInit {
   loggedUser: string;
   username: string;
 
-  userDetailsResponsePayload!: UserDetailsResponsePayload;
+  userDetails!: UserDetailsResponsePayload;
   userProfilePicture!: string;
   userBackgroundPicture!: string;
   jpgFormat: string = 'data:image/jpeg;base64,';
@@ -115,9 +115,9 @@ export class ProfileComponent implements OnInit {
       .getUserByUsername(username)
       .subscribe(
         (userDetails) => {
-          this.userDetailsResponsePayload = userDetails;
-          this.userProfilePicture = this.jpgFormat + this.userDetailsResponsePayload.userProfilePicture;
-          this.userBackgroundPicture = this.jpgFormat + this.userDetailsResponsePayload.userBackgroundPicture;
+          this.userDetails = userDetails;
+          this.userProfilePicture = this.jpgFormat + this.userDetails.userProfilePicture;
+          this.userBackgroundPicture = this.jpgFormat + this.userDetails.userBackgroundPicture;
         }, (error) => {
           console.log("Get userdetails in user profile: " + error)
         }
@@ -221,8 +221,8 @@ export class ProfileComponent implements OnInit {
 
   openFollowingDialog() {
     const dialogConfig = this.passDataToDialog(
-      this.userDetailsResponsePayload.following,
-      this.userDetailsResponsePayload.followingNo,
+      this.userDetails.following,
+      this.userDetails.followingNo,
       false,
       "Following"
     );
@@ -231,8 +231,8 @@ export class ProfileComponent implements OnInit {
 
   openFollowerDialog() {
     const dialogConfig = this.passDataToDialog(
-      this.userDetailsResponsePayload.followers,
-      this.userDetailsResponsePayload.followerNo,
+      this.userDetails.followers,
+      this.userDetails.followerNo,
       true,
       "Followers"
     );

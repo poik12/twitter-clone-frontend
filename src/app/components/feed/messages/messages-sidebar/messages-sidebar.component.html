@@ -1,4 +1,4 @@
-<div class="sdiebar__container">
+<div class="sidebar__container">
   <!-- Header -->
   <div class="sidebar__header">
     <div class="sidebar__headerText">Messages</div>
@@ -6,6 +6,7 @@
       <fa-icon [icon]="headerIcon"></fa-icon>
     </div>
   </div>
+
   <!-- Invitations -->
   <div class="sidebar__invitations">
     <div class="sidebar__invitationsText">Invitations to conversations</div>
@@ -13,90 +14,110 @@
       <fa-icon [icon]="invitationsIcon"></fa-icon>
     </div>
   </div>
+
   <!-- Searchbar -->
   <div class="sidebar__searchBar">
     <app-search-bar (searchTextEmit)="searchedValue($event)"></app-search-bar>
   </div>
+
   <!-- Conversations -->
   <div class="sidebar__conversations">
-    <!-- Every User Block -->
     <div
-      class="conversations__user"
-      *ngFor="
-        let conversation of !searchTextFromSearchBar
-          ? conversations
-          : filteredConversations
-      "
-      (click)="conversationSelected.emit(conversation)"
+      class="search-results"
+      infiniteScroll
+      [scrollWindow]="false"
+      [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="50"
+      (scrolledUp)="onScroll()"
+      id="scrollbar"
     >
-      <!-- Display user info depending on creator or participant of conversation -->
-      <ng-container
-        *ngIf="
-          loggedUser == conversation.participantUsername;
-          then creator;
-          else participant
+      <!-- Every User Block -->
+      <div
+        class="conversations__user"
+        *ngFor="
+          let conversation of !searchTextFromSearchBar
+            ? conversationList
+            : filteredConversations;
+          let i = index
         "
-      ></ng-container>
+        (click)="conversationSelected.emit(conversation)"
+        (click)="onSelectedConversation(i)"
+        [ngClass]="{ conversations__userSelcted: conversationSelectedId == i }"
+      >
+        <!-- Display user info depending on creator or participant of conversation -->
+        <ng-container
+          *ngIf="
+            loggedUser == conversation.participantUsername;
+            then creator;
+            else participant
+          "
+        ></ng-container>
 
-      <!-- If logged user is participant of conversation -->
-      <ng-template #creator>
-        <!-- User Image -->
-        <div class="conversations__userPicture">
-          <img
-            src="{{ jpgFormat + conversation.creatorProfilePicture }}"
-            style="border-radius: 30px; height: 50px; width: 50px"
-          />
-        </div>
-        <!-- User Info -->
-        <div class="conversations__userContent">
-          <div class="conversations__userHeader">
-            <!-- User name -->
-            <div class="conversations__userName">
-              {{ conversation.creatorName }}
+        <!-- If logged user is participant of conversation -->
+        <ng-template #creator>
+          <!-- User Image -->
+          <div class="conversations__userPicture">
+            <img
+              src="{{ jpgFormat + conversation.creatorProfilePicture }}"
+              style="border-radius: 30px; height: 50px; width: 50px"
+            />
+          </div>
+          <!-- User Info -->
+          <div class="conversations__userContent">
+            <div class="conversations__userHeader">
+              <!-- User name -->
+              <div class="conversations__userName">
+                {{ conversation.creatorName }}
+              </div>
+              <!-- User Time -->
+              <div class="conversations__userTime">
+                {{ conversation.latestMessageTime }}
+              </div>
             </div>
-            <!-- User Time -->
-            <div class="conversations__userTime">
-              {{ conversation.latestMessageTime }}
+            <!-- User message -->
+            <div class="conversations__userMessage">
+              <img *ngIf="!conversation.latestMessageRead" src="" />
+              <img *ngIf="conversation.latestMessageRead" src="" />
+              {{ conversation.latestMessageContent }}
             </div>
           </div>
-          <!-- User message -->
-          <div class="conversations__userMessage">
-            <img *ngIf="!conversation.latestMessageRead" src="" />
-            <img *ngIf="conversation.latestMessageRead" src="" />
-            {{ conversation.latestMessageContent }}
-          </div>
-        </div>
-      </ng-template>
+        </ng-template>
 
-      <!-- If logged user is creator of conversation -->
-      <ng-template #participant>
-        <!-- User Image -->
-        <div class="conversations__userPicture">
-          <img
-            src="{{ jpgFormat + conversation.participantProfilePicture }}"
-            style="border-radius: 30px; height: 50px; width: 50px"
-          />
-        </div>
-        <!-- User Info -->
-        <div class="conversations__userContent">
-          <div class="conversations__userHeader">
-            <!-- User name -->
-            <div class="conversations__userName">
-              {{ conversation.participantName }}
+        <!-- If logged user is creator of conversation -->
+        <ng-template #participant>
+          <!-- User Image -->
+          <div class="conversations__userPicture">
+            <img
+              src="{{ jpgFormat + conversation.participantProfilePicture }}"
+              style="border-radius: 30px; height: 50px; width: 50px"
+            />
+          </div>
+          <!-- User Info -->
+          <div class="conversations__userContent">
+            <div class="conversations__userHeader">
+              <!-- User name -->
+              <div class="conversations__userName">
+                {{ conversation.participantName }}
+              </div>
+              <!-- User Time -->
+              <div class="conversations__userTime">
+                {{ conversation.latestMessageTime }}
+              </div>
             </div>
-            <!-- User Time -->
-            <div class="conversations__userTime">
-              {{ conversation.latestMessageTime }}
+            <!-- User message -->
+            <div class="conversations__userMessage">
+              <img *ngIf="!conversation.latestMessageRead" src="" />
+              <img *ngIf="conversation.latestMessageRead" src="" />
+              {{ conversation.latestMessageContent }}
             </div>
           </div>
-          <!-- User message -->
-          <div class="conversations__userMessage">
-            <img *ngIf="!conversation.latestMessageRead" src="" />
-            <img *ngIf="conversation.latestMessageRead" src="" />
-            {{ conversation.latestMessageContent }}
-          </div>
-        </div>
-      </ng-template>
+        </ng-template>
+      </div>
+
+      <!-- Loading spinner -->
+      <app-loading-spinner
+        [notEmptyPage]="notEmptyAnotherTweetPage"
+      ></app-loading-spinner>
     </div>
   </div>
 </div>

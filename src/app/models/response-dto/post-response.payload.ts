@@ -9,7 +9,7 @@ export default interface PostResponsePayload {
   createdAt: Date;
   postTimeDuration: String;
 
-  fileContent: any;
+  fileContent: any[];
   userProfilePicture: any;
 
   likedByLoggedUser: boolean;

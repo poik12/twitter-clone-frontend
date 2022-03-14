@@ -4,6 +4,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MessageService } from 'src/app/services/message/message.service';
 import ConversationResponsePayload from 'src/app/models/response-dto/conversation-response.payload';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-messages-sidebar',
@@ -15,21 +16,28 @@ export class MessagesSidebarComponent implements OnInit {
   headerIcon = faEnvelope;
   invitationsIcon = faAngleRight;
 
-  conversations!: Array<ConversationResponsePayload>;
+  conversationList: ConversationResponsePayload[] = [];
   @Output() conversationSelected: EventEmitter<ConversationResponsePayload> = new EventEmitter();
+  conversationSelectedId: number = -1;
 
   loggedUser: string = this.authService.getUsernameFromLocalStorage();
   jpgFormat: string = 'data:image/jpeg;base64,';
 
   searchTextFromSearchBar!: string;
 
+  // Loading spinner for retrieving data from db
+  currentPageNumber: number = 1;
+  notEmptyAnotherTweetPage: boolean = true;
+  notScrollable: boolean = true;
+
   constructor(
     private messageService: MessageService,
-    private authService: AuthService
+    private authService: AuthService,
+    private spinner: NgxSpinnerService
   ) { }
 
   get filteredConversations() {
-    return this.conversations.filter((conversation) => {
+    return this.conversationList.filter((conversation) => {
       return (
         conversation.participantName
           .toLowerCase()
@@ -42,17 +50,45 @@ export class MessagesSidebarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getConversationHistory();
+    this.getConversationHistory(0);
   }
 
   searchedValue($event: any) {
     this.searchTextFromSearchBar = $event;
   }
 
-  getConversationHistory() {
-    // conversatio history for logged user
+  // Change color of selected conversation
+  onSelectedConversation(index: number): void {
+    this.conversationSelectedId = index;
+
+  }
+
+  // When scrolling posts activate this function
+  onScroll() {
+    if (this.notScrollable && this.notEmptyAnotherTweetPage) {
+      this.spinner.show();
+      this.notScrollable = false;
+      this.loadNextConversationPage();
+    }
+  }
+
+  private loadNextConversationPage() {
+    // add page and size
+    this.getConversationHistory(this.currentPageNumber++);
+  }
+
+  private getConversationHistory(numberPage: number) {
+    // conversation history for logged user
     this.messageService
-      .getAllConversations()
-      .subscribe((data) => this.conversations = data);
+      .getAllConversations(numberPage)
+      .subscribe((conversationResponse) => {
+        if (conversationResponse.length === 0) {
+          this.notEmptyAnotherTweetPage = false;
+          this.spinner.hide();
+        }
+
+        this.conversationList = [...this.conversationList, ...conversationResponse];
+        this.notScrollable = true;
+      });
   }
 }

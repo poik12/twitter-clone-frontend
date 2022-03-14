@@ -1,10 +1,11 @@
-.sdiebar__container {
+.sidebar__container {
+  width: 100%;
 }
 
 .sidebar__header {
   position: sticky;
   top: 0;
-  height: 60px;
+  height: 6vh;
   background-color: white;
   border-bottom: 1px solid var(--twitter-background);
   padding: 15px 20px;
@@ -27,11 +28,11 @@
 }
 
 .sidebar__invitations {
-  height: 60px;
+  height: 6vh;
+  display: flex;
   background-color: white;
   border-bottom: 1px solid var(--twitter-background);
   padding: 15px 20px;
-  display: flex;
 }
 
 .sidebar__invitationsText {
@@ -57,8 +58,8 @@
 
 .sidebar__conversations {
   border-top: 1px solid var(--twitter-background);
-  overflow: auto;
   flex-grow: 1;
+  overflow: auto;
 }
 
 .conversations__user {
@@ -68,6 +69,12 @@
   transition: all 0.4s ease-in-out;
   cursor: pointer;
 }
+
+.conversations__userSelcted {
+  background-color: var(--twitter-background);
+  border-right: 10px solid var(--twitter-color);
+}
+
 .conversations__user:hover {
   background-color: var(--twitter-background);
 }
@@ -114,4 +121,19 @@
 
 .conversations__userMessage > img {
   margin-right: 2px;
+}
+
+#scrollbar {
+  /* overflow-y: hidden; */
+  /* overflow-x: hidden; */
+}
+
+#scrollbar:hover,
+#scrollbar:active,
+#scrollbar:focus {
+  overflow-y: auto;
+}
+
+.search-results {
+  height: 81vh;
 }

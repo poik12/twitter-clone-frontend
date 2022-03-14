@@ -18,15 +18,6 @@
         <mat-label>Name</mat-label>
         <input matInput placeholder="John Connor" [formControlName]="'name'" />
       </mat-form-field>
-      <!-- Username -->
-      <!-- <mat-form-field appearance="fill">
-        <mat-label>Username</mat-label>
-        <input
-          matInput
-          placeholder="j_connor1982"
-          [formControlName]="'username'"
-        />
-      </mat-form-field> -->
       <!-- Email -->
       <mat-form-field appearance="fill">
         <mat-label>Email</mat-label>
@@ -76,12 +67,23 @@
       <!-- Date of Birth -->
       <div class="editProfileDialog__dateOfBirth"></div>
 
+      <!-- Description -->
+      <mat-form-field appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea
+          matInput
+          [maxlength]="1000"
+          placeholder="Describe yourself (max 1000 characters)"
+          [formControlName]="'description'"
+        ></textarea>
+      </mat-form-field>
+
       <!-- Profile Image -->
-      profile
+      <mat-label>User Profile image</mat-label>
       <input type="file" (change)="updateProfilePicture($event)" />
 
       <!-- Background Image -->
-      background
+      <mat-label>Background Image</mat-label>
       <input type="file" (change)="updateBackgroundPicture($event)" />
     </div>
 

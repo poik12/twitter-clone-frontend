@@ -52,7 +52,7 @@ export class TweetboxComponent implements OnInit {
   uploadedImage!: File;
   imagePreviewUrl!: string | ArrayBuffer | null;
 
-  uploadedImageList!: File[];
+  uploadedImageFileList!: File[];
   imageUploadedFrame: boolean = false;
 
   selectedFile!: File;
@@ -94,6 +94,8 @@ export class TweetboxComponent implements OnInit {
     });
 
   }
+
+
 
   getUserPicture(username: string) {
     this.userSerivce
@@ -152,7 +154,7 @@ export class TweetboxComponent implements OnInit {
     this.postService
       .createPost(
         this.postRequestPayload,
-        this.selectedFile
+        this.uploadedImageFileList
       )
       .subscribe(
         () => {
@@ -186,31 +188,28 @@ export class TweetboxComponent implements OnInit {
       .subscribe(
         (file) => {
           if (file !== undefined) {
-
             this.uploadedImage = file;
-
-            this.uploadedImageList.push(this.uploadedImage);
-
+            // this.uploadedImageList.push(this.uploadedImage);
             this.imageUploadedFrame = true;
 
 
             // this.uploadedImageList.push(this.uploadedImage);
 
-            // const reader = new FileReader();
+            // let reader = new FileReader();
             // reader.readAsDataURL(file);
             // reader.onload = () => {
             //   this.imagePreviewUrl = reader.result;
             // };
 
-            // var reader = new FileReader();
-            // reader.onload = (event: any) => {
-            //   this.imageUrl = event.target.result;
-            // }
-            // reader.readAsDataURL(file);
-
-          } else {
-            this.imageUploadedFrame = false;
-            console.log("error")
+            //   var reader = new FileReader();
+            //   reader.onload = (event: any) => {
+            //     this.imagePreviewUrl = event.target.result;
+            //   }
+            //   reader.readAsDataURL(file);
+            //   console.log("file added: " + file)
+            // } else {
+            //   this.imageUploadedFrame = false;
+            //   console.log("error")
           }
         },
         (error) => console.log(error)
@@ -224,7 +223,9 @@ export class TweetboxComponent implements OnInit {
   uploadFile($event: any) {
     this.selectedFile = $event.target.files[0];
     console.log(this.selectedFile)
+
+    this.uploadedImageFileList = $event.target.files;
+    console.log(this.uploadedImageFileList)
   }
-
-
 }
+

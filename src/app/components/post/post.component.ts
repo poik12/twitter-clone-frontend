@@ -28,6 +28,7 @@ export class PostComponent implements OnInit {
 
   @Input() post!: PostResponsePayload;
 
+  @Input() imageFileList: any[] = [];
   @Input() retrievedImageFromDb: any;
   jpgFormat: string = 'data:image/jpeg;base64,';
   userProfileImage!: string;
@@ -53,6 +54,8 @@ export class PostComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.imageFileList = this.post.fileContent;
+
     this.retrievedImageFromDb = this.jpgFormat + this.post.fileContent;
     this.userProfileImage = this.jpgFormat + this.post.userProfilePicture;
 

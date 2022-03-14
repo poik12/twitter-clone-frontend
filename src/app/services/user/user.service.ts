@@ -48,11 +48,7 @@ export class UserService {
 
     return this.httpClient
       .put<any>(this.UPDATE_USER_DETAILS_URL, formData)
-      .pipe(
-        tap(() => {
-          this._refreshNeeded$.next();
-        })
-      );
+      .pipe(tap(() => this._refreshNeeded$.next()));
   }
 
   followUser(username: String): Observable<any> {

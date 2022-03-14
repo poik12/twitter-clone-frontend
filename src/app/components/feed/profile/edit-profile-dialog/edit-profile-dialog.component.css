@@ -1,6 +1,6 @@
 .editProfileDialog__component {
   width: 28vw;
-  height: 64vh;
+  height: 70vh;
 }
 
 .editProfileDialog__body {
@@ -19,7 +19,7 @@
   border: none;
   font-size: 20px;
   color: white;
-  margin-top: 80px;
+  margin-top: 30px;
 }
 
 /* Hide password button */

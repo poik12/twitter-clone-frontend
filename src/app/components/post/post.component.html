@@ -79,7 +79,18 @@
         </div>
         <!-- Post url -->
         <div class="home__postDescriptionBodyImageContainer">
-          <ng-container
+          <ng-container *ngIf="imageFileList.length > 0">
+            <ng-container *ngFor="let imageFile of imageFileList">
+              <img
+                class="home__postDescriptionBodyImage"
+                src="{{ this.jpgFormat + imageFile }}"
+                alt=""
+                (click)="openFullSizeImageDialog($event)"
+              />
+            </ng-container>
+          </ng-container>
+
+          <!-- <ng-container
             *ngIf="retrievedImageFromDb !== this.jpgFormat + 'null'"
           >
             <img
@@ -88,7 +99,7 @@
               alt=""
               (click)="openFullSizeImageDialog($event)"
             />
-          </ng-container>
+          </ng-container> -->
         </div>
       </div>
 
