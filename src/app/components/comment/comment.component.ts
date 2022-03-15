@@ -15,6 +15,8 @@ export class CommentComponent implements OnInit {
   verifiedIcon = faCheck;
 
   @Input() comment!: CommentResponsePayload;
+  @Input() isTweetReplied: boolean = false;
+  @Input() repliedUser: string = '';
 
   @Output() public handleDeleteComment: EventEmitter<any> = new EventEmitter<any>()
 

@@ -17,6 +17,7 @@ import { EditProfileDialogComponent } from './edit-profile-dialog/edit-profile-d
 import { FollowersDialogComponent } from './followers-dialog/followers-dialog.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxSpinnerService } from 'ngx-spinner';
+import RepliedPostResponsePayload from 'src/app/models/response-dto/replied-post-response.payload';
 
 @Component({
   selector: 'app-profile',
@@ -40,6 +41,7 @@ export class ProfileComponent implements OnInit {
 
   postList: PostResponsePayload[] = []; // user tweets list
   likedPostList: PostResponsePayload[] = []; // user liked tweets list
+  repliedPostList: RepliedPostResponsePayload[] = [] // user replied tweets list
 
   // Loading spinner for retrieving data from db
   currentTweetPageNumber: number = 1;
@@ -49,6 +51,12 @@ export class ProfileComponent implements OnInit {
   currentLikedTweetPageNumber: number = 1;
   notEmptyAnotherLikedTweetPage: boolean = true;
   notScrollableLikedTweet: boolean = true;
+
+  currentRepliedTweetPageNumber: number = 1;
+  notEmptyAnotherRepliedTweetPage: boolean = true;
+  notScrollableRepliedTweet: boolean = true;
+
+
 
   isUserProfileFollowed!: boolean;
 
@@ -102,9 +110,41 @@ export class ProfileComponent implements OnInit {
     // Refresh dynamiclly page after dislike tweet
     // this.postService.refreshNeeded$.subscribe(() => this.getLikedPostsByUsername(0));
 
-    // Load liked tweets by user
+    // Load liked tweets by username
     this.getLikedPostsByUsername(0);
+
+    // load replied tweets with 3 last comments by username
+    this.getRepliedPostWithCommentsByUsername(0);
   }
+
+
+  // When scrolling replied posts activate this function
+  onScrollRepliedTweets() {
+    if (this.notScrollableRepliedTweet && this.notEmptyAnotherRepliedTweetPage) {
+      this.spinner.show();
+      this.notScrollableRepliedTweet = false;
+      // load next page
+      this.getRepliedPostWithCommentsByUsername(this.currentRepliedTweetPageNumber++);
+    }
+  }
+
+  private getRepliedPostWithCommentsByUsername(pageNumber: number) {
+    this.postService
+      .getRepliedPostsWithCommentsByUsername(this.username, pageNumber)
+      .subscribe((postResponse) => {
+        if (postResponse.length === 0) {
+          this.notEmptyAnotherTweetPage = false;
+          this.spinner.hide();
+        }
+
+        this.repliedPostList = [...this.repliedPostList, ...postResponse];
+        this.notScrollableRepliedTweet = true;
+      });
+  }
+
+
+
+
 
   navigateBackToHomePage() {
     this.router.navigateByUrl('/');

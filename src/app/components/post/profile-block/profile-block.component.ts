@@ -12,14 +12,16 @@ export class ProfileBlockComponent implements OnInit {
 
   @Input() username!: string;
 
-  name!: string;
-  profileImage!: string;
+  userBlock = {
+    name: '',
+    username: '',
+    profileImage: '',
+    description: '',
+    followerNo: 0,
+    followingNo: 0,
+
+  }
   jpgFormat: string = 'data:image/jpeg;base64,';
-  description!: number;
-  followerNo!: number;
-  followingNo!: number;
-  following!: Array<FollowerDto>;
-  followers!: Array<FollowerDto>;
 
   constructor(
     private userSerivce: UserService
@@ -34,14 +36,17 @@ export class ProfileBlockComponent implements OnInit {
       .getUserByUsername(username)
       .subscribe(
         (userDetails) => {
-          this.name = userDetails.name;
-          this.username = userDetails.username;
-          this.profileImage = this.jpgFormat + userDetails.userProfilePicture;
-          this.description = userDetails.tweetNo;
-          this.followerNo = userDetails.followerNo;
-          this.followingNo = userDetails.followingNo;
-          this.following = userDetails.following;
-          this.followers = userDetails.followers;
+          this.userBlock.name = userDetails.name;
+          this.userBlock.username = userDetails.username;
+          this.userBlock.profileImage = this.jpgFormat + userDetails.userProfilePicture;
+          this.userBlock.followerNo = userDetails.followerNo;
+          this.userBlock.followingNo = userDetails.followingNo;
+
+          this.userBlock.description = userDetails.description;
+          if (this.userBlock.description.length > 150) {
+            this.userBlock.description = this.userBlock.description.substring(0, 150) + "...";
+          }
+
         })
   }
 }

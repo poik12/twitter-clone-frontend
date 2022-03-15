@@ -1,20 +1,20 @@
 <div class="profileBlock__component">
   <!-- Profile Image -->
-  <img class="profileBlock__image" src="{{ profileImage }}" alt="" />
+  <img class="profileBlock__image" src="{{ userBlock.profileImage }}" alt="" />
   <!-- Name -->
-  <div class="profileBlock__name">{{ name }}</div>
+  <div class="profileBlock__name">{{ userBlock.name }}</div>
   <!-- Username -->
-  <div class="profileBlock__username">@ {{ username }}</div>
+  <div class="profileBlock__username">@{{ userBlock.username }}</div>
   <!-- Description -->
   <div class="profileBlock__description">
-    {{ description }}
+    {{ userBlock.description }}
   </div>
   <!-- Following No -->
   <div class="profileBlock__following">
-    <strong>{{ followingNo }}</strong> following
+    <strong>{{ userBlock.followingNo }}</strong> following
   </div>
   <!-- Followers No -->
   <div class="profileBlock__followers">
-    <strong>{{ followerNo }}</strong> followers
+    <strong>{{ userBlock.followerNo }}</strong> followers
   </div>
 </div>

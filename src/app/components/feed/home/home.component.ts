@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   post!: PostResponsePayload;
   postList: PostResponsePayload[] = [];
 
-  @Output() reloadMainComponent!: boolean;
+  // @Output() reloadMainComponent!: boolean;
   isPostSection: boolean = true;
 
   // Loading spinner for retrieving data from db
@@ -91,10 +91,17 @@ export class HomeComponent implements OnInit {
   }
 
   // Refresh dynamiclly home component with posts after delete post
-  handleDeletePost(postId: number) {
+  handleDeletePost($event: PostResponsePayload) {
+    const postIndex: number = this.postList.indexOf($event);
+    if (postIndex != -1) {
+      this.postList.slice(postIndex, 1);
+    }
+    // should remove from lift without reload
+    // this.postList = [...this.postList];
     this.postList = [];
     this.getAllPosts(0);
   }
+
 
 }
 

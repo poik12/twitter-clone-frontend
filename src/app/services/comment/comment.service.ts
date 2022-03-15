@@ -15,6 +15,8 @@ export class CommentService {
   private GET_COMMENTS_BY_USERNAME_URL = 'http://localhost:8080/api/v1/comments/by-user/';
   private DELETE_COMMENT_BY_ID_URL = 'http://localhost:8080/api/v1/comments/';
 
+  pageSize: number = 10;
+
   // After adding comment refresh page
   private _refreshNeeded$ = new Subject<void>();
 
@@ -33,11 +35,11 @@ export class CommentService {
   }
 
   getAllCommentsForPostId(postId: number, pageNumber: number): Observable<CommentResponsePayload[]> {
-    return this.httpClient.get<CommentResponsePayload[]>(this.GET_COMMENTS_BY_POST_ID_URL + postId + `?pageNumber=${pageNumber}&pageSize=10`);
+    return this.httpClient.get<CommentResponsePayload[]>(this.GET_COMMENTS_BY_POST_ID_URL + postId + `?pageNumber=${pageNumber}&pageSize=${this.pageSize}`);
   }
 
-  getAllCommentsForUsername(username: string, pageNumber: number): Observable<CommentResponsePayload[]> {
-    return this.httpClient.get<CommentResponsePayload[]>(this.GET_COMMENTS_BY_USERNAME_URL + username + `?pageNumber=${pageNumber}&pageSize=10`);
+  getAllUserCommentsForPost(username: string, postId: number, pageNumber: number): Observable<CommentResponsePayload[]> {
+    return this.httpClient.get<CommentResponsePayload[]>(this.GET_COMMENTS_BY_USERNAME_URL + username + "/" + postId);
   }
 
 }

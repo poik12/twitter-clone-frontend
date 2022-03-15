@@ -4,7 +4,7 @@
     <div class="home__postAuthorImage">
       <img
         style="width: 50px; height: 50px; border-radius: 100%"
-        src="{{ userProfileImage }}"
+        src="{{ jpgFormat + post.userProfilePicture }}"
         alt="user"
         [matMenuTriggerFor]="profileBlock"
         #trigger="matMenuTrigger"
@@ -79,27 +79,95 @@
         </div>
         <!-- Post url -->
         <div class="home__postDescriptionBodyImageContainer">
-          <ng-container *ngIf="imageFileList.length > 0">
-            <ng-container *ngFor="let imageFile of imageFileList">
+          <!-- Image shape depending on post.fileContent.length -->
+          <ng-container [ngSwitch]="post.fileContent.length">
+            <!-- 1 Image file -->
+            <ng-container *ngSwitchCase="1">
               <img
-                class="home__postDescriptionBodyImage"
-                src="{{ this.jpgFormat + imageFile }}"
+                class="home__postDescriptionBodyImage_Layout"
+                src="{{ this.jpgFormat + post.fileContent[0] }}"
                 alt=""
-                (click)="openFullSizeImageDialog($event)"
+                (click)="openFullSizeImageDialog($event, 0)"
               />
             </ng-container>
+            <!-- 2 Image files -->
+            <ng-container *ngSwitchCase="2">
+              <div style="display: flex">
+                <img
+                  class="home__postDescriptionBodyImage_Layout_leftImage"
+                  src="{{ this.jpgFormat + post.fileContent[0] }}"
+                  alt=""
+                  (click)="openFullSizeImageDialog($event, 0)"
+                />
+                <img
+                  class="home__postDescriptionBodyImage_Layout_rightImage"
+                  src="{{ this.jpgFormat + post.fileContent[1] }}"
+                  alt=""
+                  (click)="openFullSizeImageDialog($event, 1)"
+                />
+              </div>
+            </ng-container>
+            <!-- 3 Image files -->
+            <ng-container *ngSwitchCase="3">
+              <div style="display: flex">
+                <img
+                  class="home__postDescriptionBodyImage_Layout_leftImage"
+                  src="{{ this.jpgFormat + post.fileContent[0] }}"
+                  alt=""
+                  (click)="openFullSizeImageDialog($event, 0)"
+                />
+                <div>
+                  <img
+                    class="home__postDescriptionBodyImage_Layout_rightImageTop"
+                    src="{{ this.jpgFormat + post.fileContent[1] }}"
+                    alt=""
+                    (click)="openFullSizeImageDialog($event, 1)"
+                  />
+                  <img
+                    class="home__postDescriptionBodyImage_Layout_rightImageBottom"
+                    src="{{ this.jpgFormat + post.fileContent[2] }}"
+                    alt=""
+                    (click)="openFullSizeImageDialog($event, 2)"
+                  />
+                </div>
+              </div>
+            </ng-container>
+            <!-- 4 Image files -->
+            <ng-container *ngSwitchCase="4">
+              <div style="display: flex">
+                <div>
+                  <img
+                    class="home__postDescriptionBodyImage_Layout_leftImageTop"
+                    src="{{ this.jpgFormat + post.fileContent[0] }}"
+                    alt=""
+                    (click)="openFullSizeImageDialog($event, 0)"
+                  />
+                  <img
+                    class="home__postDescriptionBodyImage_Layout_leftImageBottom"
+                    src="{{ this.jpgFormat + post.fileContent[1] }}"
+                    alt=""
+                    (click)="openFullSizeImageDialog($event, 1)"
+                  />
+                </div>
+                <div>
+                  <img
+                    class="home__postDescriptionBodyImage_Layout_rightImageTop"
+                    src="{{ this.jpgFormat + post.fileContent[2] }}"
+                    alt=""
+                    (click)="openFullSizeImageDialog($event, 2)"
+                  />
+                  <img
+                    class="home__postDescriptionBodyImage_Layout_rightImageBottom"
+                    src="{{ this.jpgFormat + post.fileContent[3] }}"
+                    alt=""
+                    (click)="openFullSizeImageDialog($event, 3)"
+                  />
+                </div>
+              </div>
+              <!-- 0 Image Files -->
+            </ng-container>
+            <ng-container *ngSwitchDefault></ng-container>
           </ng-container>
-
-          <!-- <ng-container
-            *ngIf="retrievedImageFromDb !== this.jpgFormat + 'null'"
-          >
-            <img
-              class="home__postDescriptionBodyImage"
-              src="{{ retrievedImageFromDb }}"
-              alt=""
-              (click)="openFullSizeImageDialog($event)"
-            />
-          </ng-container> -->
         </div>
       </div>
 
@@ -107,9 +175,9 @@
       <div class="home__postParameters">
         <app-post-parameters
           [postId]="post.id"
-          [likesCount]="tweetParams.likesCount"
+          [likesCount]="post.likeNo"
           [isPostLiked]="post.likedByLoggedUser"
-          [commentCount]="tweetParams.commentCount"
+          [commentCount]="post.commentNo"
         ></app-post-parameters>
       </div>
     </div>

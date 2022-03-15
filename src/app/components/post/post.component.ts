@@ -8,7 +8,6 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { NotificationType } from 'src/app/services/notification/notification-type.enum';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { PostService } from 'src/app/services/post/post.service';
-import { HomeComponent } from '../feed/home/home.component';
 import { FullSizeImageDialogComponent } from './full-size-image-dialog/full-size-image-dialog.component';
 
 
@@ -27,21 +26,10 @@ export class PostComponent implements OnInit {
   uploadIcon = faUpload;
 
   @Input() post!: PostResponsePayload;
-
-  @Input() imageFileList: any[] = [];
-  @Input() retrievedImageFromDb: any;
   jpgFormat: string = 'data:image/jpeg;base64,';
   userProfileImage!: string;
 
-  @Output() public handleDeletePost: EventEmitter<any> = new EventEmitter<any>()
-
-  // @Input() isPostLikedByUser: boolean = false;
-
-  tweetParams = {
-    isPostLiked!: false,
-    commentCount: 0,
-    likesCount: 0,
-  }
+  @Output() public handleDeletePost: EventEmitter<PostResponsePayload> = new EventEmitter<PostResponsePayload>();
 
   constructor(
     private router: Router,
@@ -49,19 +37,9 @@ export class PostComponent implements OnInit {
     private postService: PostService,
     private authService: AuthService,
     private notificationService: NotificationService,
-  ) {
+  ) { }
 
-  }
-
-  ngOnInit(): void {
-    this.imageFileList = this.post.fileContent;
-
-    this.retrievedImageFromDb = this.jpgFormat + this.post.fileContent;
-    this.userProfileImage = this.jpgFormat + this.post.userProfilePicture;
-
-    this.tweetParams.commentCount = this.post.commentNo;
-    this.tweetParams.likesCount = this.post.likeNo;
-  }
+  ngOnInit(): void { }
 
   navigateToPostDetails() {
     this.router.navigate(['/post-details', this.post.id]);
@@ -94,7 +72,7 @@ export class PostComponent implements OnInit {
           );
           console.log("post deleted")
 
-          this.handleDeletePost.emit(postId);
+          this.handleDeletePost.emit(this.post);
         }
       );
   }
@@ -104,14 +82,12 @@ export class PostComponent implements OnInit {
     this.router.navigate(['/profile', this.post.username]);
   }
 
-  openFullSizeImageDialog($event: Event) {
-
-    // After clicking on image in post open it in full size
-    $event.stopPropagation();
+  openFullSizeImageDialog($event: Event, imageFile: number) {
+    $event.stopPropagation(); // After clicking on image in post open it in full size
 
     const dialogConfig = new MatDialogConfig;
     dialogConfig.disableClose = false;
-    dialogConfig.data = this.retrievedImageFromDb;
+    dialogConfig.data = this.jpgFormat + this.post.fileContent[imageFile];
     dialogConfig.backdropClass = 'backdropBackground';
 
     this.dialog.open(FullSizeImageDialogComponent, dialogConfig);

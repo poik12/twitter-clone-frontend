@@ -23,12 +23,54 @@
 
 .home__postDescriptionBodyImageContainer {
   margin-top: 10px;
+  width: 490px;
 }
 
-.home__postDescriptionBodyImage {
+.home__postDescriptionBodyImage_Layout {
   width: 490px;
   height: 280px;
   border-radius: 30px;
+}
+
+.home__postDescriptionBodyImage_Layout_leftImage {
+  width: 244px;
+  height: 280px;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  margin-right: 2px;
+}
+
+.home__postDescriptionBodyImage_Layout_rightImage {
+  width: 244px;
+  height: 280px;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+
+.home__postDescriptionBodyImage_Layout_rightImageTop {
+  width: 244px;
+  height: 139px;
+  border-top-right-radius: 30px;
+  margin-bottom: 2px;
+}
+
+.home__postDescriptionBodyImage_Layout_rightImageBottom {
+  width: 244px;
+  height: 139px;
+  border-bottom-right-radius: 30px;
+}
+
+.home__postDescriptionBodyImage_Layout_leftImageTop {
+  width: 242.5px;
+  height: 139px;
+  border-top-left-radius: 30px;
+  margin-bottom: 2px;
+}
+
+.home__postDescriptionBodyImage_Layout_leftImageBottom {
+  width: 242.5px;
+  height: 139px;
+  border-bottom-left-radius: 30px;
 }
 
 .home__postDescriptionHeader {

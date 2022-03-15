@@ -12,8 +12,11 @@
     <!-- Header Name -->
     <div class="postDetails__headerSectionInfo">Tweet</div>
   </div>
+
   <!-- Post Section-->
-  <app-post [post]="post" [retrievedImageFromDb]="post.fileContent"></app-post>
+  <!-- <app-post [post]="post" [retrievedImageFromDb]="post.fileContent"></app-post> -->
+  <app-post [post]="post"></app-post>
+
   <!-- Tweetbox Section -->
   <app-tweetbox
     [isPostSection]="isPostSection"

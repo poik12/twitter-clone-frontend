@@ -1,3 +1,12 @@
+.comment__response {
+  font-size: 14px;
+  color: var(--twitter-font-color);
+  margin-bottom: 5px;
+}
+.comment__response > a {
+  color: red;
+}
+
 .comment__component {
   display: flex;
   align-items: flex-start;
@@ -34,7 +43,7 @@
 
 .comment__postDescriptionHeader {
   display: flex;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   width: 520px;
 }
 

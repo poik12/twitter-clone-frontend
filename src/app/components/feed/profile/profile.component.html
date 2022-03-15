@@ -173,7 +173,36 @@
     </mat-tab>
 
     <!-- Tweets&Replies -->
-    <mat-tab label="Tweets & replies"> Content 2 </mat-tab>
+    <mat-tab label="Tweets & replies">
+      <!-- Tweets loaded with inifnite scroll and loading spinner -->
+      <div
+        class="search-results"
+        infiniteScroll
+        [scrollWindow]="false"
+        [infiniteScrollDistance]="2"
+        [infiniteScrollThrottle]="50"
+        (scrolled)="onScrollTweets()"
+        id="scrollbar"
+      >
+        <!-- Each Tweet Block with comment -->
+        <ng-container *ngFor="let repliedPost of repliedPostList">
+          <!-- Load post which was commented by username -->
+          <app-post [post]="repliedPost.post"></app-post>
+          <ng-container *ngFor="let comment of repliedPost.comments">
+            <!-- Load user comments for that post -->
+            <app-comment
+              [comment]="comment"
+              [isTweetReplied]="true"
+              [repliedUser]="repliedPost.post.username"
+            ></app-comment>
+          </ng-container>
+        </ng-container>
+        <!-- Loading spinner -->
+        <app-loading-spinner
+          [notEmptyPage]="notEmptyAnotherTweetPage"
+        ></app-loading-spinner>
+      </div>
+    </mat-tab>
 
     <!-- Media -->
     <mat-tab label="Media"> Content 3 </mat-tab>

@@ -21,7 +21,8 @@ export class PostDetailsComponent implements OnInit {
   postId!: number;
   post!: PostResponsePayload;
 
-  retrievedImageFromDb: any;
+  // retrievedImageFromDb: any;
+
   jpgFormat: string = 'data:image/jpeg;base64,';
 
   commentList: CommentResponsePayload[] = [];
@@ -54,7 +55,7 @@ export class PostDetailsComponent implements OnInit {
       })
 
     this.getCommentsForPost(0);
-    this.retrievedImageFromDb = this.jpgFormat + this.post.fileContent;
+    // this.retrievedImageFromDb = this.jpgFormat + this.post.fileContent;
 
   }
 
@@ -65,11 +66,7 @@ export class PostDetailsComponent implements OnInit {
   private getPostById() {
     this.postService
       .getPostById(this.postId)
-      .subscribe(
-        (postResponse) => {
-          this.post = postResponse;
-        }
-      )
+      .subscribe((postResponse) => this.post = postResponse);
   }
 
   // When scrolling posts activate this function
