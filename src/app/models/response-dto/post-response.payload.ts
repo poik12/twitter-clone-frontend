@@ -13,5 +13,6 @@ export default interface PostResponsePayload {
   userProfilePicture: any;
 
   likedByLoggedUser: boolean;
+  hashtags: string[];
 
 }

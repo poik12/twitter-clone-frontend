@@ -6,6 +6,7 @@ import PostResponsePayload from 'src/app/models/response-dto/post-response.paylo
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { PostService } from 'src/app/services/post/post.service';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { Observable } from 'rxjs';
 
 
 @Component({

@@ -60,6 +60,7 @@ import { SearchBarComponent } from './components/widgets/search-bar/search-bar.c
 import { FollowersDialogComponent } from './components/feed/profile/followers-dialog/followers-dialog.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
+import { HashtagMentionColLibModule } from 'hashtag-mention-colorizer';
 
 
 const globalRippleConfig: RippleGlobalOptions = {
@@ -124,9 +125,8 @@ const globalRippleConfig: RippleGlobalOptions = {
     NgxFileDropModule,
     InfiniteScrollModule,
     NgxSpinnerModule,
-    // ScrollingModule,
-
     TextareaAutosizeModule,
+    HashtagMentionColLibModule
   ],
 
   providers: [

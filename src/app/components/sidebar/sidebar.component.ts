@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { RippleGlobalOptions } from '@angular/material/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faHome, faHashtag, faBell, faEnvelope, faBookmark, faList, faUser, faEllipsisH, faCog } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -17,7 +17,6 @@ import { UserService } from 'src/app/services/user/user.service';
 export class SidebarComponent implements OnInit {
 
   @Input() isUserLoggedIn!: boolean;
-  // @Input() username!: string;
 
   // User parameters in sidebar
   username!: string;
@@ -49,7 +48,8 @@ export class SidebarComponent implements OnInit {
     private authService: AuthService,
     private activatedRoute: ActivatedRoute,
     private notificationSerivce: NotificationService,
-    private userSerivce: UserService
+    private userSerivce: UserService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {

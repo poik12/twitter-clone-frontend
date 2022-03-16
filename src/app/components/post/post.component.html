@@ -74,7 +74,10 @@
       <!-- Post Body -->
       <div class="home__postDescriptionBody">
         <!-- Post Description -->
-        <div class="home__postDescriptionBodyText">
+        <div
+          class="home__postDescriptionBodyText"
+          [innerHTML]="post.description | hmColor"
+        >
           {{ post.description }}
         </div>
         <!-- Post url -->

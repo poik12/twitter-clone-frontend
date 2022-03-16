@@ -1,10 +1,11 @@
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { faEnvelope, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MessageService } from 'src/app/services/message/message.service';
 import ConversationResponsePayload from 'src/app/models/response-dto/conversation-response.payload';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-messages-sidebar',
@@ -91,4 +92,5 @@ export class MessagesSidebarComponent implements OnInit {
         this.notScrollable = true;
       });
   }
+
 }
