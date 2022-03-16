@@ -1,3 +1,4 @@
+import { NotificationsComponent } from './components/feed/notifications/notifications.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -17,6 +18,7 @@ const routes: Routes = [
       { path: '', component: HomeComponent },
       { path: 'profile/:username', component: ProfileComponent },
       { path: 'explore', component: ExploreComponent, canActivate: [AuthGuard] },
+      { path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard] },
       { path: 'tweet-details/:id', component: TweetDetailsComponent, canActivate: [AuthGuard] },
       { path: 'messages', component: MessagesComponent }
     ]

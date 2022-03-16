@@ -6,7 +6,6 @@ import TweetResponsePayload from 'src/app/models/response-dto/tweet-response.pay
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { TweetService } from 'src/app/services/tweet/tweet.service';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { Observable } from 'rxjs';
 
 
 @Component({

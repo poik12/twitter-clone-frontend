@@ -1,0 +1,31 @@
+<div class="main__container">
+  <!-- Header -->
+  <div class="notifications__header">
+    <div class="notifications__headerText">Notifications</div>
+    <div class="notifications__headerIcon">
+      <fa-icon [icon]="notificationIcon"></fa-icon>
+    </div>
+  </div>
+
+  <!-- Notifications with inifnite scroll and loading spinner -->
+  <div
+    class="search-results"
+    infiniteScroll
+    [scrollWindow]="false"
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="50"
+    (scrolled)="onScroll()"
+    id="scrollbar"
+  >
+    <!-- Each Notification Block -->
+    <ng-container *ngFor="let notification of notificationList">
+      <app-notification-block
+        [notification]="notification"
+      ></app-notification-block>
+    </ng-container>
+    <!-- Loading spinner -->
+    <app-loading-spinner
+      [notEmptyPage]="notEmptyAnotherPage"
+    ></app-loading-spinner>
+  </div>
+</div>

@@ -61,6 +61,8 @@ import { FollowersDialogComponent } from './components/feed/user-profile/followe
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { HashtagMentionColLibModule } from 'hashtag-mention-colorizer';
+import { NotificationsComponent } from './components/feed/notifications/notifications.component';
+import { NotificationBlockComponent } from './components/feed/notifications/notification-block/notification-block.component';
 
 
 const globalRippleConfig: RippleGlobalOptions = {
@@ -108,7 +110,9 @@ const globalRippleConfig: RippleGlobalOptions = {
     MessagesChatComponent,
     SearchBarComponent,
     FollowersDialogComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    NotificationsComponent,
+    NotificationBlockComponent
   ],
   imports: [
     BrowserModule,

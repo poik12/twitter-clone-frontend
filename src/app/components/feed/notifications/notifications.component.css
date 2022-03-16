@@ -1,0 +1,42 @@
+.main__container {
+  overflow: block;
+}
+
+.notifications__header {
+  position: sticky;
+  top: 0;
+  height: 6vh;
+  background-color: white;
+  border-bottom: 1px solid var(--twitter-background);
+  padding: 15px 20px;
+  display: flex;
+}
+
+.notifications__headerText {
+  font-size: 22px;
+  font-weight: 600;
+  width: 97%;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.notifications__headerIcon {
+  color: var(--twitter-color);
+  font-size: 20px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+#scrollbar {
+  overflow-y: hidden;
+}
+
+#scrollbar:hover,
+#scrollbar:active,
+#scrollbar:focus {
+  overflow-y: auto;
+}
+
+.search-results {
+  height: 80vh;
+}

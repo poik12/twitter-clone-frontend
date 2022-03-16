@@ -1,0 +1,79 @@
+<div class="notificationBlock__component" (click)="navigateToDetails()">
+  <!-- notificationBlock Image -->
+  <div class="notificationBlock__authorImage">
+    <img
+      style="width: 50px; height: 50px; border-radius: 100%"
+      src="{{ jpgFormat + notification.userProfilePicture }}"
+      alt="user"
+    />
+  </div>
+
+  <!-- notificationBlock description -->
+  <div class="notificationBlock__description">
+    <!-- notificationBlock Header -->
+    <div class="notificationBlock__descriptionHeader">
+      <!-- Author -->
+      <div class="notificationBlock__descriptionHeaderAuthor">
+        {{ notification.name }}
+      </div>
+      <!-- Verified -->
+      <div class="notificationBlock__descriptionHeaderVerified">
+        <fa-icon
+          class="notificationBlock__descriptionHeaderVerified"
+          [icon]="verifiedIcon"
+        >
+        </fa-icon>
+      </div>
+      <!-- Username -->
+      <div class="notificationBlock__descriptionHeaderUsername">
+        @ {{ notification.username }}
+      </div>
+      <!-- Time added -->
+      <div class="notificationBlock__descriptionHeaderTime">
+        · {{ notification.timeDuration }}
+      </div>
+      <!-- Arrow -->
+      <div class="notificationBlock__descriptionHeaderMoreOption">
+        <fa-icon
+          class="notificationBlock__descriptionHeaderMoreOptionIcon"
+          [icon]="moreIcon"
+        >
+        </fa-icon>
+      </div>
+    </div>
+
+    <!-- <ng-container *ngIf="isTweetReplied">
+      <div class="notificationBlock__response">
+        Replaying to <a>@{{ repliedUser }}</a>
+      </div>
+    </ng-container> -->
+
+    <!--  Body -->
+    <div class="notificationBlock__descriptionBody">
+      <div class="notificationBlock__descriptionBodyText">
+        <ng-container [ngSwitch]="notification.type">
+          <!-- Follower notification -->
+          <ng-container *ngSwitchCase="'follower'">
+            has followerd your profile!
+          </ng-container>
+          <!-- Tweet notification -->
+          <ng-container *ngSwitchCase="'tweet'">
+            has added new tweet. Check it out!
+          </ng-container>
+          <!-- Comment notification -->
+          <ng-container *ngSwitchCase="'comment'">
+            has added new comment to your tweet!
+          </ng-container>
+          <!-- Message notification -->
+          <ng-container *ngSwitchCase="'message'">
+            sent you new message!
+          </ng-container>
+          <!-- Like notification notification -->
+          <ng-container *ngSwitchCase="'like'">
+            has liked your tweet!
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

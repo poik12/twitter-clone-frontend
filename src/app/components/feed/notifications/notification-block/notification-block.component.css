@@ -1,0 +1,87 @@
+.notificationBlock__component {
+  display: flex;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--twitter-background);
+  padding-bottom: 10px;
+  max-width: 620px;
+}
+
+.notificationBlock__component:hover {
+  background-color: var(--twitter-background);
+  cursor: pointer;
+}
+
+.notificationBlock__authorImage {
+  padding: 15px;
+}
+
+.notificationBlock__description {
+  margin-top: 10px;
+}
+
+.notificationBlock__descriptionBody {
+  margin-top: 10px;
+}
+
+.notificationBlock__descriptionBodyImageContainer {
+  margin-top: 10px;
+}
+
+.notificationBlock__descriptionBodyImage {
+  width: 500px;
+  height: 280px;
+  border-radius: 30px;
+}
+
+.notificationBlock__descriptionHeader {
+  display: flex;
+  margin-bottom: 5px;
+  width: 520px;
+}
+
+.notificationBlock__descriptionHeaderAuthor {
+  font-size: 15px;
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+.notificationBlock__descriptionHeaderVerified {
+  color: var(--twitter-color);
+  margin-right: 5px;
+  margin-top: 1px;
+}
+
+.notificationBlock__descriptionHeaderUsername {
+  font-size: 15px;
+  color: gray;
+  margin-right: 10px;
+}
+
+.notificationBlock__descriptionHeaderTime {
+  font-size: 15px;
+  color: gray;
+}
+
+.notificationBlock__descriptionHeaderMoreOption {
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.notificationBlock__descriptionHeaderMoreOptionIcon {
+  font-size: 17px;
+  color: gray;
+  border: 30px;
+  padding: 5px;
+  padding-left: auto;
+}
+.notificationBlock__descriptionHeaderMoreOptionIcon:hover {
+  background-color: #e8f5fe;
+  border-radius: 30px;
+  color: var(--twitter-color);
+  transition: color 100ms ease-out;
+}
+
+.notificationBlock__descriptionBody {
+  margin-right: 30px;
+  margin-bottom: 10px;
+}
