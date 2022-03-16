@@ -1,4 +1,4 @@
-export default interface PostResponsePayload {
+export default interface TweetResponsePayload {
 
   id: number;
   name: string;
@@ -7,11 +7,9 @@ export default interface PostResponsePayload {
   commentNo: number;
   likeNo: number;
   createdAt: Date;
-  postTimeDuration: String;
-
+  tweetTimeDuration: String;
   fileContent: any[];
   userProfilePicture: any;
-
   likedByLoggedUser: boolean;
   hashtags: string[];
 

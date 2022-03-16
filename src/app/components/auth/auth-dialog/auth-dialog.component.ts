@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
-import { LoginComponent } from '../auth/login/login.component';
-import { RegisterComponent } from '../auth/register/register.component';
+import { LoginComponent } from '../login/login.component';
+import { RegisterComponent } from '../register/register.component';
 
 @Component({
   selector: 'app-auth-dialog',

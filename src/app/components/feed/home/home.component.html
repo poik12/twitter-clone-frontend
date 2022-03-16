@@ -15,10 +15,10 @@
   <ng-template #homeWithoutTweetBox></ng-template>
   <!-- With TweetBox Section -->
   <ng-template #homeWithTweetBox>
-    <app-tweetbox [isPostSection]="isPostSection"></app-tweetbox>
+    <app-tweetbox [isTweetSection]="isTweetSection"></app-tweetbox>
   </ng-template>
 
-  <!-- Posts loaded with inifnite scroll and loading spinner -->
+  <!-- Tweets loaded with inifnite scroll and loading spinner -->
   <div
     class="search-results"
     infiniteScroll
@@ -28,12 +28,12 @@
     (scrolled)="onScroll()"
     id="scrollbar"
   >
-    <!-- Each Post Block -->
-    <ng-container *ngFor="let post of postList">
-      <app-post
-        [post]="post"
-        (handleDeletePost)="handleDeletePost($event)"
-      ></app-post>
+    <!-- Each Tweet Block -->
+    <ng-container *ngFor="let tweet of tweetList">
+      <app-tweet
+        [tweet]="tweet"
+        (handleDeleteTweet)="handleDeleteTweet($event)"
+      ></app-tweet>
     </ng-container>
     <!-- Loading spinner -->
     <app-loading-spinner

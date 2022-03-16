@@ -3,10 +3,8 @@ import { throwError } from 'rxjs';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { faImage, faFileImage, faGripLines, faSmile, faCalendarCheck } from '@fortawesome/free-solid-svg-icons';
-import PostRequestPayload from 'src/app/models/request-dto/post-request.payload';
-import { PostService } from 'src/app/services/post/post.service';
-import { transition, trigger, useAnimation } from '@angular/animations';
-import { slideInAnimation, SlideOutAnimation } from 'src/app/shared/animations';
+import TweetRequestPayload from 'src/app/models/request-dto/tweet-request.payload';
+import { TweetService } from 'src/app/services/tweet/tweet.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
@@ -16,7 +14,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import CommentRequestPayload from 'src/app/models/request-dto/comment-request.payload';
 import { CommentService } from 'src/app/services/comment/comment.service';
-import PostResponsePayload from 'src/app/models/response-dto/post-response.payload';
+import TweetResponsePayload from 'src/app/models/response-dto/tweet-response.payload';
 import { NotificationType } from 'src/app/services/notification/notification-type.enum';
 import { NotificationMessage } from 'src/app/services/notification/notification-message.enum';
 import { UserService } from 'src/app/services/user/user.service';
@@ -25,12 +23,6 @@ import { UserService } from 'src/app/services/user/user.service';
   selector: 'app-tweetbox',
   templateUrl: './tweetbox.component.html',
   styleUrls: ['./tweetbox.component.css'],
-  animations: [
-    trigger('addNewPost', [
-      // transition(':enter', [useAnimation(slideInAnimation)]),
-      // transition(':leave', [useAnimation(SlideOutAnimation)]),
-    ])
-  ]
 })
 export class TweetboxComponent implements OnInit {
 
@@ -44,25 +36,23 @@ export class TweetboxComponent implements OnInit {
   profileImage!: string;
   jpgFormat: string = 'data:image/jpeg;base64,';
 
-  postForm!: FormGroup;
-  postRequestPayload!: PostRequestPayload;
-  commentRequestPayload!: CommentRequestPayload;
+  tweetForm!: FormGroup;
+  tweetRequest!: TweetRequestPayload;
+  commentRequest!: CommentRequestPayload;
 
   dialogRef!: MatDialogRef<UploadImageDialogComponent>;
   uploadedImage!: File;
   imagePreviewUrl!: string | ArrayBuffer | null;
 
-  uploadedImageFileList!: File[];
+  uploadedImageFileList: File[] = [];
   imageUploadedFrame: boolean = false;
 
-  selectedFile!: File;
-
   // Post or comment section
-  @Input() isPostSection!: boolean;
-  @Input() postId!: number;
+  @Input() isTweetSection!: boolean;
+  @Input() tweetId!: number;
 
   constructor(
-    private postService: PostService,
+    private postService: TweetService,
     private router: Router,
     public dialog: MatDialog,
     private authService: AuthService,
@@ -72,13 +62,13 @@ export class TweetboxComponent implements OnInit {
     private userSerivce: UserService
   ) {
 
-    this.postRequestPayload = {
+    this.tweetRequest = {
       description: '',
     }
 
-    this.commentRequestPayload = {
+    this.commentRequest = {
       username: '',
-      postId: 0,
+      tweetId: 0,
       text: ''
     }
 
@@ -88,14 +78,12 @@ export class TweetboxComponent implements OnInit {
     this.username = this.authService.getUsernameFromLocalStorage();
     this.getUserPicture(this.username);
 
-    this.postForm = new FormGroup({
+    this.tweetForm = new FormGroup({
       description: new FormControl(''),
       url: new FormControl('')
     });
 
   }
-
-
 
   getUserPicture(username: string) {
     this.userSerivce
@@ -110,18 +98,18 @@ export class TweetboxComponent implements OnInit {
   }
 
   // CREATE NEW COMMENT
-  async createComment() {
+  async addComment() {
     // Set comment payload
-    this.commentRequestPayload.postId = Number(this.postId);
-    this.commentRequestPayload.username = this.authService.getUsernameFromLocalStorage();
-    this.commentRequestPayload.text = this.postForm.get("description")?.value;
-    console.log('Comment Payload: ' + this.commentRequestPayload);
+    this.commentRequest.tweetId = Number(this.tweetId);
+    this.commentRequest.username = this.authService.getUsernameFromLocalStorage();
+    this.commentRequest.text = this.tweetForm.get("description")?.value;
+    console.log('Comment Payload: ' + this.commentRequest);
 
     // Clear tweet box input
-    this.postForm.reset();
+    this.tweetForm.reset();
 
     this.commentService
-      .addComment(this.commentRequestPayload)
+      .addComment(this.commentRequest)
       .subscribe(
         () => {
           this.notificationService.showNotification(
@@ -142,31 +130,31 @@ export class TweetboxComponent implements OnInit {
   }
 
   // CREATE NEW POST
-  async createPost() {
+  async addTweet() {
     // Set post paylaod
-    this.postRequestPayload.description = this.postForm.get("description")?.value;
-    console.log('Post Payload: ' + this.postRequestPayload);
+    this.tweetRequest.description = this.tweetForm.get("description")?.value;
+    console.log('Tweet Payload: ' + this.tweetRequest);
 
     // Clear tweet box input
-    this.postForm.reset();
+    this.tweetForm.reset();
 
     // Send post request to post service
     this.postService
-      .createPost(
-        this.postRequestPayload,
+      .addTweet(
+        this.tweetRequest,
         this.uploadedImageFileList
       )
       .subscribe(
         () => {
           this.notificationService.showNotification(
-            NotificationMessage.PostAddedSuccessfully,
+            NotificationMessage.TweetAddedSuccessfully,
             'OK',
             NotificationType.Success
           );
         },
         () => {
           this.notificationService.showNotification(
-            NotificationMessage.PostAddedError,
+            NotificationMessage.TweetAddedError,
             'OK',
             NotificationType.Error
           );
@@ -221,9 +209,6 @@ export class TweetboxComponent implements OnInit {
   }
 
   uploadFile($event: any) {
-    this.selectedFile = $event.target.files[0];
-    console.log(this.selectedFile)
-
     this.uploadedImageFileList = $event.target.files;
     console.log(this.uploadedImageFileList)
   }

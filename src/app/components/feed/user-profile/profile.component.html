@@ -161,9 +161,9 @@
         (scrolled)="onScrollTweets()"
         id="scrollbar"
       >
-        <!-- Each Post Block -->
-        <ng-container *ngFor="let post of postList">
-          <app-post [post]="post"></app-post>
+        <!-- Each tweet Block -->
+        <ng-container *ngFor="let tweet of tweetList">
+          <app-tweet [tweet]="tweet"></app-tweet>
         </ng-container>
         <!-- Loading spinner -->
         <app-loading-spinner
@@ -181,19 +181,19 @@
         [scrollWindow]="false"
         [infiniteScrollDistance]="2"
         [infiniteScrollThrottle]="50"
-        (scrolled)="onScrollTweets()"
+        (scrolled)="onScrollRepliedTweets()"
         id="scrollbar"
       >
         <!-- Each Tweet Block with comment -->
-        <ng-container *ngFor="let repliedPost of repliedPostList">
-          <!-- Load post which was commented by username -->
-          <app-post [post]="repliedPost.post"></app-post>
-          <ng-container *ngFor="let comment of repliedPost.comments">
-            <!-- Load user comments for that post -->
+        <ng-container *ngFor="let repliedTweet of repliedTweetList">
+          <!-- Load tweet which was commented by username -->
+          <app-tweet [tweet]="repliedTweet.tweet"></app-tweet>
+          <ng-container *ngFor="let comment of repliedTweet.comments">
+            <!-- Load user comments for that tweet -->
             <app-comment
               [comment]="comment"
               [isTweetReplied]="true"
-              [repliedUser]="repliedPost.post.username"
+              [repliedUser]="repliedTweet.tweet.username"
             ></app-comment>
           </ng-container>
         </ng-container>
@@ -219,9 +219,9 @@
         (scrolled)="onScrollLikedTweets()"
         id="scrollbar"
       >
-        <!-- Each Liked Post Block -->
-        <ng-container *ngFor="let likedPost of likedPostList">
-          <app-post [post]="likedPost"></app-post>
+        <!-- Each Liked tweet Block -->
+        <ng-container *ngFor="let likedTweet of likedTweetList">
+          <app-tweet [tweet]="likedTweet"></app-tweet>
         </ng-container>
         <!-- Loading spinner -->
         <app-loading-spinner

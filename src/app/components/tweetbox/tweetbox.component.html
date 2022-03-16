@@ -9,7 +9,7 @@
       />
     </div>
     <!-- Input For Text -->
-    <div class="home__tweetBoxTopInput" [formGroup]="postForm">
+    <div class="home__tweetBoxTopInput" [formGroup]="tweetForm">
       <textarea
         autosize
         class="home__tweetBoxTextArea"
@@ -73,18 +73,20 @@
       </div>
     </ng-template>
 
-    <!-- Tweet Button - Post Section or Comment Section Condition -->
     <div class="home__tweetBoxBottomTweetButton">
+      <!-- Tweet Button - Post Section or Comment Section Condition -->
       <ng-container
-        *ngIf="isPostSection; then postBlock; else commentBlock"
+        *ngIf="isTweetSection; then tweetBlock; else commentBlock"
       ></ng-container>
+
       <!-- Post Section Button -->
-      <ng-template #postBlock>
-        <button @addNewPost [disabled]="" (click)="createPost()">Tweet</button>
+      <ng-template #tweetBlock>
+        <button @addNewPost [disabled]="" (click)="addTweet()">Tweet</button>
       </ng-template>
+
       <!-- Comment Section Button -->
       <ng-template #commentBlock>
-        <button @addNewComment [disabled]="" (click)="createComment()">
+        <button @addNewComment [disabled]="" (click)="addComment()">
           Retweet
         </button>
       </ng-template>

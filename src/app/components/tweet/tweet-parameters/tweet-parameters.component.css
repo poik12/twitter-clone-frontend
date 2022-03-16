@@ -1,53 +1,53 @@
-.postParameter__container {
+.tweetParameter__container {
   display: flex;
   justify-content: space-around;
   color: gray;
 }
 
-.postParameter__comment {
+.tweetParameter__comment {
   padding: 3px;
 }
 
-.postParameter__shared {
+.tweetParameter__shared {
   padding: 3px;
 }
 
-.postParameter__loved {
+.tweetParameter__loved {
   padding: 3px;
 }
 
-.postParameter__uploaded {
+.tweetParameter__uploaded {
   padding: 3px;
   margin-right: 20px;
 }
 
-.postParameter__icon {
+.tweetParameter__icon {
   font-size: 17px;
   margin-right: 5px;
 }
 
-.postParameter__comment:hover {
+.tweetParameter__comment:hover {
   background-color: #e8f5fe;
   border-radius: 30px;
   color: var(--twitter-color);
   transition: color 100ms ease-out;
 }
 
-.postParameter__shared:hover {
+.tweetParameter__shared:hover {
   background-color: rgb(182, 236, 182);
   border-radius: 30px;
   color: rgb(20, 172, 20);
   transition: color 100ms ease-out;
 }
 
-.postParameter__loved:hover {
+.tweetParameter__loved:hover {
   background-color: rgb(236, 195, 195);
   border-radius: 30px;
   color: rgb(240, 82, 82);
   transition: color 100ms ease-out;
 }
 
-.postParameter__uploaded:hover {
+.tweetParameter__uploaded:hover {
   background-color: #e8f5fe;
   border-radius: 30px;
   color: var(--twitter-color);

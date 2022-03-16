@@ -4,20 +4,20 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
 import { faArrowLeft, faCalendar, faBell, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import FollowerDto from 'src/app/models/response-dto/follower-response.payload';
-import PostResponsePayload from 'src/app/models/response-dto/post-response.payload';
+import TweetResponsePayload from 'src/app/models/response-dto/tweet-response.payload';
 import UserDetailsResponsePayload from 'src/app/models/response-dto/user-details-response.payload';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { MessageService } from 'src/app/services/message/message.service';
 import { NotificationMessage } from 'src/app/services/notification/notification-message.enum';
 import { NotificationType } from 'src/app/services/notification/notification-type.enum';
 import { NotificationService } from 'src/app/services/notification/notification.service';
-import { PostService } from 'src/app/services/post/post.service';
+import { TweetService } from 'src/app/services/tweet/tweet.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { EditProfileDialogComponent } from './edit-profile-dialog/edit-profile-dialog.component';
 import { FollowersDialogComponent } from './followers-dialog/followers-dialog.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxSpinnerService } from 'ngx-spinner';
-import RepliedPostResponsePayload from 'src/app/models/response-dto/replied-post-response.payload';
+import RepliedTweetResponsePayload from 'src/app/models/response-dto/replied-tweet-response.payload';
 
 @Component({
   selector: 'app-profile',
@@ -39,9 +39,9 @@ export class ProfileComponent implements OnInit {
   userBackgroundPicture!: string;
   jpgFormat: string = 'data:image/jpeg;base64,';
 
-  postList: PostResponsePayload[] = []; // user tweets list
-  likedPostList: PostResponsePayload[] = []; // user liked tweets list
-  repliedPostList: RepliedPostResponsePayload[] = [] // user replied tweets list
+  tweetList: TweetResponsePayload[] = []; // user tweets list
+  likedTweetList: TweetResponsePayload[] = []; // user liked tweets list
+  repliedTweetList: RepliedTweetResponsePayload[] = [] // user replied tweets list
 
   // Loading spinner for retrieving data from db
   currentTweetPageNumber: number = 1;
@@ -56,11 +56,9 @@ export class ProfileComponent implements OnInit {
   notEmptyAnotherRepliedTweetPage: boolean = true;
   notScrollableRepliedTweet: boolean = true;
 
-
-
   isUserProfileFollowed!: boolean;
 
-  conversationRequestPayload: ConversationRequestPayload = {
+  conversationRequest: ConversationRequestPayload = {
     participantUsername: ''
   };
 
@@ -69,7 +67,7 @@ export class ProfileComponent implements OnInit {
     private router: Router,
     private activatedRouter: ActivatedRoute,
     private authService: AuthService,
-    private postService: PostService,
+    private tweetService: TweetService,
     private notificationService: NotificationService,
     private userService: UserService,
     private messageService: MessageService,
@@ -77,10 +75,8 @@ export class ProfileComponent implements OnInit {
   ) {
     // Get currently logged user
     this.loggedUser = this.authService.getUsernameFromLocalStorage();
-
     // Get username from activated route http://localhost:4200/profile/:username in sidebar
     this.username = this.activatedRouter.snapshot.params['username'];
-
     // Get user details by username from acitvated route
     this.getUserDetails(this.username);
   }
@@ -98,53 +94,49 @@ export class ProfileComponent implements OnInit {
       })
 
 
-    // // Refresh dynamiclly page after updating posts
+    // // Refresh dynamiclly page after updating tweets
     // this.userService.refreshNeeded$
     //     .subscribe(() => {
     //       this.getUserDetails(this.username);
     //     })
 
     // Load user tweets
-    this.getPostsByUsername(0);
+    this.getTweetsByUsername(0);
 
     // Refresh dynamiclly page after dislike tweet
-    // this.postService.refreshNeeded$.subscribe(() => this.getLikedPostsByUsername(0));
+    // this.tweetService.refreshNeeded$.subscribe(() => this.getLikedtweetsByUsername(0));
 
     // Load liked tweets by username
-    this.getLikedPostsByUsername(0);
+    this.getLikedTweetsByUsername(0);
 
     // load replied tweets with 3 last comments by username
-    this.getRepliedPostWithCommentsByUsername(0);
+    this.getRepliedTweetsWithCommentsByUsername(0);
   }
 
 
-  // When scrolling replied posts activate this function
+  // When scrolling replied tweets activate this function
   onScrollRepliedTweets() {
     if (this.notScrollableRepliedTweet && this.notEmptyAnotherRepliedTweetPage) {
       this.spinner.show();
       this.notScrollableRepliedTweet = false;
       // load next page
-      this.getRepliedPostWithCommentsByUsername(this.currentRepliedTweetPageNumber++);
+      this.getRepliedTweetsWithCommentsByUsername(this.currentRepliedTweetPageNumber++);
     }
   }
 
-  private getRepliedPostWithCommentsByUsername(pageNumber: number) {
-    this.postService
-      .getRepliedPostsWithCommentsByUsername(this.username, pageNumber)
-      .subscribe((postResponse) => {
-        if (postResponse.length === 0) {
+  private getRepliedTweetsWithCommentsByUsername(pageNumber: number) {
+    this.tweetService
+      .getRepliedTweetsWithCommentsByUsername(this.username, pageNumber)
+      .subscribe((tweetResponse) => {
+        if (tweetResponse.length === 0) {
           this.notEmptyAnotherTweetPage = false;
           this.spinner.hide();
         }
 
-        this.repliedPostList = [...this.repliedPostList, ...postResponse];
+        this.repliedTweetList = [...this.repliedTweetList, ...tweetResponse];
         this.notScrollableRepliedTweet = true;
       });
   }
-
-
-
-
 
   navigateBackToHomePage() {
     this.router.navigateByUrl('/');
@@ -171,60 +163,60 @@ export class ProfileComponent implements OnInit {
     this.dialog.open(EditProfileDialogComponent, dialogConfig);
   }
 
-  // When scrolling posts activate this function
+  // When scrolling tweets activate this function
   onScrollTweets() {
     if (this.notScrollableTweet && this.notEmptyAnotherTweetPage) {
       this.spinner.show();
       this.notScrollableTweet = false;
       // load next page
-      this.getPostsByUsername(this.currentTweetPageNumber++);
+      this.getTweetsByUsername(this.currentTweetPageNumber++);
     }
   }
 
-  private getPostsByUsername(pageNumber: number) {
-    this.postService
-      .getPostsByUsername(this.username, pageNumber)
-      .subscribe((postResponse) => {
-        if (postResponse.length === 0) {
+  private getTweetsByUsername(pageNumber: number) {
+    this.tweetService
+      .getTweetsByUsername(this.username, pageNumber)
+      .subscribe((tweetResponse) => {
+        if (tweetResponse.length === 0) {
           this.notEmptyAnotherTweetPage = false;
           this.spinner.hide();
         }
 
-        this.postList = [...this.postList, ...postResponse];
+        this.tweetList = [...this.tweetList, ...tweetResponse];
         this.notScrollableTweet = true;
       });
   }
 
-  // When scrolling liked posts activate this function
+  // When scrolling liked tweets activate this function
   onScrollLikedTweets() {
     if (this.notScrollableLikedTweet && this.notEmptyAnotherLikedTweetPage) {
       this.spinner.show();
       this.notScrollableLikedTweet = false;
       // load next page
-      this.getLikedPostsByUsername(this.currentLikedTweetPageNumber++)
+      this.getLikedTweetsByUsername(this.currentLikedTweetPageNumber++)
     }
   }
 
-  private getLikedPostsByUsername(pageNumber: number) {
-    this.postService
-      .getLikedPostsByUsername(this.username, pageNumber)
-      .subscribe((postResponse) => {
-        if (postResponse.length === 0) {
+  private getLikedTweetsByUsername(pageNumber: number) {
+    this.tweetService
+      .getLikedTweetsByUsername(this.username, pageNumber)
+      .subscribe((tweetResponse) => {
+        if (tweetResponse.length === 0) {
           this.notEmptyAnotherLikedTweetPage = false;
           this.spinner.hide();
         }
 
-        this.likedPostList = [...this.likedPostList, ...postResponse];
+        this.likedTweetList = [...this.likedTweetList, ...tweetResponse];
         this.notScrollableLikedTweet = true;
       })
   }
 
   addUserToConversation() {
     // set conversation request payload
-    this.conversationRequestPayload.participantUsername = this.username;
+    this.conversationRequest.participantUsername = this.username;
     // send request to message service
     this.messageService
-      .addUserToConversation(this.conversationRequestPayload)
+      .addUserToConversation(this.conversationRequest)
       .subscribe(() => console.log("User added to conversation"));
     this.router.navigateByUrl('/messages');
   }

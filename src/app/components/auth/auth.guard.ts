@@ -3,7 +3,7 @@ import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dial
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { AuthDialogComponent } from '../auth-dialog/auth-dialog.component';
+import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
 
 @Injectable({
   providedIn: 'root'

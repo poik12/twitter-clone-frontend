@@ -3,20 +3,20 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { faCheck, faComment, faRetweet, faHeart, faUpload, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
-import PostResponsePayload from 'src/app/models/response-dto/post-response.payload';
+import TweetResponsePayload from 'src/app/models/response-dto/tweet-response.payload';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { NotificationType } from 'src/app/services/notification/notification-type.enum';
 import { NotificationService } from 'src/app/services/notification/notification.service';
-import { PostService } from 'src/app/services/post/post.service';
+import { TweetService } from 'src/app/services/tweet/tweet.service';
 import { FullSizeImageDialogComponent } from './full-size-image-dialog/full-size-image-dialog.component';
 
 
 @Component({
-  selector: 'app-post',
-  templateUrl: './post.component.html',
-  styleUrls: ['./post.component.css']
+  selector: 'app-tweet',
+  templateUrl: './tweet.component.html',
+  styleUrls: ['./tweet.component.css']
 })
-export class PostComponent implements OnInit {
+export class TweetComponent implements OnInit {
 
   moreIcon = faEllipsisH;
   verifiedIcon = faCheck;
@@ -25,69 +25,69 @@ export class PostComponent implements OnInit {
   loveIcon = faHeart;
   uploadIcon = faUpload;
 
-  @Input() post!: PostResponsePayload;
+  @Input() tweet!: TweetResponsePayload;
   jpgFormat: string = 'data:image/jpeg;base64,';
   userProfileImage!: string;
 
-  @Output() public handleDeletePost: EventEmitter<PostResponsePayload> = new EventEmitter<PostResponsePayload>();
+  @Output() public handleDeleteTweet: EventEmitter<TweetResponsePayload> = new EventEmitter<TweetResponsePayload>();
 
   constructor(
     private router: Router,
     public dialog: MatDialog,
-    private postService: PostService,
+    private tweetService: TweetService,
     private authService: AuthService,
     private notificationService: NotificationService,
   ) { }
 
   ngOnInit(): void { }
 
-  navigateToPostDetails() {
-    this.router.navigate(['/post-details', this.post.id]);
+  navigateToTweetDetails() {
+    this.router.navigate(['/tweet-details', this.tweet.id]);
   }
 
-  openPostMenu($event: Event) {
+  openTweetMenu($event: Event) {
     $event.stopPropagation();
   }
 
-  checkIfPostBelongsToLoggedUser() {
+  checkIfTweetBelongsToLoggedUser() {
     const username = this.authService.getUsernameFromLocalStorage();
 
-    if (this.post.username === username) {
+    if (this.tweet.username === username) {
       return true;
     } else {
       return false;
     }
   }
 
-  deletePost(postId: number) {
-    console.log("delete post with id: " + postId)
-    this.postService
-      .deletePostById(postId)
+  deleteTweetById(tweetId: number) {
+    console.log("delete tweet with id: " + tweetId)
+    this.tweetService
+      .deleteTweetById(tweetId)
       .subscribe(
         () => {
           this.notificationService.showNotification(
-            NotificationMessage.PostDeletedSuccessfully,
+            NotificationMessage.TweetDeletedSuccessfully,
             'OK',
             NotificationType.Success
           );
-          console.log("post deleted")
+          console.log("tweet deleted")
 
-          this.handleDeletePost.emit(this.post);
+          this.handleDeleteTweet.emit(this.tweet);
         }
       );
   }
 
   navigateToUserDetails($event: Event) {
     $event.stopPropagation();
-    this.router.navigate(['/profile', this.post.username]);
+    this.router.navigate(['/profile', this.tweet.username]);
   }
 
   openFullSizeImageDialog($event: Event, imageFile: number) {
-    $event.stopPropagation(); // After clicking on image in post open it in full size
+    $event.stopPropagation(); // After clicking on image in tweet open it in full size
 
     const dialogConfig = new MatDialogConfig;
     dialogConfig.disableClose = false;
-    dialogConfig.data = this.jpgFormat + this.post.fileContent[imageFile];
+    dialogConfig.data = this.jpgFormat + this.tweet.fileContent[imageFile];
     dialogConfig.backdropClass = 'backdropBackground';
 
     this.dialog.open(FullSizeImageDialogComponent, dialogConfig);

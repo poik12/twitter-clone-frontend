@@ -1,0 +1,192 @@
+<ng-container>
+  <div class="home__tweet" (click)="navigateToTweetDetails()">
+    <!-- tweet Author Image -->
+    <div class="home__tweetAuthorImage">
+      <img
+        style="width: 50px; height: 50px; border-radius: 100%"
+        src="{{ jpgFormat + tweet.userProfilePicture }}"
+        alt="user"
+        [matMenuTriggerFor]="profileBlock"
+        #trigger="matMenuTrigger"
+        (mouseenter)="trigger.openMenu()"
+        (mouseleave)="trigger.closeMenu()"
+      />
+    </div>
+
+    <!-- tweet Description -->
+    <div class="home__tweetDescription">
+      <!-- tweet Header -->
+      <div class="home__tweetDescriptionHeader">
+        <!-- Author Name -->
+        <div
+          class="home__tweetDescriptionHeaderAuthor"
+          (click)="navigateToUserDetails($event)"
+        >
+          {{ tweet.name }}
+        </div>
+
+        <!-- Verified Icon -->
+        <div class="home__tweetDescriptionHeaderVerified">
+          <fa-icon
+            class="home__tweetDescriptionHeaderVerified"
+            [icon]="verifiedIcon"
+          >
+          </fa-icon>
+        </div>
+
+        <!-- Author Username -->
+        <div class="home__tweetDescriptionHeaderUsername">
+          @{{ tweet.username }}
+        </div>
+
+        <!-- Realative Time when tweet was added -->
+        <div class="home__tweetDescriptionHeaderTime">
+          · {{ tweet.tweetTimeDuration }}
+        </div>
+
+        <!-- Options Icon -->
+        <div class="home__tweetDescriptionHeaderMoreOption">
+          <fa-icon
+            (click)="openTweetMenu($event)"
+            [matMenuTriggerFor]="tweetMenu"
+            class="home__tweetDescriptionHeaderMoreOptionIcon"
+            [icon]="moreIcon"
+          >
+          </fa-icon>
+          <!-- Menu button options -->
+          <mat-menu #tweetMenu="matMenu">
+            <button
+              mat-menu-item
+              *ngIf="checkIfTweetBelongsToLoggedUser()"
+              (click)="deleteTweetById(tweet.id)"
+            >
+              <mat-icon>delete</mat-icon>
+              <span>Delete tweet</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon>settings</mat-icon>
+              <span>Settings</span>
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+
+      <!-- tweet Body -->
+      <div class="home__tweetDescriptionBody">
+        <!-- tweet Description -->
+        <div
+          class="home__tweetDescriptionBodyText"
+          [innerHTML]="tweet.description | hmColor"
+        >
+          {{ tweet.description }}
+        </div>
+        <!-- tweet url -->
+        <div class="home__tweetDescriptionBodyImageContainer">
+          <!-- Image shape depending on tweet.fileContent.length -->
+          <ng-container [ngSwitch]="tweet.fileContent.length">
+            <!-- 1 Image file -->
+            <ng-container *ngSwitchCase="1">
+              <img
+                class="home__tweetDescriptionBodyImage_Layout"
+                src="{{ this.jpgFormat + tweet.fileContent[0] }}"
+                alt=""
+                (click)="openFullSizeImageDialog($event, 0)"
+              />
+            </ng-container>
+            <!-- 2 Image files -->
+            <ng-container *ngSwitchCase="2">
+              <div style="display: flex">
+                <img
+                  class="home__tweetDescriptionBodyImage_Layout_leftImage"
+                  src="{{ this.jpgFormat + tweet.fileContent[0] }}"
+                  alt=""
+                  (click)="openFullSizeImageDialog($event, 0)"
+                />
+                <img
+                  class="home__tweetDescriptionBodyImage_Layout_rightImage"
+                  src="{{ this.jpgFormat + tweet.fileContent[1] }}"
+                  alt=""
+                  (click)="openFullSizeImageDialog($event, 1)"
+                />
+              </div>
+            </ng-container>
+            <!-- 3 Image files -->
+            <ng-container *ngSwitchCase="3">
+              <div style="display: flex">
+                <img
+                  class="home__tweetDescriptionBodyImage_Layout_leftImage"
+                  src="{{ this.jpgFormat + tweet.fileContent[0] }}"
+                  alt=""
+                  (click)="openFullSizeImageDialog($event, 0)"
+                />
+                <div>
+                  <img
+                    class="home__tweetDescriptionBodyImage_Layout_rightImageTop"
+                    src="{{ this.jpgFormat + tweet.fileContent[1] }}"
+                    alt=""
+                    (click)="openFullSizeImageDialog($event, 1)"
+                  />
+                  <img
+                    class="home__tweetDescriptionBodyImage_Layout_rightImageBottom"
+                    src="{{ this.jpgFormat + tweet.fileContent[2] }}"
+                    alt=""
+                    (click)="openFullSizeImageDialog($event, 2)"
+                  />
+                </div>
+              </div>
+            </ng-container>
+            <!-- 4 Image files -->
+            <ng-container *ngSwitchCase="4">
+              <div style="display: flex">
+                <div>
+                  <img
+                    class="home__tweetDescriptionBodyImage_Layout_leftImageTop"
+                    src="{{ this.jpgFormat + tweet.fileContent[0] }}"
+                    alt=""
+                    (click)="openFullSizeImageDialog($event, 0)"
+                  />
+                  <img
+                    class="home__tweetDescriptionBodyImage_Layout_leftImageBottom"
+                    src="{{ this.jpgFormat + tweet.fileContent[1] }}"
+                    alt=""
+                    (click)="openFullSizeImageDialog($event, 1)"
+                  />
+                </div>
+                <div>
+                  <img
+                    class="home__tweetDescriptionBodyImage_Layout_rightImageTop"
+                    src="{{ this.jpgFormat + tweet.fileContent[2] }}"
+                    alt=""
+                    (click)="openFullSizeImageDialog($event, 2)"
+                  />
+                  <img
+                    class="home__tweetDescriptionBodyImage_Layout_rightImageBottom"
+                    src="{{ this.jpgFormat + tweet.fileContent[3] }}"
+                    alt=""
+                    (click)="openFullSizeImageDialog($event, 3)"
+                  />
+                </div>
+              </div>
+              <!-- 0 Image Files -->
+            </ng-container>
+            <ng-container *ngSwitchDefault></ng-container>
+          </ng-container>
+        </div>
+      </div>
+
+      <!-- tweet Parameters -->
+      <div class="home__tweetParameters">
+        <app-tweet-parameters
+          [tweetId]="tweet.id"
+          [likesCount]="tweet.likeNo"
+          [isTweetLiked]="tweet.likedByLoggedUser"
+          [commentCount]="tweet.commentNo"
+        ></app-tweet-parameters>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<mat-menu #profileBlock="matMenu" [hasBackdrop]="false">
+  <app-profile-block [username]="tweet.username"></app-profile-block>
+</mat-menu>

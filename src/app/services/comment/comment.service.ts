@@ -11,7 +11,7 @@ import { tap } from 'rxjs/operators';
 export class CommentService {
 
   private ADD_COMMENT_URL = 'http://localhost:8080/api/v1/comments';
-  private GET_COMMENTS_BY_POST_ID_URL = 'http://localhost:8080/api/v1/comments/by-post/';
+  private GET_COMMENTS_BY_TWEET_ID_URL = 'http://localhost:8080/api/v1/comments/by-tweet/';
   private GET_COMMENTS_BY_USERNAME_URL = 'http://localhost:8080/api/v1/comments/by-user/';
   private DELETE_COMMENT_BY_ID_URL = 'http://localhost:8080/api/v1/comments/';
 
@@ -34,12 +34,12 @@ export class CommentService {
       .pipe(tap(() => this._refreshNeeded$.next()));
   }
 
-  getAllCommentsForPostId(postId: number, pageNumber: number): Observable<CommentResponsePayload[]> {
-    return this.httpClient.get<CommentResponsePayload[]>(this.GET_COMMENTS_BY_POST_ID_URL + postId + `?pageNumber=${pageNumber}&pageSize=${this.pageSize}`);
+  getAllCommentsForTweetById(tweetId: number, pageNumber: number): Observable<CommentResponsePayload[]> {
+    return this.httpClient.get<CommentResponsePayload[]>(this.GET_COMMENTS_BY_TWEET_ID_URL + tweetId + `?pageNumber=${pageNumber}&pageSize=${this.pageSize}`);
   }
 
-  getAllUserCommentsForPost(username: string, postId: number, pageNumber: number): Observable<CommentResponsePayload[]> {
-    return this.httpClient.get<CommentResponsePayload[]>(this.GET_COMMENTS_BY_USERNAME_URL + username + "/" + postId);
+  getAllUserCommentsForTweet(username: string, tweetId: number): Observable<CommentResponsePayload[]> {
+    return this.httpClient.get<CommentResponsePayload[]>(this.GET_COMMENTS_BY_USERNAME_URL + username + "/" + tweetId);
   }
 
 }

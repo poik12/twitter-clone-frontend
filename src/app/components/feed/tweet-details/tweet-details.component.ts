@@ -3,31 +3,27 @@ import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import CommentResponsePayload from 'src/app/models/response-dto/comment-response.payload';
-import PostResponsePayload from 'src/app/models/response-dto/post-response.payload';
+import TweetResponsePayload from 'src/app/models/response-dto/tweet-response.payload';
 import { CommentService } from 'src/app/services/comment/comment.service';
-import { PostService } from 'src/app/services/post/post.service';
+import { TweetService } from 'src/app/services/tweet/tweet.service';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
-  selector: 'app-post-details',
-  templateUrl: './post-details.component.html',
-  styleUrls: ['./post-details.component.css', '../main.component.css']
+  selector: 'app-tweet-details',
+  templateUrl: './tweet-details.component.html',
+  styleUrls: ['./tweet-details.component.css', '../main.component.css']
 })
-export class PostDetailsComponent implements OnInit {
+export class TweetDetailsComponent implements OnInit {
 
   arrowIcon = faArrowLeft;
 
-  postId!: number;
-  post!: PostResponsePayload;
-
-  // retrievedImageFromDb: any;
-
+  tweetId!: number;
+  tweet!: TweetResponsePayload;
   jpgFormat: string = 'data:image/jpeg;base64,';
-
   commentList: CommentResponsePayload[] = [];
 
-  isPostSection: boolean = false;
+  isTweetSection: boolean = false;
 
   // Loading spinner for retrieving data from db
   currentPageNumber: number = 1;
@@ -37,25 +33,25 @@ export class PostDetailsComponent implements OnInit {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private postService: PostService,
+    private tweetService: TweetService,
     private commentService: CommentService,
     private spinner: NgxSpinnerService
   ) {
-    this.postId = this.activatedRoute.snapshot.params['id'];
+    this.tweetId = this.activatedRoute.snapshot.params['id'];
   }
 
   ngOnInit(): void {
-    this.getPostById();
+    this.getTweetById();
 
     // Refresh dynamiclly page after adding comment
     this.commentService.refreshNeeded$
       .subscribe(() => {
         this.commentList = [];
-        this.getCommentsForPost(0);
+        this.getCommentsForTweet(0);
       })
 
-    this.getCommentsForPost(0);
-    // this.retrievedImageFromDb = this.jpgFormat + this.post.fileContent;
+    this.getCommentsForTweet(0);
+    // this.retrievedImageFromDb = this.jpgFormat + this.tweet.fileContent;
 
   }
 
@@ -63,13 +59,13 @@ export class PostDetailsComponent implements OnInit {
     this.router.navigateByUrl('/');
   }
 
-  private getPostById() {
-    this.postService
-      .getPostById(this.postId)
-      .subscribe((postResponse) => this.post = postResponse);
+  private getTweetById() {
+    this.tweetService
+      .getTweetById(this.tweetId)
+      .subscribe((tweetResponse) => this.tweet = tweetResponse);
   }
 
-  // When scrolling posts activate this function
+  // When scrolling tweets activate this function
   onScroll() {
     if (this.notScrollable && this.notEmptyAnotherCommentPage) {
       this.spinner.show();
@@ -80,12 +76,12 @@ export class PostDetailsComponent implements OnInit {
 
   private loadNextCommentPage() {
     // add page and size
-    this.getCommentsForPost(this.currentPageNumber++);
+    this.getCommentsForTweet(this.currentPageNumber++);
   }
 
-  private getCommentsForPost(pageNumber: number) {
+  private getCommentsForTweet(pageNumber: number) {
     this.commentService
-      .getAllCommentsForPostId(this.postId, pageNumber)
+      .getAllCommentsForTweetById(this.tweetId, pageNumber)
       .subscribe((commentResponse) => {
         if (commentResponse.length === 0) {
           this.notEmptyAnotherCommentPage = false;
@@ -97,11 +93,11 @@ export class PostDetailsComponent implements OnInit {
       });
   }
 
-  // Refresh dynamiclly post details component with comments after delete comment
+  // Refresh dynamiclly tweet details component with comments after delete comment
   handleDeleteComment(commentId: number) {
     // delete comment
     this.commentList = [];
-    this.getCommentsForPost(0);
+    this.getCommentsForTweet(0);
   }
 
 }

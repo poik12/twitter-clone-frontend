@@ -1,5 +1,4 @@
 import FollowerDto from "./follower-response.payload";
-import PostResponsePayload from "./post-response.payload";
 
 export default interface UserDetailsResponsePayload {
 

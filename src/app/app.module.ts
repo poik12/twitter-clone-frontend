@@ -30,15 +30,15 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { WidgetsComponent } from './components/widgets/widgets.component';
 import { TweetboxComponent } from './components/tweetbox/tweetbox.component';
-import { PostComponent } from './components/post/post.component';
+import { TweetComponent } from './components/tweet/tweet.component';
 import { HomeComponent } from './components/feed/home/home.component';
 import { ExploreComponent } from './components/feed/explore/explore.component';
-import { ProfileComponent } from './components/feed/profile/profile.component';
+import { ProfileComponent } from './components/feed/user-profile/profile.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { AuthDialogComponent } from './components/auth-dialog/auth-dialog.component';
-import { PostDetailsComponent } from './components/feed/post-details/post-details.component';
+import { AuthDialogComponent } from './components/auth/auth-dialog/auth-dialog.component';
+import { TweetDetailsComponent } from './components/feed/tweet-details/tweet-details.component';
 import { CommentComponent } from './components/comment/comment.component';
-import { PostParametersComponent } from './components/post/post-parameters/post-parameters.component';
+import { TweetParametersComponent } from './components/tweet/tweet-parameters/tweet-parameters.component';
 import { SignUpWidgetComponent } from './components/widgets/sign-up-widget/sign-up-widget.component';
 
 // Twitter widgets
@@ -46,18 +46,18 @@ import { NgxTweetModule } from "ngx-tweet";
 import { ImagesWidgetComponent } from './components/widgets/images-widget/images-widget.component';
 import { MostPopularWidgetComponent } from './components/widgets/most-popular-widget/most-popular-widget.component';
 import { MayLikeWidgetComponent } from './components/widgets/may-like-widget/may-like-widget.component';
-import { ProfileBlockComponent } from './components/post/profile-block/profile-block.component';
-import { EditProfileDialogComponent } from './components/feed/profile/edit-profile-dialog/edit-profile-dialog.component';
+import { ProfileBlockComponent } from './components/tweet/profile-block/profile-block.component';
+import { EditProfileDialogComponent } from './components/feed/user-profile/edit-profile-dialog/edit-profile-dialog.component';
 import { ProgressBarInterceptorService } from './interceptors/progress-bar-interceptor/progress-bar-interceptor.service';
 import { NotificationComponent } from './components/notification/notification.component';
 import { TokenInterceptorService } from './interceptors/token-interceptor/token-interceptor.service';
 import { UploadImageDialogComponent } from './components/tweetbox/upload-image-dialog/upload-image-dialog.component';
-import { FullSizeImageDialogComponent } from './components/post/full-size-image-dialog/full-size-image-dialog.component';
+import { FullSizeImageDialogComponent } from './components/tweet/full-size-image-dialog/full-size-image-dialog.component';
 import { MessagesComponent } from './components/feed/messages/messages.component';
 import { MessagesSidebarComponent } from './components/feed/messages/messages-sidebar/messages-sidebar.component';
 import { MessagesChatComponent } from './components/feed/messages/messages-chat/messages-chat.component';
 import { SearchBarComponent } from './components/widgets/search-bar/search-bar.component';
-import { FollowersDialogComponent } from './components/feed/profile/followers-dialog/followers-dialog.component';
+import { FollowersDialogComponent } from './components/feed/user-profile/followers-dialog/followers-dialog.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { HashtagMentionColLibModule } from 'hashtag-mention-colorizer';
@@ -83,7 +83,7 @@ const globalRippleConfig: RippleGlobalOptions = {
     HomeComponent,
     WidgetsComponent,
     TweetboxComponent,
-    PostComponent,
+    TweetComponent,
     ProfileComponent,
     SignInDialogComponent,
     SignUpDialogComponent,
@@ -91,9 +91,9 @@ const globalRippleConfig: RippleGlobalOptions = {
     RegisterComponent,
     FooterComponent,
     AuthDialogComponent,
-    PostDetailsComponent,
+    TweetDetailsComponent,
     CommentComponent,
-    PostParametersComponent,
+    TweetParametersComponent,
     SignUpWidgetComponent,
     ImagesWidgetComponent,
     MostPopularWidgetComponent,

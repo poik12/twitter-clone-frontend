@@ -2,9 +2,9 @@ import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { faHighlighter } from '@fortawesome/free-solid-svg-icons';
 import { NgxSpinnerService } from 'ngx-spinner';
-import PostResponsePayload from 'src/app/models/response-dto/post-response.payload';
+import TweetResponsePayload from 'src/app/models/response-dto/tweet-response.payload';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { PostService } from 'src/app/services/post/post.service';
+import { TweetService } from 'src/app/services/tweet/tweet.service';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { Observable } from 'rxjs';
 
@@ -20,11 +20,10 @@ export class HomeComponent implements OnInit {
 
   userIsLoggedIn!: boolean;
 
-  post!: PostResponsePayload;
-  postList: PostResponsePayload[] = [];
+  tweet!: TweetResponsePayload;
+  tweetList: TweetResponsePayload[] = [];
 
-  // @Output() reloadMainComponent!: boolean;
-  isPostSection: boolean = true;
+  isTweetSection: boolean = true;
 
   // Loading spinner for retrieving data from db
   currentPageNumber: number = 1;
@@ -33,7 +32,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private postService: PostService,
+    private tweetService: TweetService,
     private router: Router,
     private spinner: NgxSpinnerService
   ) { }
@@ -43,14 +42,14 @@ export class HomeComponent implements OnInit {
     const userLoggedIn = this.authService.isUserLoggedIn();
     this.setHomePageComponents(userLoggedIn);
 
-    // Refresh dynamiclly page after adding post
-    this.postService.refreshNeeded$
+    // Refresh dynamiclly page after adding tweet
+    this.tweetService.refreshNeeded$
       .subscribe(() => {
-        this.postList = [];
-        this.getAllPosts(0);
+        this.tweetList = [];
+        this.getAllTweets(0);
       })
 
-    this.getAllPosts(0);
+    this.getAllTweets(0);
   }
 
   private setHomePageComponents(userLoggedIn: boolean) {
@@ -61,46 +60,46 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  // When scrolling posts activate this function
+  // When scrolling tweets activate this function
   onScroll() {
     if (this.notScrollable && this.notEmptyAnotherTweetPage) {
       this.spinner.show();
       this.notScrollable = false;
-      this.loadNextPostPage();
+      this.loadNextTweetPage();
     }
   }
 
-  private loadNextPostPage() {
+  private loadNextTweetPage() {
     // add page and size
-    this.getAllPosts(this.currentPageNumber++);
+    this.getAllTweets(this.currentPageNumber++);
   }
 
-  private getAllPosts(pageNumber: number) {
-    this.postService
-      .getAllPosts(pageNumber)
+  private getAllTweets(pageNumber: number) {
+    this.tweetService
+      .getAllTweets(pageNumber)
       .subscribe(
-        (postResponse) => {
-          if (postResponse.length === 0) {
+        (tweetResponse) => {
+          if (tweetResponse.length === 0) {
             this.notEmptyAnotherTweetPage = false;
             this.spinner.hide();
           }
 
-          this.postList = [...this.postList, ...postResponse];
+          this.tweetList = [...this.tweetList, ...tweetResponse];
           this.notScrollable = true;
         }
       )
   }
 
-  // Refresh dynamiclly home component with posts after delete post
-  handleDeletePost($event: PostResponsePayload) {
-    const postIndex: number = this.postList.indexOf($event);
-    if (postIndex != -1) {
-      this.postList.slice(postIndex, 1);
+  // Refresh dynamiclly home component with tweets after delete tweet
+  handleDeleteTweet($event: TweetResponsePayload) {
+    const tweetIndex: number = this.tweetList.indexOf($event);
+    if (tweetIndex != -1) {
+      this.tweetList.slice(tweetIndex, 1);
     }
     // should remove from lift without reload
-    // this.postList = [...this.postList];
-    this.postList = [];
-    this.getAllPosts(0);
+    // this.tweetList = [...this.tweetList];
+    this.tweetList = [];
+    this.getAllTweets(0);
   }
 
 

@@ -1,10 +1,10 @@
 export default interface CommentResponsePayload {
 
+  tweetId: number;
   username: string;
   name: string;
   profileImage: any;
-  postId: number;
-  text: string;
   timeOfCreation: string;
+  text: string;
 
 }

@@ -1,26 +1,26 @@
 <div class="main__container">
   <!-- Header Section-->
-  <div class="postDetails__headerSection">
+  <div class="tweetDetails__headerSection">
     <!-- Header array icon -->
-    <div class="postDetails__headerSectionArrow">
+    <div class="tweetDetails__headerSectionArrow">
       <fa-icon
-        class="postDetails__headerSectionArrowIcon"
+        class="tweetDetails__headerSectionArrowIcon"
         [icon]="arrowIcon"
         (click)="navigateBackToHomePage()"
       ></fa-icon>
     </div>
     <!-- Header Name -->
-    <div class="postDetails__headerSectionInfo">Tweet</div>
+    <div class="tweetDetails__headerSectionInfo">Tweet</div>
   </div>
 
-  <!-- Post Section-->
-  <!-- <app-post [post]="post" [retrievedImageFromDb]="post.fileContent"></app-post> -->
-  <app-post [post]="post"></app-post>
+  <!-- tweet Section-->
+  <!-- <app-tweet [tweet]="tweet" [retrievedImageFromDb]="tweet.fileContent"></app-tweet> -->
+  <app-tweet [tweet]="tweet"></app-tweet>
 
   <!-- Tweetbox Section -->
   <app-tweetbox
-    [isPostSection]="isPostSection"
-    [postId]="postId"
+    [isTweetSection]="isTweetSection"
+    [tweetId]="tweetId"
   ></app-tweetbox>
 
   <!-- Comemnts loaded with inifnite scroll and loading spinner -->

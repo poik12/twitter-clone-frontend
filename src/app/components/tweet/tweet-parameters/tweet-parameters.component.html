@@ -1,0 +1,26 @@
+<div class="tweetParameter__container">
+  <!-- Comment -->
+  <div class="tweetParameter__comment">
+    <fa-icon class="tweetParameter__icon" [icon]="commentIcon"> </fa-icon>
+    <span>{{ commentCount }}</span>
+  </div>
+  <!-- Shared -->
+  <div class="tweetParameter__shared">
+    <fa-icon class="tweetParameter__icon" [icon]="shareIcon"> </fa-icon
+    ><span>0</span>
+  </div>
+  <!-- Liked -->
+  <div class="tweetParameter__loved" (click)="LikeTweet($event)">
+    <fa-icon
+      [class.highlighted]="isTweetLiked"
+      class="tweetParameter__icon"
+      [icon]="loveIcon"
+    >
+    </fa-icon>
+    <span [class.highlighted]="isTweetLiked">{{ likesCount }}</span>
+  </div>
+  <!-- Uploaded -->
+  <div class="tweetParameter__uploaded">
+    <fa-icon class="tweetParameter__icon" [icon]="uploadIcon"> </fa-icon>
+  </div>
+</div>
