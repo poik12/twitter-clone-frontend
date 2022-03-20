@@ -2,11 +2,18 @@
   <div class="searchBar">
     <fa-icon class="searchBar__icon" [icon]="searchIcon"> </fa-icon>
     <input
-      [(ngModel)]="searchText"
-      (ngModelChange)="search()"
+      (keyup.enter)="doSearch($event)"
       class="searchBar__input"
       type="text"
       placeholder="Search Twitter"
     />
+    <!-- <input
+      [(ngModel)]="searchText"
+      (ngModelChange)="search()"
+      [formControl]="onSearch"
+      class="searchBar__input"
+      type="text"
+      placeholder="Search Twitter"
+    /> -->
   </div>
 </div>

@@ -61,7 +61,6 @@ export class MessagesSidebarComponent implements OnInit {
   // Change color of selected conversation
   onSelectedConversation(index: number): void {
     this.conversationSelectedId = index;
-
   }
 
   // When scrolling posts activate this function

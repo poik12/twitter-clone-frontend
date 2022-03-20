@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxWebstorageModule } from 'ngx-webstorage';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFileUploaderModule } from "angular-file-uploader";
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { FormsModule } from '@angular/forms';
@@ -123,7 +122,6 @@ const globalRippleConfig: RippleGlobalOptions = {
     NgxWebstorageModule.forRoot(),
     NgxTweetModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
     FormsModule,
     // AngularFileUploaderModule,
     NgxFileDropModule,

@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import TweetRequestPayload from 'src/app/models/request-dto/tweet-request.payload';
 import TweetResponsePayload from 'src/app/models/response-dto/tweet-response.payload';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 @Injectable({
@@ -20,11 +20,16 @@ export class TweetService {
   private LIKE_TWEET_URL = 'http://localhost:8080/api/v1/tweets/like/';
   private GET_REPLIED_TWEETS_WITH_COMMENTS_BY_USERNAME_URL = "http://localhost:8080/api/v1/tweets/like/by-user/"
   private GET_TWEETS_COMMENTED_BY_USERNAME_URL = "http://localhost:8080/api/v1/tweets/by-tweet/"
+  private GET_TWEETS_BY_SERACH_HASHTAG_URL = "http://localhost:8080/api/v1/tweets/search/"
 
   pageSize: number = 5;
 
   // After adding post refresh page
   private _refreshNeeded$ = new Subject<void>();
+
+  // SEraching - pass data between 2 different components via service
+  private searchedTweets = new BehaviorSubject<TweetResponsePayload[]>([]);
+  foundTweets = this.searchedTweets.asObservable();
 
   constructor(
     private httpClient: HttpClient
@@ -93,4 +98,17 @@ export class TweetService {
   deleteTweetById(tweetId: number): Observable<any> {
     return this.httpClient.delete<any>(this.DELETE_TWEET_BY_ID_URL + tweetId);
   }
+
+  findTweetBySearchTerm(searchTerm: string, pageNumber: number): Observable<TweetResponsePayload[]> {
+    return this.httpClient.get<TweetResponsePayload[]>(
+      this.GET_TWEETS_BY_SERACH_HASHTAG_URL
+      + searchTerm
+      + `?pageNumber=${pageNumber}&pageSize=${this.pageSize}`
+    );
+  }
+
+  sendSearchedTweets(tweets: TweetResponsePayload[]) {
+    this.searchedTweets.next(tweets);
+  }
+
 }

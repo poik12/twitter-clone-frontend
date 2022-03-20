@@ -1,7 +1,8 @@
 import { Router } from '@angular/router';
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { ProgressBarService } from 'src/app/services/progress-bar/progress-bar.service';
+import TweetResponsePayload from 'src/app/models/response-dto/tweet-response.payload';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class MainPageComponent implements OnInit {
   // User logged or not - different sidebar
   @Output() userIsLoggedIn!: boolean;
 
+  @Output() searchedTweets: EventEmitter<TweetResponsePayload[]> = new EventEmitter();
 
   constructor(
     private authService: AuthService,
@@ -41,5 +43,4 @@ export class MainPageComponent implements OnInit {
       this.userIsLoggedIn = false;
     }
   }
-
 }

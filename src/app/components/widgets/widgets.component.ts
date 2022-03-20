@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import TweetResponsePayload from 'src/app/models/response-dto/tweet-response.payload';
 
 @Component({
   selector: 'app-widgets',
@@ -19,15 +20,13 @@ export class WidgetsComponent implements OnInit {
 
   @Input() isUserLoggedIn!: boolean;
 
-  constructor(
+  @Output() searchedTweets: EventEmitter<TweetResponsePayload[]> = new EventEmitter();
 
-  ) { }
+  constructor() { }
 
   ngOnInit(): void {
     // Depending on whether user is logged or not, show specific widgets
     this.isUserLoggedIn;
   }
-
-
 
 }

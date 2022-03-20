@@ -1,5 +1,4 @@
 import { throwError } from 'rxjs';
-
 import { FormGroup, FormControl } from '@angular/forms';
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { faImage, faFileImage, faGripLines, faSmile, faCalendarCheck } from '@fortawesome/free-solid-svg-icons';
@@ -129,7 +128,7 @@ export class TweetboxComponent implements OnInit {
       );
   }
 
-  // CREATE NEW POST
+  // CREATE NEW TWEET
   async addTweet() {
     // Set post paylaod
     this.tweetRequest.description = this.tweetForm.get("description")?.value;

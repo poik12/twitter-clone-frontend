@@ -29,6 +29,8 @@ export class HomeComponent implements OnInit {
   notEmptyAnotherTweetPage: boolean = true;
   notScrollable: boolean = true;
 
+  searchedTweets: TweetResponsePayload[] = [];
+
   constructor(
     private authService: AuthService,
     private tweetService: TweetService,
@@ -49,6 +51,10 @@ export class HomeComponent implements OnInit {
       })
 
     this.getAllTweets(0);
+
+    this.tweetService
+      .foundTweets
+      .subscribe((foundTweets) => this.tweetList = foundTweets);
   }
 
   private setHomePageComponents(userLoggedIn: boolean) {
