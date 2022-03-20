@@ -13,7 +13,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
+import { MatBadgeModule } from '@angular/material/badge'
 
 const modules: any[] = [
   MatDialogModule,
@@ -27,7 +27,8 @@ const modules: any[] = [
   MatDatepickerModule,
   MatMenuModule,
   MatProgressBarModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatBadgeModule
 ]
 
 @NgModule({

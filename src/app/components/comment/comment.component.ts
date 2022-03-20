@@ -1,3 +1,4 @@
+import { CommentService } from 'src/app/services/comment/comment.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { faCheck, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import CommentResponsePayload from 'src/app/models/response-dto/comment-response.payload';
@@ -24,11 +25,28 @@ export class CommentComponent implements OnInit {
   jpgFormat: string = 'data:image/jpeg;base64,';
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private commentService: CommentService
   ) { }
 
   ngOnInit(): void {
     this.profileImage = this.jpgFormat + this.comment.profileImage;
+  }
+
+  checkIfCommentBelongsToLoggedUser() {
+    const username = this.authService.getUsernameFromLocalStorage();
+
+    if (this.comment.username === username) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  deleteCommentById(commentId: number) {
+    this.commentService
+      .deleteCommentById(commentId)
+      .subscribe(() => this.handleDeleteComment.emit(this.comment));
   }
 
 }

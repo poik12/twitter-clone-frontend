@@ -42,4 +42,8 @@ export class CommentService {
     return this.httpClient.get<CommentResponsePayload[]>(this.GET_COMMENTS_BY_USERNAME_URL + username + "/" + tweetId);
   }
 
+  deleteCommentById(commentId: number): Observable<any> {
+    return this.httpClient.delete<any>(this.DELETE_COMMENT_BY_ID_URL + commentId);
+  }
+
 }

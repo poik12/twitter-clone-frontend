@@ -9,6 +9,7 @@ export default interface UserDetailsResponsePayload {
   tweetNo: number;
   followingNo: number;
   followerNo: number;
+  notificationNo: number;
   description: string;
   userProfilePicture: any;
   userBackgroundPicture: any;

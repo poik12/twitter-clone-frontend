@@ -60,4 +60,16 @@ export class NotificationsComponent implements OnInit {
       )
   }
 
+  // Refresh dynamiclly home component with tweets after delete tweet
+  handleDeleteNotification($event: NotificationResponsePayload) {
+    const notificationIndex: number = this.notificationList.indexOf($event);
+    if (notificationIndex != -1) {
+      this.notificationList.slice(notificationIndex, 1);
+    }
+    // should remove from lift without reload
+    // this.tweetList = [...this.tweetList];
+    this.notificationList = [];
+    this.getAllNotifications(0);
+  }
+
 }

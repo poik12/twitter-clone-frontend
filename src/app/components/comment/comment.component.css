@@ -20,76 +20,76 @@
   cursor: pointer;
 }
 
-.comment__postAuthorImage {
+.comment__authorImage {
   padding: 15px;
 }
 
-.comment__postDescription {
+.comment__description {
   margin-top: 10px;
 }
 
-.comment__postDescriptionBody {
+.comment__descriptionBody {
 }
 
-.comment__postDescriptionBodyImageContainer {
+.comment__descriptionBodyImageContainer {
   margin-top: 10px;
 }
 
-.comment__postDescriptionBodyImage {
+.comment__descriptionBodyImage {
   width: 500px;
   height: 280px;
   border-radius: 30px;
 }
 
-.comment__postDescriptionHeader {
+.comment__descriptionHeader {
   display: flex;
   margin-bottom: 5px;
   width: 520px;
 }
 
-.comment__postDescriptionHeaderAuthor {
+.comment__descriptionHeaderAuthor {
   font-size: 15px;
   font-weight: 600;
   margin-right: 10px;
 }
 
-.comment__postDescriptionHeaderVerified {
+.comment__descriptionHeaderVerified {
   color: var(--twitter-color);
   margin-right: 5px;
   margin-top: 1px;
 }
 
-.comment__postDescriptionHeaderUsername {
+.comment__descriptionHeaderUsername {
   font-size: 15px;
   color: gray;
   margin-right: 10px;
 }
 
-.comment__postDescriptionHeaderTime {
+.comment__descriptionHeaderTime {
   font-size: 15px;
   color: gray;
 }
 
-.comment__postDescriptionHeaderMoreOption {
+.comment__descriptionHeaderMoreOption {
   cursor: pointer;
   margin-left: auto;
 }
 
-.comment__postDescriptionHeaderMoreOptionIcon {
+.comment__descriptionHeaderMoreOptionIcon {
   font-size: 17px;
   color: gray;
   border: 30px;
   padding: 5px;
   padding-left: auto;
 }
-.comment__postDescriptionHeaderMoreOptionIcon:hover {
+.comment__descriptionHeaderMoreOptionIcon:hover {
   background-color: #e8f5fe;
   border-radius: 30px;
   color: var(--twitter-color);
   transition: color 100ms ease-out;
 }
 
-.comment__postDescriptionBody {
+.comment__descriptionBody {
   margin-right: 30px;
   margin-bottom: 10px;
 }

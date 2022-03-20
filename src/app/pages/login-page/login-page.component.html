@@ -28,6 +28,7 @@
     <ng-container
       *ngIf="isLoginSection; then loginBlock; else registerBlock"
     ></ng-container>
+
     <!-- Login Section -->
     <ng-template #loginBlock>
       <app-login></app-login>
@@ -40,6 +41,7 @@
         >
       </div>
     </ng-template>
+
     <!-- Register Section -->
     <ng-template #registerBlock>
       <app-register></app-register>

@@ -24,10 +24,14 @@ export class SidebarComponent implements OnInit {
   profileImage!: string;
   jpgFormat: string = 'data:image/jpeg;base64,';
 
+  notification: boolean = false;
+  notificationNo: number = 3;
+  hideNotificationNo: boolean = true;
+
   sidebarOptionListForUser = [
     { name: 'Home', icon: faHome, path: "/" },
     { name: 'Explore', icon: faHashtag, path: "/explore" },
-    { name: 'Notifications', icon: faBell, path: "/notifications" },
+    { name: 'Notifications', icon: faBell, path: "/notifications", notification: true },
     { name: 'Messages', icon: faEnvelope, path: "/messages" },
     { name: 'Bookmarks', icon: faBookmark, path: "/bookmark" },
     { name: 'Lists', icon: faList, path: "/lists" },
@@ -57,6 +61,9 @@ export class SidebarComponent implements OnInit {
 
     this.username = this.authService.getUsernameFromLocalStorage();
     this.getUserDetails(this.username);
+
+    this.checkNotifications()
+
   }
 
   logout() {
@@ -68,17 +75,24 @@ export class SidebarComponent implements OnInit {
     );
   }
 
-  getUserDetails(username: string) {
+  private getUserDetails(username: string) {
     this.userSerivce
       .getUserByUsername(username)
       .subscribe(
         (userDetails) => {
           this.name = userDetails.name;
           this.profileImage = this.jpgFormat + userDetails.userProfilePicture;
+          this.notificationNo = userDetails.notificationNo;
         },
         (error) => {
           console.log(error);
         })
+  }
+
+  private checkNotifications() {
+    if (this.notificationNo > 0) {
+      this.hideNotificationNo = false;
+    }
   }
 
 }

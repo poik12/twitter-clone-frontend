@@ -9,6 +9,7 @@ import { NgxFileDropModule } from 'ngx-file-drop';
 import { FormsModule } from '@angular/forms';
 import { InfiniteScrollDirective, InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Material
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
@@ -123,12 +124,13 @@ const globalRippleConfig: RippleGlobalOptions = {
     NgxTweetModule,
     ReactiveFormsModule,
     FormsModule,
+    BrowserAnimationsModule,
     // AngularFileUploaderModule,
     NgxFileDropModule,
     InfiniteScrollModule,
     NgxSpinnerModule,
     TextareaAutosizeModule,
-    HashtagMentionColLibModule
+    HashtagMentionColLibModule,
   ],
 
   providers: [

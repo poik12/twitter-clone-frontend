@@ -28,11 +28,38 @@
           routerLinkActive="active"
         >
           <div class="sidebar__optionsSelected">
-            <fa-icon
-              class="sidebar__optionsButtonIcon"
-              [icon]="sidebarOption.icon"
-            ></fa-icon>
-            {{ sidebarOption.name }}
+            <ng-container
+              *ngIf="
+                sidebarOption.notification;
+                then notificationSidebar;
+                else otherSidebar
+              "
+            ></ng-container>
+
+            <ng-template #notificationSidebar>
+              <div style="display: flex">
+                <mat-icon
+                  style="margin-left: 5px"
+                  class="mat-18"
+                  matBadge="{{ notificationNo }}"
+                  matBadgeHidden="{{ hideNotificationNo }}"
+                  matBadgeColor="warn"
+                  >notifications</mat-icon
+                >
+                <div style="margin-left: 12px">
+                  {{ sidebarOption.name }}
+                </div>
+              </div>
+            </ng-template>
+            <ng-template #otherSidebar>
+              <fa-icon
+                class="sidebar__optionsButtonIcon"
+                [icon]="sidebarOption.icon"
+                matBadge="5"
+                matBadgeColor="warn"
+              ></fa-icon>
+              {{ sidebarOption.name }}
+            </ng-template>
           </div>
         </mat-list-item>
       </mat-nav-list>

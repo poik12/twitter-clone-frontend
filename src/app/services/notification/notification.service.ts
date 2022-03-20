@@ -11,7 +11,8 @@ import NotificationResponsePayload from 'src/app/models/response-dto/notificatio
 })
 export class NotificationService {
 
-  private GET_NOTIFICATIONS_URL = 'http://localhost:8080/api/v1/notifications'
+  private GET_NOTIFICATIONS_URL = 'http://localhost:8080/api/v1/notifications';
+  private DELETE_NOTIFICATION_BY_ID_URL = 'http://localhost:8080/api/v1/notifications/'
 
   pageSize: number = 10;
 
@@ -46,5 +47,9 @@ export class NotificationService {
       this.GET_NOTIFICATIONS_URL
       + `?pageNumber=${pageNumber}&pageSize=${this.pageSize}`
     );
+  }
+
+  deleteNotificationById(notificationId: number): Observable<any> {
+    return this.httpClient.delete<any>(this.DELETE_NOTIFICATION_BY_ID_URL + notificationId);
   }
 }

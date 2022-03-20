@@ -35,18 +35,24 @@
       <!-- Arrow -->
       <div class="notificationBlock__descriptionHeaderMoreOption">
         <fa-icon
+          (click)="openNotificationMenu($event)"
+          [matMenuTriggerFor]="tweetMenu"
           class="notificationBlock__descriptionHeaderMoreOptionIcon"
           [icon]="moreIcon"
         >
         </fa-icon>
+        <!-- Menu button options -->
+        <mat-menu #tweetMenu="matMenu">
+          <button
+            mat-menu-item
+            (click)="deleteNotificationById(notification.id)"
+          >
+            <mat-icon>delete</mat-icon>
+            <span>Delete notification</span>
+          </button>
+        </mat-menu>
       </div>
     </div>
-
-    <!-- <ng-container *ngIf="isTweetReplied">
-      <div class="notificationBlock__response">
-        Replaying to <a>@{{ repliedUser }}</a>
-      </div>
-    </ng-container> -->
 
     <!--  Body -->
     <div class="notificationBlock__descriptionBody">

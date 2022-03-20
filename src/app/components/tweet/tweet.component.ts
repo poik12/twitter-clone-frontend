@@ -29,7 +29,7 @@ export class TweetComponent implements OnInit {
   jpgFormat: string = 'data:image/jpeg;base64,';
   userProfileImage!: string;
 
-  @Output() public handleDeleteTweet: EventEmitter<TweetResponsePayload> = new EventEmitter<TweetResponsePayload>();
+  @Output() handleDeleteTweet: EventEmitter<TweetResponsePayload> = new EventEmitter();
 
   constructor(
     private router: Router,
@@ -60,7 +60,6 @@ export class TweetComponent implements OnInit {
   }
 
   deleteTweetById(tweetId: number) {
-    console.log("delete tweet with id: " + tweetId)
     this.tweetService
       .deleteTweetById(tweetId)
       .subscribe(

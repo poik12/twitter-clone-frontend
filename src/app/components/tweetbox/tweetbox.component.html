@@ -20,7 +20,9 @@
       ></textarea>
 
       <!-- File Uploader -->
-      <input type="file" (change)="uploadFile($event)" multiple />
+      <ng-container *ngIf="isTweetSection">
+        <input type="file" (change)="uploadFile($event)" multiple />
+      </ng-container>
 
       <!-- <app-upload-image-dialog></app-upload-image-dialog> -->
       <!-- <angular-file-uploader [config]="afuConfig"></angular-file-uploader> -->

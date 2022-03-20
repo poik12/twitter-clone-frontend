@@ -21,6 +21,7 @@
     <ng-container *ngFor="let notification of notificationList">
       <app-notification-block
         [notification]="notification"
+        (handleDeleteNotification)="handleDeleteNotification($event)"
       ></app-notification-block>
     </ng-container>
     <!-- Loading spinner -->

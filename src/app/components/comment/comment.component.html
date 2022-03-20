@@ -1,6 +1,6 @@
 <div class="comment__component">
   <!-- Comment Image -->
-  <div class="comment__postAuthorImage">
+  <div class="comment__authorImage">
     <img
       style="width: 50px; height: 50px; border-radius: 100%"
       src="{{ profileImage }}"
@@ -9,34 +9,50 @@
   </div>
 
   <!-- Comment Description -->
-  <div class="comment__postDescription">
+  <div class="comment__description">
     <!-- Comment Header -->
-    <div class="comment__postDescriptionHeader">
+    <div class="comment__descriptionHeader">
       <!-- Author -->
-      <div class="comment__postDescriptionHeaderAuthor">{{ comment.name }}</div>
+      <div class="comment__descriptionHeaderAuthor">{{ comment.name }}</div>
       <!-- Verified -->
-      <div class="comment__postDescriptionHeaderVerified">
+      <div class="comment__descriptionHeaderVerified">
         <fa-icon
-          class="comment__postDescriptionHeaderVerified"
+          class="comment__descriptionHeaderVerified"
           [icon]="verifiedIcon"
         >
         </fa-icon>
       </div>
       <!-- Username -->
-      <div class="comment__postDescriptionHeaderUsername">
+      <div class="comment__descriptionHeaderUsername">
         @{{ comment.username }}
       </div>
       <!-- Time added -->
-      <div class="comment__postDescriptionHeaderTime">
+      <div class="comment__descriptionHeaderTime">
         · {{ comment.timeOfCreation }}
       </div>
       <!-- Arrow -->
-      <div class="comment__postDescriptionHeaderMoreOption">
+      <div class="comment__descriptionHeaderMoreOption">
         <fa-icon
-          class="comment__postDescriptionHeaderMoreOptionIcon"
+          [matMenuTriggerFor]="tweetMenu"
+          class="comment__descriptionHeaderMoreOptionIcon"
           [icon]="moreIcon"
         >
         </fa-icon>
+        <!-- Menu button options -->
+        <mat-menu #tweetMenu="matMenu">
+          <button
+            mat-menu-item
+            *ngIf="checkIfCommentBelongsToLoggedUser()"
+            (click)="deleteCommentById(comment.id)"
+          >
+            <mat-icon>delete</mat-icon>
+            <span>Delete comment</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>settings</mat-icon>
+            <span>Settings</span>
+          </button>
+        </mat-menu>
       </div>
     </div>
 
@@ -47,12 +63,12 @@
     </ng-container>
 
     <!-- Post Body -->
-    <div class="comment__postDescriptionBody">
-      <div class="comment__postDescriptionBodyText">
+    <div class="comment__descriptionBody">
+      <div class="comment__descriptionBodyText">
         {{ comment.text }}
       </div>
     </div>
-    <!-- Post Parameters -->
+    <!-- Tweet/Comment Parameters -->
     <app-tweet-parameters></app-tweet-parameters>
   </div>
 </div>
