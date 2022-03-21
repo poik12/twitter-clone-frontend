@@ -94,5 +94,4 @@ export class SidebarComponent implements OnInit {
       this.hideNotificationNo = false;
     }
   }
-
 }
