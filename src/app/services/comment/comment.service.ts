@@ -15,7 +15,7 @@ export class CommentService {
   private GET_COMMENTS_BY_USERNAME_URL = 'http://localhost:8080/api/v1/comments/by-user/';
   private DELETE_COMMENT_BY_ID_URL = 'http://localhost:8080/api/v1/comments/';
 
-  pageSize: number = 10;
+  private pageSize: number = 10;
 
   // After adding comment refresh page
   private _refreshNeeded$ = new Subject<void>();

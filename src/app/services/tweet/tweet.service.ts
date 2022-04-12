@@ -22,18 +22,16 @@ export class TweetService {
   private GET_TWEETS_COMMENTED_BY_USERNAME_URL = "http://localhost:8080/api/v1/tweets/by-tweet/"
   private GET_TWEETS_BY_SERACH_HASHTAG_URL = "http://localhost:8080/api/v1/tweets/search/"
 
-  pageSize: number = 5;
+  private pageSize: number = 5;
 
   // After adding post refresh page
   private _refreshNeeded$ = new Subject<void>();
 
-  // SEraching - pass data between 2 different components via service
+  // Searching - pass data between 2 different components via service
   private searchedTweets = new BehaviorSubject<TweetResponsePayload[]>([]);
   foundTweets = this.searchedTweets.asObservable();
 
-  constructor(
-    private httpClient: HttpClient
-  ) { }
+  constructor(private httpClient: HttpClient) { }
 
   get refreshNeeded$() {
     return this._refreshNeeded$;
@@ -50,8 +48,8 @@ export class TweetService {
     // Create json request with FormData
     const formData: FormData = new FormData();
     if (uploadedImageFileList !== undefined) {
-      for (let x = 0; x < uploadedImageFileList.length; x++) {
-        formData.append("files", uploadedImageFileList[x]);
+      for (let fileNumber = 0; fileNumber < uploadedImageFileList.length; fileNumber++) {
+        formData.append("files", uploadedImageFileList[fileNumber]);
       }
     }
     formData.append('tweetRequestJson', JSON.stringify(tweetRequest));
@@ -62,15 +60,13 @@ export class TweetService {
   }
 
   getTweetById(tweetId: number): Observable<TweetResponsePayload> {
-    return this.httpClient.get<TweetResponsePayload>(this.GET_TWEET_BY_ID_URL + tweetId)
+    return this.httpClient.get<TweetResponsePayload>(this.GET_TWEET_BY_ID_URL + tweetId);
   }
 
   getTweetsByUsername(username: string, pageNumber: number): Observable<TweetResponsePayload[]> {
     return this.httpClient.get<TweetResponsePayload[]>(
-      this.GET_TWEET_PAGE_BY_USERNAME_URL
-      + username
-      + `?pageNumber=${pageNumber}&pageSize=${this.pageSize}`
-    )
+      this.GET_TWEET_PAGE_BY_USERNAME_URL + username + `?pageNumber=${pageNumber}&pageSize=${this.pageSize}`
+    );
   }
 
   likeTweet(tweetId: number): Observable<any> {
@@ -81,17 +77,13 @@ export class TweetService {
 
   getLikedTweetsByUsername(username: string, pageNumber: number): Observable<TweetResponsePayload[]> {
     return this.httpClient.get<TweetResponsePayload[]>(
-      this.GET_REPLIED_TWEETS_WITH_COMMENTS_BY_USERNAME_URL
-      + username
-      + `?pageNumber=${pageNumber}&pageSize=${this.pageSize}`
+      this.GET_REPLIED_TWEETS_WITH_COMMENTS_BY_USERNAME_URL + username + `?pageNumber=${pageNumber}&pageSize=${this.pageSize}`
     );
   }
 
   getRepliedTweetsWithCommentsByUsername(username: string, pageNumber: number): Observable<RepliedTweetResponsePayload[]> {
     return this.httpClient.get<RepliedTweetResponsePayload[]>(
-      this.GET_TWEETS_COMMENTED_BY_USERNAME_URL
-      + username
-      + `?pageNumber=${pageNumber}&pageSize=${this.pageSize}`
+      this.GET_TWEETS_COMMENTED_BY_USERNAME_URL + username + `?pageNumber=${pageNumber}&pageSize=${this.pageSize}`
     );
   }
 
@@ -101,9 +93,7 @@ export class TweetService {
 
   findTweetBySearchTerm(searchTerm: string, pageNumber: number): Observable<TweetResponsePayload[]> {
     return this.httpClient.get<TweetResponsePayload[]>(
-      this.GET_TWEETS_BY_SERACH_HASHTAG_URL
-      + searchTerm
-      + `?pageNumber=${pageNumber}&pageSize=${this.pageSize}`
+      this.GET_TWEETS_BY_SERACH_HASHTAG_URL + searchTerm + `?pageNumber=${pageNumber}&pageSize=${this.pageSize}`
     );
   }
 

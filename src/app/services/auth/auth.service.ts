@@ -16,11 +16,8 @@ export class AuthService {
   private SIGN_UP_URL = 'http://localhost:8080/api/v1/auth/register';
   private SIGN_IN_URL = 'http://localhost:8080/api/v1/auth/login';
   private REFRESH_ACCESS_TOKEN_URL = 'http://localhost:8080/api/v1/auth/token/refresh';
-  // private LOGOUT_URL = 'http://localhost:8080/api/v1/auth/logout';
 
   @Output() isLoggedIn: EventEmitter<boolean> = new EventEmitter;
-
-  // @Output() username: EventEmitter<string> = new EventEmitter;
 
   constructor(
     private httpClient: HttpClient,
@@ -38,20 +35,15 @@ export class AuthService {
     return this.httpClient
       .post<SignInResponsePayload>(this.SIGN_IN_URL, signInRequestPayload)
       .pipe(map(
-        signInResponsePayload => {
+        (signInResponsePayload) => {
           //  Store parameters from Login Response for user in Local Storage
-          // this.localStorage.store('logged_user', signInResponsePayload)
           this.localStorage.store('username', signInResponsePayload.username)
           this.localStorage.store('authenticationToken', signInResponsePayload.authenticationToken);
           this.localStorage.store('expiresAt', signInResponsePayload.expiresAt);
           this.localStorage.store('refreshToken', signInResponsePayload.refreshToken);
-
-          // User is logged in
-          // this.isLoggedIn.emit(true);
-          // this.username.emit(signInResponsePayload.username);
           return true;
         }
-      ))
+      ));
   }
 
   // Retrieve authentication Token from local storage
@@ -66,7 +58,6 @@ export class AuthService {
       username: this.getUsernameFromLocalStorage(),
       refreshToken: this.getRefreshTokenFromLocalStorage()
     }
-
     // Get new auth token and store it in local storage
     return this.httpClient
       .post<SignInResponsePayload>(this.REFRESH_ACCESS_TOKEN_URL, refreshTokenRequestPayload)
@@ -82,6 +73,7 @@ export class AuthService {
   getUsernameFromLocalStorage() {
     return this.localStorage.retrieve('username');
   }
+
   // Get refresh token from local storage for resfresh token request
   private getRefreshTokenFromLocalStorage() {
     return this.localStorage.retrieve('refreshToken');
@@ -99,7 +91,6 @@ export class AuthService {
     this.localStorage.clear('expiresAt');
     this.localStorage.clear('refreshToken');
     this.router.navigateByUrl("/login");
-
   }
 
 }

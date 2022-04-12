@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { faHighlighter } from '@fortawesome/free-solid-svg-icons';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -39,7 +39,6 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
     const userLoggedIn = this.authService.isUserLoggedIn();
     this.setHomePageComponents(userLoggedIn);
 
@@ -75,7 +74,6 @@ export class HomeComponent implements OnInit {
   }
 
   private loadNextTweetPage() {
-    // add page and size
     this.getAllTweets(this.currentPageNumber++);
   }
 

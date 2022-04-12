@@ -12,7 +12,6 @@ export class UserService {
 
   private GET_USER_BY_USERNAME_URL = 'http://localhost:8080/api/v1/users/';
   private UPDATE_USER_DETAILS_URL = 'http://localhost:8080/api/v1/users/';
-
   private FOLLOW_USER_URL = 'http://localhost:8080/api/v1/users/follow/';
   private UNFOLLOW_USER_URL = 'http://localhost:8080/api/v1/users/unfollow/';
   private CHECK_FOLLOWER_URL = 'http://localhost:8080/api/v1/users/';
@@ -20,9 +19,7 @@ export class UserService {
   // After updating user details refresh page
   private _refreshNeeded$ = new Subject<void>();
 
-  constructor(
-    private httpClient: HttpClient
-  ) { }
+  constructor(private httpClient: HttpClient) { }
 
   get refreshNeeded$() {
     return this._refreshNeeded$;
@@ -52,11 +49,11 @@ export class UserService {
   }
 
   followUser(username: String): Observable<any> {
-    return this.httpClient.post<any>(this.FOLLOW_USER_URL, username)
+    return this.httpClient.post<any>(this.FOLLOW_USER_URL, username);
   }
 
   unfollowUser(username: String): Observable<any> {
-    return this.httpClient.post<any>(this.UNFOLLOW_USER_URL, username)
+    return this.httpClient.post<any>(this.UNFOLLOW_USER_URL, username);
   }
 
   checkFollowing(follower: String, following: String): Observable<boolean> {

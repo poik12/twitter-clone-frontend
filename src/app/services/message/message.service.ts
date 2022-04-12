@@ -18,7 +18,7 @@ export class MessageService {
   private POST_MESSAGE_URL = "http://localhost:8080/api/v1/conversations/messages";
   private GET_MESSAGES_FOR_CONVERSATION_BY_ID_URL = "http://localhost:8080/api/v1/conversations/messages/";
 
-  pageSize: number = 10;
+  private pageSize: number = 10;
 
   // After sending message refresh page
   private _refreshNeeded$ = new Subject<void>();
@@ -39,8 +39,7 @@ export class MessageService {
 
   getAllConversations(pageNumber: number): Observable<Array<ConversationResponsePayload>> {
     return this.httpClient.get<Array<ConversationResponsePayload>>(
-      this.GET_CONVERSATIONS_URL
-      + `?pageNumber=${pageNumber}&pageSize=${this.pageSize}`
+      this.GET_CONVERSATIONS_URL + `?pageNumber=${pageNumber}&pageSize=${this.pageSize}`
     );
   }
 
@@ -51,14 +50,11 @@ export class MessageService {
   sendMessage(messageRequestPayload: MessageRequestPayload): Observable<MessageResponsePayload> {
     return this.httpClient
       .post<any>(this.POST_MESSAGE_URL, messageRequestPayload);
-    // .pipe(tap(() => this._refreshNeeded$.next()));
   }
 
   getMessagesForConversationById(conversationId: number, pageNumber: number): Observable<MessageResponsePayload[]> {
     return this.httpClient.get<MessageResponsePayload[]>(
-      this.GET_MESSAGES_FOR_CONVERSATION_BY_ID_URL
-      + conversationId
-      + `?pageNumber=${pageNumber}&pageSize=${this.pageSize}`
+      this.GET_MESSAGES_FOR_CONVERSATION_BY_ID_URL + conversationId + `?pageNumber=${pageNumber}&pageSize=${this.pageSize}`
     );
   }
 }
